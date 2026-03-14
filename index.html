@@ -362,24 +362,25 @@
       modal.classList.add('open');
       document.getElementById('gameTitle').textContent = game.title;
       document.getElementById('gameDesc').textContent = game.desc;
-      document.getElementById('howTo').textContent = 'Each game is loaded in its own page. Score updates sync back to the hub.';
+      document.getElementById('howTo').textContent = 'All games now run inside this page, no external frames needed.';
       updateBestValue(game.id);
 
       const area = document.getElementById('gameArea');
       area.innerHTML = '';
-      const iframe = document.createElement('iframe');
-      iframe.id = 'gameFrame';
-      iframe.tabIndex = 0;
-      iframe.src = `games/${game.id}.html`;
-      iframe.style.width = '100%';
-      iframe.style.height = '100%';
-      iframe.style.border = '0';
-      iframe.style.borderRadius = '10px';
-      iframe.addEventListener('load', ()=>{ iframe.contentWindow?.focus(); });
-      iframe.addEventListener('error', ()=>{ area.innerHTML = '<div style="color:#f6615e; padding:14px;">Failed to load game. Try another one.</div>'; });
-      area.appendChild(iframe);
       setScore(0);
-      iframe.focus();
+
+      // Run game engine directly from this file (no iframe needed)
+      const engineFn = gameEngines[game.engine] || gameEngines.generic;
+      if (!engineFn) {
+        area.innerHTML = '<div style="color:#f6615e; padding:14px;">No engine available for this game.</div>';
+        return;
+      }
+      try {
+        engineFn(area, game);
+      } catch (err) {
+        console.error('Engine load failed:', err);
+        area.innerHTML = '<div style="color:#f6615e; padding:14px;">Game failed to start. Try another one.</div>';
+      }
     }
 
     document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const target=btn.dataset.panel; ['home','games','scores','settings'].forEach(p=>document.getElementById(p).classList.remove('panel-active')); document.getElementById(target).classList.add('panel-active'); if(target==='scores') showHighScores(); }); });
