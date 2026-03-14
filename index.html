@@ -642,6 +642,28 @@
       if(entries.length===0){ list.innerHTML+='<li class="score-item">No scores yet. Play a game!</li>'; return; }
       for(const [id,data] of entries){ const item=document.createElement('li'); item.className='score-item'; item.innerHTML=`<strong>${games.find(g=>g.id===id)?.title||id}</strong>: ${data.score} by ${data.name} <small>${data.date}</small>`; list.appendChild(item);} }
 
+    function renderGameGrid() {
+      const grid = document.getElementById('gameGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      games.forEach(game => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-icon">${game.icon}</div>
+          <div class="card-title">${game.title}</div>
+          <div class="card-meta">${game.category}</div>
+          <div style="font-size:0.85rem;color:#b6c2e1;min-height:40px;">${game.desc}</div>
+          <button class="play-btn">Play</button>
+        `;
+        const btn = card.querySelector('.play-btn');
+        btn.addEventListener('click', () => {
+          openModal(game);
+        });
+        grid.appendChild(card);
+      });
+    }
+
     function setScore(value){ gameScore=value; document.querySelector('#scoreValue').textContent=gameScore; }
     function updateBestValue(gameId){ const best = highScores[gameId]?.score || 0; document.querySelector('#bestValue').textContent = best; }
 
@@ -740,4 +762,3 @@
   </script>
 </body>
 </html>
-
