@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Hub</title>
+  <style>
+    :root {
+      --bg: #080b11;
+      --panel: rgba(9, 12, 18, 0.75);
+      --accent: #8a4cff;
+      --accent2: #13d8ff;
+      --text: #e7ecff;
+      --shadow: 0 0 25px rgba(138, 76, 255, 0.35);
+    }
+    body { margin: 0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: radial-gradient(circle at 20% 20%, #0d1631 0%, #060914 70%); color: var(--text); overflow-x: hidden; }
+    .nav { display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(16px); background: rgba(7, 11, 19, 0.72); border-bottom: 1px solid rgba(138,76,255,0.35); padding: 12px 24px; position: sticky; top:0; z-index:100; }
+    .logo { font-size:1.65rem; font-weight:800; letter-spacing:1px; color:#fff; text-shadow:0 0 16px rgba(138,76,255,0.85); }
+    .nav-links { display:flex; gap: 14px; }
+    .nav-links button { border:none; background:transparent; color:var(--text); padding:8px 12px; border-radius:10px; transition:0.2s ease; cursor:pointer; font-size:0.96rem; }
+    .nav-links button:hover, .nav-links button.active { background: rgba(131, 69, 255, 0.2); box-shadow: 0 0 10px rgba(138,76,255,0.25); }
+    .toggle-group { display:flex; gap:10px; }
+    .toggle { border:1px solid rgba(207,220,255,0.5); border-radius: 12px; padding: 7px 10px; cursor:pointer; background: rgba(17, 24, 38, 0.6); color:#c5d0ff; }
+    .toggle.active { border-color: #13d8ff; box-shadow:0 0 14px rgba(19,216,255,0.45); color:#fff; }
+    .hero { display:flex; flex-direction:column; align-items:center; text-align:center; padding: 42px 22px 20px; gap:14px; }
+    .hero h1 { margin:0; font-size: 3.2rem; letter-spacing:1px; text-shadow:0 0 20px rgba(138,76,255,0.52); }
+    .hero p { margin:0; max-width: 720px; color: #b8c0dd; line-height:1.4; }
+    .hero-actions { margin-top: 16px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+    .hero-btn { padding:8px 14px; border-radius:10px; border:1px solid rgba(138,76,255,0.45); background:rgba(46,57,100,0.85); color:#e8f1ff; cursor:pointer; transition:0.2s; }
+    .hero-btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .hero-btn.boss { background:rgba(100,30,30,0.82); border-color:rgba(255,99,79,0.5); }
+    .hero-btn.daily { background:rgba(45,75,45,0.85); border-color:rgba(71,178,79,0.45); }
+    .hero-btn.practice { background:rgba(120,87,20,0.82); border-color:rgba(255,192,0,0.45); }
+    .content { width: min(1200px, 96%); margin: 0 auto; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 16px; margin-top:20px; }
+    .card { background: linear-gradient(135deg, rgba(15,22,36,0.93), rgba(8,12,19,0.82)); border: 1px solid rgba(138,76,255,0.25); border-radius: 16px; padding: 14px; overflow:hidden; box-shadow: 0 8px 24px rgba(3,5,10,0.45); transition: transform 0.2s ease, box-shadow 0.2s ease; position: relative; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 18px 30px rgba(138,76,255,0.5); }
+    .card::before { content:''; position:absolute; inset:0; border-radius:16px; background: linear-gradient(45deg, transparent, rgba(138,76,255,0.32), transparent); opacity:0; transition:0.3s; }
+    .card:hover::before { opacity:1; }
+    .card-icon { width:52px; height:52px; border-radius:14px; background: rgba(28,35,57,0.9); display:flex; align-items:center; justify-content:center; font-size:1.8rem; margin-bottom: 10px; border:1px solid rgba(138,76,255,0.4); }
+    .card-title { font-size:1rem; font-weight:700; margin-bottom:6px; min-height:38px; }
+    .card-meta { color:#98a3bf; font-size:0.83rem; margin-bottom:10px; }
+    .play-btn { outline:none; border:none; border-radius:10px; padding:8px 11px; width:100%; cursor:pointer; background: linear-gradient(110deg, #7b2eff 0%, #26c9ff 100%); color:#fff; font-weight:700; box-shadow:0 0 10px rgba(50,156,255,0.4); transition:0.2s; }
+    .play-btn:hover { filter: brightness(1.05); transform: scale(1.01); }
+    .modal-root { position:fixed; inset:0; background:rgba(3,7,15,0.76); display:flex; align-items:center; justify-content:center; z-index:120; opacity:0; visibility:hidden; transition:0.28s; }
+    .modal-root.open { opacity:1; visibility:visible; }
+    .modal { width:min(1024px,95%); max-height:88vh; background:rgba(10, 14, 23, 0.9); border:1px solid rgba(138,76,255,0.35); border-radius: 18px; box-shadow:0 20px 40px rgba(0,0,0,0.56); overflow:hidden; position: relative; display:grid; grid-template-columns: 1fr 320px; }
+    .modal-left { padding:16px; overflow:auto; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
+    .modal-title { margin:0 0 6px; font-size:1.6rem; }
+    .modal-desc { color:#b8c0dd; font-size:0.95rem; margin-bottom:10px; }
+    .modal-controls { display:flex; gap:12px; margin-bottom:10px; }
+    .modal-controls button { border-radius: 10px; border:1px solid rgba(138,76,255,0.35); background:#111b2f; color:#eff1ff; padding:6px 10px; cursor:pointer; }
+    .modal-game { min-height:360px; border-radius:12px; background:rgba(2, 9, 18, 0.76); border:1px solid rgba(91, 134, 248, 0.27); padding:12px; position:relative; overflow:auto; display:flex; justify-content:center; align-items:center; }
+    .modal-game iframe { width: 100%; height: 100%; min-height: 420px; max-width: 820px; border:0; border-radius: 10px; }
+    .modal-right { background: rgba(7, 11, 19, 0.88); border-left:1px solid rgba(138,76,255,0.25); padding:14px 12px; }
+    .planner { margin-top: 30px; }
+    .score-list { list-style:none; margin:0; padding:0; color:#ced8f3; font-size:0.88rem; }
+    .score-item { margin-bottom:6px; border-bottom:1px solid rgba(166,177,218,0.15); padding-bottom:4px; }
+    .panel-hidden { display:none; }
+    .section { margin-top:30px; }
+    .section h2 { font-size:1.25rem; margin-bottom:12px; border-bottom:1px solid rgba(138,76,255,0.35); padding-bottom:8px; color: #f4f7ff; }
+    .leaderboard, .settings-panel, .games-panel { display:none; }
+    .panel-active { display:block; }
+    .particles { position:fixed; inset:0; pointer-events:none; z-index:1; }
+    @media (max-width: 930px) { .modal { grid-template-columns:1fr; } .modal-right { border-left:none; border-top:1px solid rgba(138,76,255,0.25); } }
+    @media (max-width: 500px) { .nav-links { display:none; } .nav { padding: 10px 14px; } .hero h1 { font-size:2rem; }}
+  </style>
+</head>
+<body>
+  <canvas id="particleCanvas" class="particles"></canvas>
+  <div class="nav">
+    <div class="logo">Arcade Hub</div>
+    <div class="nav-links">
+      <button class="nav-btn active" data-panel="home">Home</button>
+      <button class="nav-btn" data-panel="games">Games</button>
+      <button class="nav-btn" data-panel="scores">High Scores</button>
+      <button class="nav-btn" data-panel="settings">Settings</button>
+    </div>
+    <div class="toggle-group">
+      <button id="soundToggle" class="toggle active">Sound On</button>
+      <button id="musicToggle" class="toggle">Music Off</button>
+      <select id="themeSelect" class="toggle" style="background:rgba(18,24,43,0.75);border:1px solid rgba(138,76,255,0.35);color:#e9eefb;">
+        <option value="neon">Theme: Neon</option>
+        <option value="retro">Theme: Retro</option>
+        <option value="cyber">Theme: Cyber</option>
+        <option value="dark">Theme: Dark</option>
+      </select>
+    </div>
+  </div>
+
+  <main class="content">
+    <section id="home" class="panel-active">
+      <div class="hero">
+        <h1>Arcade Hub</h1>
+        <p>Launch and play 50+ mini games in a polished browser-based portal. Build high scores, unlock achievements, and enjoy neon arcade style.</p>
+        <div class="hero-actions">
+          <button id="randomGameBtn" class="hero-btn">Random Game</button>
+          <button id="dailyChallengeBtn" class="hero-btn daily">Daily Challenge</button>
+          <button id="practiceModeBtn" class="hero-btn practice">Practice Mode Off</button>
+          <button id="bossModeBtn" class="hero-btn boss">Mega Boss Mode</button>
+        </div>
+      </div>
+
+      <section id="games" class="games-panel section">
+        <h2>Games Library</h2>
+        <div id="gameGrid" class="grid"></div>
+      </section>
+
+      <section id="scores" class="leaderboard section">
+        <h2>High Scores</h2>
+        <ul id="highscoreList" class="score-list"></ul>
+      </section>
+
+      <section id="settings" class="settings-panel section">
+        <h2>Settings</h2>
+        <label style="display:block; margin-bottom:12px;">Player name: <input id="playerName" type="text" placeholder="Enter name" style="padding:8px 8px; width:220px; border-radius:8px; border:1px solid rgba(160,170,210,0.5); background:#0d162b; color:#e6ecff;"></label>
+        <p>All progress and high scores are stored locally in your browser.</p>
+        <h3>Achievements</h3>
+        <div id="achievementList" style="background:#08122a;border:1px solid rgba(106,114,160,0.35);padding:10px;border-radius:8px;line-height:1.6;"></div>
+      </section>
+    </section>
+  </main>
+
+  <div id="gameModal" class="modal-root">
+    <div class="modal">
+      <div class="modal-left">
+        <div class="modal-title" id="gameTitle">Game Title</div>
+        <div class="modal-desc" id="gameDesc">Game description appears here.</div>
+        <div class="modal-controls">
+          <button id="restartBtn">Restart</button>
+          <button id="fullscreenBtn">Fullscreen</button>
+          <button id="closeBtn">Close</button>
+        </div>
+        <div class="modal-game" id="gameArea"></div>
+      </div>
+      <div class="modal-right">
+        <h4>Scoreboard</h4>
+        <div>Current Score: <span id="scoreValue">0</span></div>
+        <div>Best Score: <span id="bestValue">0</span></div>
+        <h4 style="margin-top:12px;">How to Play</h4>
+        <p id="howTo" style="color:#a9b4d1; font-size:0.9rem;">Instructions text</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="game-engines.js"></script>
+  <script>
+    const games = [
+      {id: 'snake', title:'Snake', icon:'🐍', category:'Classic Arcade', desc:'Eat apples, grow long, avoid walls and yourself.', engine:'snake'},
+      {id: 'pong', title:'Pong', icon:'🏓', category:'Classic Arcade', desc:'Move your paddle to keep the ball alive.', engine:'pong'},
+      {id: 'breakout', title:'Breakout', icon:'🧱', category:'Classic Arcade', desc:'Break all bricks with the ball.', engine:'breakout'},
+      {id: 'space-invaders', title:'Space Invaders', icon:'👾', category:'Classic Arcade', desc:'Defend your base from alien waves.', engine:'spaceInvaders'},
+      {id: 'asteroids', title:'Asteroids', icon:'☄️', category:'Classic Arcade', desc:'Fly and shoot asteroids in space.', engine:'asteroids'},
+      {id: 'pacman', title:'Pac-Man Maze', icon:'🟡', category:'Classic Arcade', desc:'Collect all dots while avoiding ghosts.', engine:'pacman'},
+      {id: 'tic-tac-toe', title:'Tic Tac Toe (AI)', icon:'⭕', category:'Puzzle / Logic', desc:'Beat the computer in 3-in-a-row.', engine:'ticTacToe'},
+      {id: 'hangman', title:'Hangman', icon:'🪓', category:'Puzzle / Logic', desc:'Guess the word before you run out.', engine:'hangman'},
+      {id: 'memory', title:'Memory Match', icon:'🧠', category:'Puzzle / Logic', desc:'Match tile pairs with memory skill.', engine:'memoryMatch'},
+      {id: 'scramble', title:'Word Scramble', icon:'🔤', category:'Puzzle / Logic', desc:'Rearrange letters into a word.', engine:'wordScramble'},
+      {id: 'guess-number', title:'Number Guessing', icon:'🔢', category:'Puzzle / Logic', desc:'Guess the secret number in few tries.', engine:'numberGuessing'},
+      {id: 'sudoku', title:'Sudoku Mini', icon:'🧩', category:'Puzzle / Logic', desc:'Fill all squares 1-4 in each row,col,block.', engine:'sudokuMini'},
+      {id: 'simon', title:'Simon Memory', icon:'🔵', category:'Puzzle / Logic', desc:'Repeat the color pattern correctly.', engine:'simon'},
+      {id: 'maze-escape', title:'Maze Escape', icon:'🕵️', category:'Puzzle / Logic', desc:'Find the exit through the maze.', engine:'mazeEscape'},
+      {id: 'sliding-puzzle', title:'Sliding Puzzle', icon:'⬜', category:'Puzzle / Logic', desc:'Arrange the tiles into order.', engine:'slidingPuzzle'},
+      {id: 'flappy', title:'Flappy Bird Style', icon:'🐤', category:'Action / Skill', desc:'Tap to fly through the obstacles.', engine:'flappy'},
+      {id: 'whack-a-mole', title:'Whack-a-Mole', icon:'🛠️', category:'Action / Skill', desc:'Hit as many moles as possible.', engine:'whackAMole'},
+      {id: 'reaction', title:'Reaction Tester', icon:'⚡', category:'Action / Skill', desc:'Click quickly when the signal appears.', engine:'reactionTester'},
+      {id: 'click-speed', title:'Click Speed Test', icon:'🖱️', category:'Action / Skill', desc:'Max clicks in 10 seconds.', engine:'clickSpeed'},
+      {id: 'falling-obstacles', title:'Avoid Obstacles', icon:'🧱', category:'Action / Skill', desc:'Dodge falling blocks for points.', engine:'avoidFalling'},
+      {id: 'platform-jumper', title:'Platform Jumper', icon:'⬆️', category:'Action / Skill', desc:'Jump across floating platforms.', engine:'platformJumper'},
+      {id: 'endless-runner', title:'Endless Runner', icon:'🏃', category:'Action / Skill', desc:'Run forever while avoiding pitfall.', engine:'endlessRunner'},
+      {id: 'dodge-bullets', title:'Dodge Bullets', icon:'🎯', category:'Action / Skill', desc:'Move to avoid bullets and survive.', engine:'dodgeBullets'},
+      {id: 'timing-bar', title:'Timing Bar', icon:'⌛', category:'Action / Skill', desc:'Stop the bar on the target zone.', engine:'timingBar'},
+      {id: 'tap-target', title:'Tap Moving Target', icon:'🎯', category:'Action / Skill', desc:'Tap the target as it moves fast.', engine:'tapMovingTarget'},
+      {id: 'connect4', title:'Connect Four', icon:'🟡', category:'Strategy / Thinking', desc:'Get four in a row to win.', engine:'connectFour'},
+      {id: 'rps', title:'Rock Paper Scissors', icon:'✊', category:'Strategy / Thinking', desc:'Beat the AI in best of 5.', engine:'rockPaperScissors'},
+      {id: 'dice', title:'Dice Game', icon:'🎲', category:'Strategy / Thinking', desc:'Roll highest total for points.', engine:'diceGame'},
+      {id: 'tower-stack', title:'Tower Stacking', icon:'🏗️', category:'Strategy / Thinking', desc:'Stack pieces without toppling.', engine:'towerStacking'},
+      {id: 'block-drop', title:'Block Drop Puzzle', icon:'⬛', category:'Strategy / Thinking', desc:'Stack blocks and clear lines.', engine:'blockDrop'},
+      {id: 'space-shooter', title:'Space Shooter', icon:'🚀', category:'Shooter / Arcade', desc:'Shoot enemies in space.', engine:'spaceShooter'},
+      {id: 'alien-defense', title:'Alien Defense', icon:'🛡️', category:'Shooter / Arcade', desc:'Protect your base from aliens.', engine:'alienDefense'},
+      {id: 'meteor-shooter', title:'Meteor Shooter', icon:'🌠', category:'Shooter / Arcade', desc:'Shoot down incoming meteors.', engine:'meteorShooter'},
+      {id: 'target-range', title:'Target Shooting', icon:'🎯', category:'Shooter / Arcade', desc:'Hit targets as they appear.', engine:'targetShootingRange'},
+      {id: 'cannon-aim', title:'Cannon Aim', icon:'🛳️', category:'Shooter / Arcade', desc:'Aim cannon and shoot moving ship.', engine:'cannonAim'},
+      {id: 'racing', title:'Simple Racing', icon:'🏁', category:'Fun Casual', desc:'Drive and dodge obstacles.', engine:'simpleRacing'},
+      {id: 'basketball', title:'Basketball Shot', icon:'⛹️', category:'Fun Casual', desc:'Score hoops by tapping at right time.', engine:'basketballShot'},
+      {id: 'penalty', title:'Penalty Kick', icon:'🥅', category:'Fun Casual', desc:'Kick goal away from goalie.', engine:'penaltyKick'},
+      {id: 'fishing', title:'Fishing Game', icon:'🎣', category:'Fun Casual', desc:'Catch fish with the right timing.', engine:'fishingGame'},
+      {id: 'coin-collector', title:'Coin Collector', icon:'🪙', category:'Fun Casual', desc:'Collect coins while avoiding danger.', engine:'coinCollector'},
+      {id: 'balloon-pop', title:'Balloon Popping', icon:'🎈', category:'Fun Casual', desc:'Pop all balloons before time.', engine:'balloonPop'},
+      {id: 'tile-tap', title:'Tile Tapping', icon:'🟦', category:'Fun Casual', desc:'Tap only correct tiles in sequence.', engine:'tileTapping'},
+      {id: 'fruit-slice', title:'Fruit Slicing', icon:'🍉', category:'Fun Casual', desc:'Slice fruits before they fall.', engine:'fruitSlicing'},
+      {id: 'falling-stars', title:'Catch Falling Stars', icon:'🌟', category:'Fun Casual', desc:'Catch as many stars as possible.', engine:'fallingStars'},
+      {id: 'random-mini', title:'Random Mini Challenge', icon:'🎲', category:'Fun Casual', desc:'A surprise challenge each play.', engine:'randomMini'},
+      {id: 'color-match', title:'Color Match', icon:'🎨', category:'Extra Mini', desc:'Select the matching color quickly.', engine:'colorMatch'},
+      {id: 'pattern-memory', title:'Pattern Memory', icon:'🧷', category:'Extra Mini', desc:'Repeat patterns from memory.', engine:'patternMemory'},
+      {id: 'quick-math', title:'Quick Math', icon:'➗', category:'Extra Mini', desc:'Solve math problems fast.', engine:'quickMath'},
+      {id: 'escape-box', title:'Escape Box Puzzle', icon:'📦', category:'Extra Mini', desc:'Find the way out by logic choices.', engine:'escapeBox'},
+      {id: 'daily-challenge', title:'Random Daily Challenge', icon:'🌞', category:'Extra Mini', desc:'Different mini challenge everyday.', engine:'dailyChallenge'}
+    ];
+
+    const localKey = 'arcadeHubHighScores';
+    const achievementsKey = 'arcadeHubAchievements';
+    const dailyKey = 'arcadeHubDailyScores';
+    let highScores = JSON.parse(localStorage.getItem(localKey) || '{}');
+    let achievements = JSON.parse(localStorage.getItem(achievementsKey) || '{}');
+    let dailyScores = JSON.parse(localStorage.getItem(dailyKey) || '{}');
+    let currentGame = null;
+    let gameScore = 0;
+    let practiceMode = false;
+    let dailyGameId = null;
+    let bossModeActive = false;
+    let bossModeStage = 0;
+    let bossModeScore = 0;
+    let timerInterval = null;
+    let musicNode = null;
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let soundOn = true; let musicOn = false;
+    const playerNameInput = document.querySelector('#playerName');
+
+    function saveHighScores() { localStorage.setItem(localKey, JSON.stringify(highScores)); }
+
+    function formatName() { const n = playerNameInput.value.trim(); return n || 'Player'; }
+
+    function beep(freq=440,dur=0.05, vol=0.15) {
+      if(!soundOn) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.frequency.value = freq; osc.type = 'sine';
+      gain.gain.value = vol;
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(); osc.stop(audioCtx.currentTime + dur);
+      osc.onended = ()=>gain.disconnect();
+    }
+
+    function startMusic() {
+      if(!musicOn) return;
+      stopMusic();
+      musicNode = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      musicNode.type = 'triangle'; musicNode.frequency.value = 120;
+      gain.gain.value = 0.02;
+      musicNode.connect(gain); gain.connect(audioCtx.destination);
+      musicNode.start();
+      const step = ()=>{ if(!musicNode) return; musicNode.frequency.value = 100 + Math.sin(Date.now()/700)*40; requestAnimationFrame(step); };
+      step();
+    }
+    function stopMusic() { if(musicNode){ musicNode.stop(); musicNode.disconnect(); musicNode=null; }}
+
+    function registerScore(gameId, score) {
+      const name = formatName();
+      if (practiceMode) {
+        showMessage('Practice mode active: score not saved');
+      } else {
+        if (!highScores[gameId] || score > highScores[gameId].score) {
+          highScores[gameId] = {score, name, date: new Date().toLocaleString()};
+          saveHighScores(); showHighScores();
+        }
+      }
+      if (dailyGameId && gameId === dailyGameId) {
+        const dayKey = new Date().toISOString().split('T')[0];
+        const existing = dailyScores[dayKey] || {score:0, name:'none'};
+        if (score > existing.score) {
+          dailyScores[dayKey] = {score, name, gameId};
+          localStorage.setItem(dailyKey, JSON.stringify(dailyScores));
+          showMessage('New Daily Challenge Record!');
+        }
+      }
+      updateAchievements(gameId, score);
+    }
+
+    function updateAchievements(gameId, score) {
+      achievements.firstPlay = achievements.firstPlay || false;
+      achievements.master200 = achievements.master200 || false;
+      achievements.highScorer = achievements.highScorer || false;
+      achievements.bossMaster = achievements.bossMaster || false;
+      achievements.dailyKing = achievements.dailyKing || false;
+      achievements.practicePro = achievements.practicePro || false;
+      if (!achievements.firstPlay) {
+        achievements.firstPlay = true;
+        document.body.classList.add('achievement-blink');
+      }
+      if (score >= 100 && !achievements.highScorer) {
+        achievements.highScorer = true;
+        document.body.classList.add('achievement-blink');
+      }
+      if (score >= 200 && !achievements.master200) {
+        achievements.master200 = true;
+        document.body.classList.add('achievement-blink');
+      }
+      if (practiceMode && !achievements.practicePro) {
+        achievements.practicePro = true;
+        document.body.classList.add('achievement-blink');
+      }
+      if (dailyGameId && gameId === dailyGameId && !achievements.dailyKing) {
+        const today = new Date().toISOString().split('T')[0];
+        const entry = dailyScores[today];
+        if (entry && entry.name === formatName() && score === entry.score) {
+          achievements.dailyKing = true;
+          document.body.classList.add('achievement-blink');
+        }
+      }
+      localStorage.setItem(achievementsKey, JSON.stringify(achievements));
+      renderAchievements();
+    }
+
+    function renderAchievements() {
+      const panel = document.getElementById('achievementList');
+      if (!panel) return;
+      panel.innerHTML = '';
+      const items = [
+        { key:'firstPlay', label:'First Game Played' },
+        { key:'highScorer', label:'Scored 100+ in one game' },
+        { key:'master200', label:'Scored 200+ in one game' },
+        { key:'bossMaster', label:'Completed Boss Mode' },
+        { key:'dailyKing', label:'Beat Today’s Daily Challenge' },
+        { key:'practicePro', label:'Played in Practice Mode' }
+      ];
+      for(const item of items){
+        const li = document.createElement('div');
+        const achieved = achievements[item.key];
+        li.textContent = `${achieved ? '✅' : '◻'} ${item.label}`;
+        panel.appendChild(li);
+      }
+    }
+
+    function showHighScores() {
+      const list = document.querySelector('#highscoreList'); list.innerHTML='';
+      const today = new Date().toISOString().split('T')[0];
+      if(dailyScores[today]){
+        const d = dailyScores[today];
+        const item = document.createElement('li'); item.className='score-item';
+        item.innerHTML = `<strong>Daily ${today}</strong>: ${d.score} by ${d.name} (${games.find(g=>g.id===d.gameId)?.title||d.gameId})`;
+        list.appendChild(item);
+      }
+      const entries = Object.entries(highScores).sort((a,b)=>b[1].score-a[1].score).slice(0,25);
+      if(entries.length===0){ list.innerHTML+='<li class="score-item">No scores yet. Play a game!</li>'; return; }
+      for(const [id,data] of entries){ const item=document.createElement('li'); item.className='score-item'; item.innerHTML=`<strong>${games.find(g=>g.id===id)?.title||id}</strong>: ${data.score} by ${data.name} <small>${data.date}</small>`; list.appendChild(item);} }
+
+    function setScore(value){ gameScore=value; document.querySelector('#scoreValue').textContent=gameScore; }
+    function updateBestValue(gameId){ const best = highScores[gameId]?.score || 0; document.querySelector('#bestValue').textContent = best; }
+
+    function getRandomGame(){ return games[Math.floor(Math.random()*games.length)]; }
+    function getDailyGame(){ const dailyList = games.filter(g=>g.id !== 'daily-challenge'); const idx = new Date().getDate() % dailyList.length; return dailyList[idx]; }
+    function playRandomGame(){ const game = getRandomGame(); if(game){ openModal(game); showMessage('Random Game: '+game.title); }}
+    function playDailyChallenge(){ const game = getDailyGame(); if(!game){ showMessage('Daily Challenge unavailable.'); return;} dailyGameId = game.id; openModal(game); showMessage('Daily Challenge: '+game.title+' (today)'); }
+    function startBossMode(){ bossModeActive = true; bossModeStage = 0; bossModeScore = 0; showMessage('Boss Mode started! 3 games, best total score wins.'); playNextBossLevel(); }
+    function playNextBossLevel(){ if(!bossModeActive) return; bossModeStage++; if(bossModeStage > 3){ showMessage('Boss Mode complete! Total score: '+bossModeScore); bossModeActive=false; return; } const game = getRandomGame(); if(game){ openModal(game); showMessage('Boss Mode level '+bossModeStage+': '+game.title); }}
+    function endBossLevel(score){ if(!bossModeActive) return; bossModeScore += score; if(bossModeStage >= 3){ bossModeActive=false; showMessage('Boss Mode complete! Total score: '+bossModeScore); if(!achievements.bossMaster){ achievements.bossMaster=true; localStorage.setItem(achievementsKey, JSON.stringify(achievements)); renderAchievements(); document.body.classList.add('achievement-blink'); }} else { showMessage('Great! Next boss game coming...'); setTimeout(playNextBossLevel,1200); }}
+
+    function showMessage(msg){ const target=document.getElementById('howTo'); if(target){ target.textContent = msg; }}
+
+    function closeModal() {
+      clearInterval(timerInterval); timerInterval=null;
+      document.getElementById('gameModal').classList.remove('open');
+      document.getElementById('gameArea').innerHTML=''; currentGame=null;
+      stopMusic(); if(musicOn) startMusic();
+    }
+
+    function openModal(game) {
+      currentGame = game;
+      const modal = document.getElementById('gameModal');
+      modal.classList.add('open');
+      document.getElementById('gameTitle').textContent = game.title;
+      document.getElementById('gameDesc').textContent = game.desc;
+      document.getElementById('howTo').textContent = 'Each game is loaded in its own page. Score updates sync back to the hub.';
+      updateBestValue(game.id);
+
+      const area = document.getElementById('gameArea');
+      area.innerHTML = '';
+      const iframe = document.createElement('iframe');
+      iframe.id = 'gameFrame';
+      iframe.tabIndex = 0;
+      iframe.src = `games/${game.id}.html`;
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.border = '0';
+      iframe.style.borderRadius = '10px';
+      iframe.addEventListener('load', ()=>{ iframe.contentWindow?.focus(); });
+      iframe.addEventListener('error', ()=>{ area.innerHTML = '<div style="color:#f6615e; padding:14px;">Failed to load game. Try another one.</div>'; });
+      area.appendChild(iframe);
+      setScore(0);
+      iframe.focus();
+    }
+
+    document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const target=btn.dataset.panel; ['home','games','scores','settings'].forEach(p=>document.getElementById(p).classList.remove('panel-active')); document.getElementById(target).classList.add('panel-active'); if(target==='scores') showHighScores(); }); });
+    document.getElementById('randomGameBtn').addEventListener('click', playRandomGame);
+    document.getElementById('dailyChallengeBtn').addEventListener('click', playDailyChallenge);
+    document.getElementById('practiceModeBtn').addEventListener('click', (e)=>{ practiceMode = !practiceMode; e.target.textContent = practiceMode ? 'Practice Mode On' : 'Practice Mode Off'; e.target.classList.toggle('active', practiceMode); showMessage(practiceMode ? 'Practice mode enabled: no high score updates' : 'Normal mode'); });
+    document.getElementById('bossModeBtn').addEventListener('click', startBossMode);
+    document.getElementById('fullscreenBtn').addEventListener('click', ()=>{ const modal=document.querySelector('.modal'); if(modal){ if(!document.fullscreenElement){ modal.requestFullscreen().catch(()=>{}); } else{ document.exitFullscreen().catch(()=>{}); } }});
+    document.getElementById('closeBtn').addEventListener('click', closeModal);
+    document.getElementById('restartBtn').addEventListener('click',()=>{ if(currentGame){ const iframe=document.getElementById('gameFrame'); if(iframe){ iframe.src = `games/${currentGame.id}.html`; } }});
+    document.getElementById('soundToggle').addEventListener('click',e=>{ soundOn=!soundOn; e.target.classList.toggle('active', soundOn); e.target.textContent = soundOn ? 'Sound On':'Sound Off'; });
+    document.getElementById('musicToggle').addEventListener('click',e=>{ musicOn=!musicOn; e.target.classList.toggle('active', musicOn); e.target.textContent = musicOn ? 'Music On':'Music Off'; if(musicOn) startMusic(); else stopMusic(); });
+    document.getElementById('themeSelect').addEventListener('change',(e)=>{ const theme=e.target.value; document.body.classList.remove('theme-retro','theme-cyber','theme-dark'); if(theme && theme!=='neon'){ document.body.classList.add(`theme-${theme}`); } else { document.body.classList.remove('theme-retro','theme-cyber','theme-dark'); } localStorage.setItem('arcadeHubTheme', theme); });
+    playerNameInput.addEventListener('change',()=>{ localStorage.setItem('arcadeHubPlayer', playerNameInput.value); });
+    const savedName = localStorage.getItem('arcadeHubPlayer'); if(savedName){ playerNameInput.value=savedName; }
+    const savedTheme = localStorage.getItem('arcadeHubTheme') || 'neon';
+    const themeSelect = document.getElementById('themeSelect');
+    if(themeSelect){ themeSelect.value = savedTheme; if(savedTheme !== 'neon'){ document.body.classList.add(`theme-${savedTheme}`); } }
+
+    function initParticles(){ const canvas=document.getElementById('particleCanvas'); const ctx=canvas.getContext('2d'); const particles=[]; function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+      window.addEventListener('resize', resize); resize(); for(let i=0;i<120;i++){ particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r: Math.random()*1.4+0.3, vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3, alpha:Math.random()*0.8+0.2}); }
+      function anim(){ ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0; if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0; ctx.fillStyle='rgba(80,130,255,'+p.alpha+')'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); }); requestAnimationFrame(anim); }
+      anim(); }
+
+    window.addEventListener('message', (event)=>{
+      if (!event.data) return;
+      if (event.data.type === 'closeModal') { closeModal(); return; }
+      if (event.data.type !== 'scoreUpdate') return;
+      if (!currentGame) return;
+      const score = Number(event.data.score) || 0;
+      setScore(score);
+      registerScore(currentGame.id, score);
+      if (bossModeActive) endBossLevel(score);
+      if (score >= 100){ document.body.style.animation = 'pulse 0.6s ease alternate 2'; setTimeout(()=>document.body.style.animation='', 1400); }
+    });
+
+    window.addEventListener('keydown', (event)=>{
+      const iframe = document.getElementById('gameFrame');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.focus();
+      }
+    });
+
+    function init(){ renderGameGrid(); showHighScores(); renderAchievements(); initParticles(); }
+    init();
+
+    const style = document.createElement('style');
+    style.innerHTML = `@keyframes pulse { from { filter: drop-shadow(0 0 8px rgba(138,76,255,0.7)); } to { filter: drop-shadow(0 0 18px rgba(19,255,218,0.9)); } }`;
+    document.head.appendChild(style);
+
+  </script>
+</body>
+</html>
