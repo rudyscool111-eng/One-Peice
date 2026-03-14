@@ -42,8 +42,8 @@
     .card-meta { color:#98a3bf; font-size:0.83rem; margin-bottom:10px; }
     .play-btn { outline:none; border:none; border-radius:10px; padding:8px 11px; width:100%; cursor:pointer; background: linear-gradient(110deg, #7b2eff 0%, #26c9ff 100%); color:#fff; font-weight:700; box-shadow:0 0 10px rgba(50,156,255,0.4); transition:0.2s; }
     .play-btn:hover { filter: brightness(1.05); transform: scale(1.01); }
-    .modal-root { position:fixed; inset:0; background:rgba(3,7,15,0.76); display:flex; align-items:center; justify-content:center; z-index:120; opacity:0; visibility:hidden; transition:0.28s; }
-    .modal-root.open { opacity:1; visibility:visible; }
+    .modal-root { position:fixed; inset:0; background:rgba(3,7,15,0.76); display:flex; align-items:center; justify-content:center; z-index:120; opacity:0; visibility:hidden; pointer-events:none; transition:0.28s; }
+    .modal-root.open { opacity:1; visibility:visible; pointer-events:auto; }
     .modal { width:min(1024px,95%); max-height:88vh; background:rgba(10, 14, 23, 0.9); border:1px solid rgba(138,76,255,0.35); border-radius: 18px; box-shadow:0 20px 40px rgba(0,0,0,0.56); overflow:hidden; position: relative; display:grid; grid-template-columns: 1fr 320px; }
     .modal-left { padding:16px; overflow:auto; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
     .modal-title { margin:0 0 6px; font-size:1.6rem; }
