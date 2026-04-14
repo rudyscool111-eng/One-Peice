@@ -31,6 +31,47 @@
     .hero-btn.boss { background:rgba(100,30,30,0.82); border-color:rgba(255,99,79,0.5); }
     .hero-btn.daily { background:rgba(45,75,45,0.85); border-color:rgba(71,178,79,0.45); }
     .hero-btn.practice { background:rgba(120,87,20,0.82); border-color:rgba(255,192,0,0.45); }
+    .dashboard-grid { display:grid; grid-template-columns: 1.2fr .8fr; gap:14px; margin: 12px 0 20px; }
+    .panel-card { background:linear-gradient(135deg, rgba(10,16,28,0.95), rgba(8,13,23,0.82)); border:1px solid rgba(138,76,255,0.28); border-radius:14px; padding:12px; box-shadow:0 8px 22px rgba(0,0,0,0.28); }
+    .profile-stats { display:grid; grid-template-columns: repeat(4, minmax(110px,1fr)); gap:8px; margin-top:10px; }
+    .stat-chip { background:rgba(18,28,45,0.85); border:1px solid rgba(120,149,214,0.35); border-radius:10px; padding:8px; }
+    .stat-chip strong { display:block; font-size:1.03rem; color:#eaf3ff; }
+    .xp-wrap { margin-top:10px; }
+    .xp-bar { height:10px; background:#10203b; border-radius:999px; overflow:hidden; border:1px solid rgba(100,129,187,0.4); }
+    .xp-fill { height:100%; width:0%; background:linear-gradient(90deg,#13d8ff,#7b2eff); transition:width .25s ease; }
+    .featured-body { display:flex; gap:12px; align-items:stretch; }
+    .featured-main { flex:1; min-height:160px; border-radius:12px; border:1px solid rgba(138,76,255,0.22); padding:12px; background:radial-gradient(circle at top right, rgba(19,216,255,0.18), rgba(8,16,30,0.84)); }
+    .featured-main .play-btn { max-width:200px; }
+    .mini-list { display:grid; gap:8px; }
+    .mini-item { background:rgba(12,20,35,0.88); border:1px solid rgba(112,128,177,0.35); border-radius:10px; padding:8px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .mini-item button { border:1px solid rgba(138,76,255,0.35); background:#111b2f; color:#eff1ff; border-radius:8px; padding:6px 9px; cursor:pointer; }
+    .shop-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:10px; }
+    .shop-item { background:rgba(8,15,30,0.85); border:1px solid rgba(115,132,180,0.35); border-radius:12px; padding:10px; }
+    .shop-item h4 { margin:0 0 6px; font-size:0.96rem; }
+    .shop-item p { margin:0 0 10px; font-size:0.84rem; color:#b4c3e2; min-height:38px; }
+    .shop-item button { width:100%; border:1px solid rgba(138,76,255,0.35); background:#131f38; color:#ecf1ff; border-radius:9px; padding:7px 8px; cursor:pointer; }
+    .shop-item button[disabled] { opacity:.55; cursor:not-allowed; }
+    .shop-badge { display:inline-block; font-size:.72rem; margin-left:6px; color:#fff; background:linear-gradient(90deg,#ff8a00,#ff3d81); border-radius:999px; padding:2px 7px; }
+    .redeem-wrap { margin-top:14px; background:rgba(8,16,30,0.85); border:1px solid rgba(115,132,180,0.35); border-radius:12px; padding:10px; }
+    .redeem-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .redeem-row input { flex:1; min-width:170px; padding:8px; border-radius:8px; border:1px solid rgba(138,76,255,0.35); background:#0d162b; color:#e6ecff; }
+    .redeem-row button { border:1px solid rgba(138,76,255,0.35); background:#131f38; color:#ecf1ff; border-radius:8px; padding:8px 10px; cursor:pointer; }
+    .quest-item { background:rgba(12,20,35,0.9); border:1px solid rgba(112,128,177,0.35); border-radius:10px; padding:8px; display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:8px; }
+    .quest-item button { border:1px solid rgba(138,76,255,0.35); background:#111b2f; color:#eff1ff; border-radius:8px; padding:6px 8px; cursor:pointer; }
+    .quest-item button[disabled] { opacity:.55; cursor:not-allowed; }
+    .ultimate-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+    .spin-row { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+    .spin-row button { border:1px solid rgba(138,76,255,0.35); background:#13223c; color:#eff1ff; border-radius:8px; padding:8px 10px; cursor:pointer; }
+    .feed-list { margin-top:8px; max-height:180px; overflow:auto; display:grid; gap:6px; }
+    .feed-item { background:rgba(11,19,33,0.85); border:1px solid rgba(110,130,177,0.35); border-radius:8px; padding:6px 8px; font-size:0.84rem; color:#c8d9f8; }
+    .anime-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .anime-row input, .anime-row select { padding:8px; border-radius:8px; border:1px solid rgba(138,76,255,0.35); background:#0d162b; color:#e6ecff; }
+    .anime-row input { flex:1; min-width:170px; }
+    .anime-row button { border:1px solid rgba(138,76,255,0.35); background:#13223c; color:#eff1ff; border-radius:8px; padding:8px 10px; cursor:pointer; }
+    .card.featured { border-color:rgba(19,216,255,0.7); box-shadow:0 14px 30px rgba(19,216,255,0.22); transform:scale(1.02); }
+    .card.trending { border-color:rgba(255,203,99,0.55); }
+    .card.locked { filter:saturate(0.55) brightness(0.82); }
+    .card-lock { position:absolute; top:8px; right:8px; font-size:.75rem; background:rgba(0,0,0,0.58); border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:3px 8px; }
     .content { width: min(1200px, 96%); margin: 0 auto; }
     .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 16px; margin-top:20px; }
     .card { background: linear-gradient(135deg, rgba(15,22,36,0.93), rgba(8,12,19,0.82)); border: 1px solid rgba(138,76,255,0.25); border-radius: 16px; padding: 14px; overflow:hidden; box-shadow: 0 8px 24px rgba(3,5,10,0.45); transition: transform 0.2s ease, box-shadow 0.2s ease; position: relative; }
@@ -42,15 +83,15 @@
     .card-meta { color:#98a3bf; font-size:0.83rem; margin-bottom:10px; }
     .play-btn { outline:none; border:none; border-radius:10px; padding:8px 11px; width:100%; cursor:pointer; background: linear-gradient(110deg, #7b2eff 0%, #26c9ff 100%); color:#fff; font-weight:700; box-shadow:0 0 10px rgba(50,156,255,0.4); transition:0.2s; }
     .play-btn:hover { filter: brightness(1.05); transform: scale(1.01); }
-    .modal-root { position:fixed; inset:0; background:rgba(3,7,15,0.76); display:flex; align-items:center; justify-content:center; z-index:120; opacity:0; visibility:hidden; pointer-events:none; transition:0.28s; }
-    .modal-root.open { opacity:1; visibility:visible; pointer-events:auto; }
-    .modal { width:min(1024px,95%); max-height:88vh; background:rgba(10, 14, 23, 0.9); border:1px solid rgba(138,76,255,0.35); border-radius: 18px; box-shadow:0 20px 40px rgba(0,0,0,0.56); overflow:hidden; position: relative; display:grid; grid-template-columns: 1fr 320px; }
+    .modal-root { display:none; width:min(1200px,96%); margin:18px auto 28px; }
+    .modal-root.open { display:block; }
+    .modal { width:100%; min-height:75vh; background:rgba(10, 14, 23, 0.9); border:1px solid rgba(138,76,255,0.35); border-radius: 18px; box-shadow:0 20px 40px rgba(0,0,0,0.56); overflow:hidden; position: relative; display:grid; grid-template-columns: 1fr 320px; }
     .modal-left { padding:16px; overflow:auto; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
     .modal-title { margin:0 0 6px; font-size:1.6rem; }
     .modal-desc { color:#b8c0dd; font-size:0.95rem; margin-bottom:10px; }
     .modal-controls { display:flex; gap:12px; margin-bottom:10px; }
     .modal-controls button { border-radius: 10px; border:1px solid rgba(138,76,255,0.35); background:#111b2f; color:#eff1ff; padding:6px 10px; cursor:pointer; }
-    .modal-game { min-height:360px; border-radius:12px; background:rgba(2, 9, 18, 0.76); border:1px solid rgba(91, 134, 248, 0.27); padding:12px; position:relative; overflow:auto; display:flex; justify-content:center; align-items:center; }
+    .modal-game { min-height:520px; border-radius:12px; background:rgba(2, 9, 18, 0.76); border:1px solid rgba(91, 134, 248, 0.27); padding:12px; position:relative; overflow:auto; display:flex; justify-content:center; align-items:center; }
     .modal-game iframe { width: 100%; height: 100%; min-height: 420px; max-width: 820px; border:0; border-radius: 10px; }
     .modal-right { background: rgba(7, 11, 19, 0.88); border-left:1px solid rgba(138,76,255,0.25); padding:14px 12px; }
     .planner { margin-top: 30px; }
@@ -59,10 +100,99 @@
     .panel-hidden { display:none; }
     .section { margin-top:30px; }
     .section h2 { font-size:1.25rem; margin-bottom:12px; border-bottom:1px solid rgba(138,76,255,0.35); padding-bottom:8px; color: #f4f7ff; }
-    .leaderboard, .settings-panel, .games-panel { display:none; }
+    .leaderboard, .settings-panel, .games-panel, .anime-panel, .fan-panel { display:none; }
     .panel-active { display:block; }
+    .fan-banner { margin-top:12px; background:linear-gradient(145deg, rgba(10,18,32,0.95), rgba(22,14,44,0.92)); border:1px solid rgba(126,147,201,0.4); border-radius:12px; padding:10px; display:flex; gap:10px; align-items:center; }
+    .fan-banner img { width:108px; height:60px; object-fit:cover; border-radius:8px; border:1px solid rgba(136,152,194,0.4); }
+    .fan-profile-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .fan-profile-card { background:rgba(9,16,30,0.9); border:1px solid rgba(112,128,177,0.35); border-radius:12px; padding:12px; }
+    .fan-profile-card h3 { margin:0 0 8px; }
+    .fan-profile-gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; }
+    .fan-profile-item { background:rgba(11,18,32,0.92); border:1px solid rgba(112,128,177,0.35); border-radius:10px; padding:8px; }
+    .fan-profile-item img { width:100%; height:110px; object-fit:cover; border-radius:8px; display:block; }
+    .fan-profile-item button { width:100%; margin-top:8px; border:1px solid rgba(138,76,255,0.35); background:#111b2f; color:#eff1ff; border-radius:8px; padding:7px 8px; cursor:pointer; }
+    .seasonal-countdown { margin-top:8px; font-size:0.84rem; color:#9ac2ff; }
+    .seasonal-shop-wrap { margin-top:14px; background:rgba(8,16,30,0.85); border:1px solid rgba(115,132,180,0.35); border-radius:12px; padding:10px; }
+    .anime-zone-grid { display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; margin-top:12px; }
+    .anime-panel { --anime-accent:#8a4cff; --anime-accent2:#13d8ff; --anime-glow:rgba(19,216,255,0.22); }
+    .anime-panel[data-genre="Shonen"] { --anime-accent:#ff7043; --anime-accent2:#ffd54f; --anime-glow:rgba(255,112,67,0.24); }
+    .anime-panel[data-genre="Seinen"] { --anime-accent:#607d8b; --anime-accent2:#b0bec5; --anime-glow:rgba(96,125,139,0.24); }
+    .anime-panel[data-genre="Shojo"] { --anime-accent:#ff6fa8; --anime-accent2:#ffd1e8; --anime-glow:rgba(255,111,168,0.24); }
+    .anime-panel[data-genre="Isekai"] { --anime-accent:#4fc3f7; --anime-accent2:#7c4dff; --anime-glow:rgba(79,195,247,0.24); }
+    .anime-panel[data-genre="Slice of Life"] { --anime-accent:#81c784; --anime-accent2:#fff59d; --anime-glow:rgba(129,199,132,0.24); }
+    .anime-panel[data-genre="Fantasy"] { --anime-accent:#ba68c8; --anime-accent2:#4dd0e1; --anime-glow:rgba(186,104,200,0.24); }
+    .anime-cover { width:100%; max-width:260px; border-radius:12px; border:1px solid rgba(148,165,208,0.35); box-shadow:0 10px 24px rgba(0,0,0,0.32); }
+    .carousel { display:flex; gap:10px; overflow:auto; padding-bottom:4px; }
+    .carousel-item { min-width:180px; background:rgba(12,20,35,0.9); border:1px solid rgba(112,128,177,0.35); border-radius:10px; padding:8px; }
+    .carousel-item a { color:#8fd3ff; text-decoration:none; }
+    .anime-pill { display:inline-block; border:1px solid rgba(138,76,255,0.45); border-radius:999px; padding:4px 8px; margin:2px 4px 2px 0; font-size:0.78rem; color:#d5e4ff; }
+    .anime-gallery { margin-top:14px; }
+    .anime-gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-top:8px; }
+    .anime-gallery-card { background:rgba(11,18,32,0.92); border:1px solid rgba(112,128,177,0.35); border-radius:10px; overflow:hidden; }
+    .anime-gallery-card img { width:100%; height:180px; object-fit:cover; display:block; }
+    .anime-gallery-card a { display:block; padding:8px; color:#a8ddff; text-decoration:none; font-size:0.82rem; }
+    .anime-stage { min-height:220px; border-radius:14px; border:1px solid color-mix(in srgb, var(--anime-accent) 38%, white); background-size:cover; background-position:center; position:relative; overflow:hidden; display:flex; align-items:flex-end; padding:14px; margin-top:12px; box-shadow:0 0 0 1px rgba(255,255,255,0.03) inset, 0 0 32px var(--anime-glow); }
+    .anime-stage::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(5,10,18,0.12), rgba(5,10,18,0.82)); }
+    .anime-stage::before, .room-stage::before { content:''; position:absolute; inset:-15%; pointer-events:none; opacity:.55; z-index:0; }
+    .anime-stage[data-player="pocket"]::before, .room-stage[data-player="pocket"]::before { background:repeating-linear-gradient(90deg, rgba(93,208,255,0.14) 0 10px, rgba(93,208,255,0.03) 10px 22px); animation: playerScan 8s linear infinite; }
+    .anime-stage[data-player="shrine"]::before, .room-stage[data-player="shrine"]::before { background:radial-gradient(circle at 30% 30%, rgba(255,211,110,0.24), transparent 38%), radial-gradient(circle at 70% 60%, rgba(255,152,82,0.18), transparent 32%); animation: playerPulse 6s ease-in-out infinite; }
+    .anime-stage[data-player="arena"]::before, .room-stage[data-player="arena"]::before { background:linear-gradient(120deg, rgba(255,109,138,0.16), transparent 30%, rgba(255,109,138,0.08) 60%, transparent 80%), radial-gradient(circle at 50% 50%, rgba(255,109,138,0.14), transparent 42%); animation: playerSlash 4.5s linear infinite; }
+    .anime-stage-copy { position:relative; z-index:1; }
+    .anime-stage-floaters { position:absolute; inset:0; pointer-events:none; z-index:1; overflow:hidden; }
+    .anime-floater { position:absolute; width:44px; height:44px; border-radius:999px; display:flex; align-items:center; justify-content:center; background:rgba(10,16,28,0.46); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(6px); animation: animeFloat 9s ease-in-out infinite; color:#fff; }
+    .anime-vibe-row, .anime-thumb-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .anime-vibe-row button, .anime-thumb-row button, .quote-box button { border:1px solid color-mix(in srgb, var(--anime-accent) 45%, white); background:#13223c; color:#eff1ff; border-radius:8px; padding:8px 10px; cursor:pointer; }
+    .anime-vibe-row button.active { box-shadow:0 0 0 1px rgba(19,216,255,0.7) inset, 0 0 16px rgba(19,216,255,0.25); }
+    .anime-thumb-row button { padding:0; overflow:hidden; width:62px; height:62px; }
+    .anime-thumb-row img { width:100%; height:100%; object-fit:cover; display:block; }
+    .quote-box { margin-top:12px; background:rgba(10,18,32,0.88); border:1px solid rgba(116,133,182,0.35); border-radius:12px; padding:12px; }
+    .spotlight-card { margin-top:12px; background:rgba(10,18,32,0.88); border:1px solid rgba(116,133,182,0.35); border-radius:12px; padding:12px; display:flex; gap:12px; align-items:center; }
+    .spotlight-card img { width:88px; height:88px; object-fit:cover; border-radius:10px; border:1px solid rgba(126,147,201,0.35); }
+    .room-builder { margin-top:14px; background:rgba(10,18,32,0.9); border:1px solid rgba(116,133,182,0.35); border-radius:12px; padding:12px; }
+    .room-stage { min-height:180px; position:relative; overflow:hidden; border-radius:12px; background:linear-gradient(180deg, rgba(31,44,78,0.95), rgba(10,16,29,0.98)); border:1px solid rgba(146,164,208,0.25); margin-bottom:10px; }
+    .room-floor { position:absolute; left:0; right:0; bottom:0; height:58px; background:linear-gradient(180deg, rgba(79,95,136,0.55), rgba(36,46,74,0.95)); }
+    .room-item { position:absolute; font-size:2rem; filter:drop-shadow(0 8px 10px rgba(0,0,0,0.35)); }
+    .room-decor-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:8px; }
+    .room-decor-card { background:rgba(12,20,35,0.88); border:1px solid rgba(112,128,177,0.35); border-radius:10px; padding:8px; }
+    .room-decor-card button { width:100%; margin-top:8px; border:1px solid rgba(138,76,255,0.35); background:#111b2f; color:#eff1ff; border-radius:8px; padding:7px 8px; cursor:pointer; }
+    .room-decor-card button[disabled] { opacity:.55; cursor:not-allowed; }
+    .anime-audio-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .anime-audio-row select, .anime-audio-row button { padding:8px 10px; border-radius:8px; border:1px solid rgba(138,76,255,0.35); background:#13223c; color:#eff1ff; cursor:pointer; }
+    .badge-shelf { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px; margin-top:8px; }
+    .badge-card { background:rgba(11,18,32,0.92); border:1px solid rgba(112,128,177,0.35); border-radius:10px; padding:10px; min-height:86px; }
+    .badge-card.locked { opacity:.55; filter:saturate(.5); }
+    .fan-card { margin-top:12px; background:linear-gradient(145deg, rgba(10,18,32,0.96), rgba(16,26,46,0.95)); border:1px solid rgba(126,147,201,0.35); border-radius:14px; padding:12px; box-shadow:0 12px 24px rgba(0,0,0,0.28); }
+    .fan-card-title { font-size:1.05rem; font-weight:800; color:#f4f8ff; }
+    .fan-card-grid { display:grid; grid-template-columns:repeat(2,minmax(120px,1fr)); gap:8px; margin-top:10px; }
+    .fan-metric { background:rgba(14,23,40,0.88); border:1px solid rgba(112,128,177,0.35); border-radius:10px; padding:8px; }
+    .fan-card-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .fan-card-actions button { border:1px solid rgba(138,76,255,0.35); background:#13223c; color:#eff1ff; border-radius:8px; padding:8px 10px; cursor:pointer; }
+    .fan-gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px; margin-top:8px; }
+    .fan-gallery-card { background:rgba(11,18,32,0.92); border:1px solid rgba(112,128,177,0.35); border-radius:12px; padding:10px; overflow:hidden; }
+    .fan-gallery-card img { width:100%; height:120px; object-fit:cover; border-radius:8px; display:block; }
+    .fan-gallery-card button { width:100%; margin-top:8px; border:1px solid rgba(138,76,255,0.35); background:#111b2f; color:#eff1ff; border-radius:8px; padding:7px 8px; cursor:pointer; }
+    .fan-gallery-card time { display:block; margin-top:6px; color:#9fb6e8; font-size:.78rem; }
+    .music-player-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin-top:10px; }
+    .music-player-card { background:rgba(11,18,32,0.92); border:1px solid rgba(112,128,177,0.35); border-radius:10px; padding:10px; }
+    .music-player-card button { width:100%; margin-top:8px; border:1px solid rgba(138,76,255,0.35); background:#111b2f; color:#eff1ff; border-radius:8px; padding:7px 8px; cursor:pointer; }
+    .music-player-card button[disabled] { opacity:.55; cursor:not-allowed; }
+    .visualizer-wrap { margin-top:10px; background:rgba(10,18,32,0.9); border:1px solid rgba(116,133,182,0.35); border-radius:12px; padding:10px; }
+    .visualizer-wrap canvas { width:100%; height:90px; display:block; border-radius:8px; background:linear-gradient(180deg, rgba(14,22,40,0.95), rgba(7,11,20,0.98)); }
+    @keyframes animeFloat { 0% { transform:translateY(0px) rotate(0deg); } 50% { transform:translateY(-16px) rotate(8deg); } 100% { transform:translateY(0px) rotate(0deg); } }
+    @keyframes playerScan { 0% { transform:translateX(-6%) skewX(-8deg); } 100% { transform:translateX(6%) skewX(-8deg); } }
+    @keyframes playerPulse { 0%,100% { transform:scale(1); opacity:.42; } 50% { transform:scale(1.08); opacity:.7; } }
+    @keyframes playerSlash { 0% { transform:translateX(-10%) rotate(0deg); } 100% { transform:translateX(10%) rotate(8deg); } }
+    .anime-onboard { position:fixed; inset:0; background:rgba(2,7,15,0.78); display:none; align-items:center; justify-content:center; z-index:180; }
+    .anime-onboard.open { display:flex; }
+    .anime-onboard-card { width:min(620px,92%); background:linear-gradient(145deg, rgba(8,14,26,0.98), rgba(10,18,34,0.95)); border:1px solid rgba(138,76,255,0.4); border-radius:16px; padding:16px; box-shadow:0 20px 40px rgba(0,0,0,0.5); }
+    .anime-onboard-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .anime-onboard-row input, .anime-onboard-row select { flex:1; min-width:160px; padding:9px; border-radius:8px; border:1px solid rgba(138,76,255,0.35); background:#0d162b; color:#e6ecff; }
+    .anime-onboard-row button { border:1px solid rgba(138,76,255,0.35); background:#13223c; color:#eff1ff; border-radius:8px; padding:9px 10px; cursor:pointer; }
     .particles { position:fixed; inset:0; pointer-events:none; z-index:1; }
-    @media (max-width: 930px) { .modal { grid-template-columns:1fr; } .modal-right { border-left:none; border-top:1px solid rgba(138,76,255,0.25); } }
+    body.in-game .content { display:none; }
+    body.in-game .nav-links .nav-btn { opacity:.5; }
+    body.in-game .nav-links .nav-btn.active { opacity:1; }
+    @media (max-width: 930px) { .modal { grid-template-columns:1fr; } .modal-right { border-left:none; border-top:1px solid rgba(138,76,255,0.25); } .dashboard-grid { grid-template-columns:1fr; } .ultimate-grid { grid-template-columns:1fr; } .anime-zone-grid { grid-template-columns:1fr; } .profile-stats { grid-template-columns: repeat(2, minmax(110px,1fr)); } }
     @media (max-width: 500px) { .nav-links { display:none; } .nav { padding: 10px 14px; } .hero h1 { font-size:2rem; }}
   </style>
 </head>
@@ -73,6 +203,8 @@
     <div class="nav-links">
       <button class="nav-btn active" data-panel="home">Home</button>
       <button class="nav-btn" data-panel="games">Games</button>
+      <button class="nav-btn" data-panel="anime">Anime Zone</button>
+      <button class="nav-btn" data-panel="fan">Fan Profile</button>
       <button class="nav-btn" data-panel="scores">High Scores</button>
       <button class="nav-btn" data-panel="settings">Settings</button>
     </div>
@@ -99,16 +231,168 @@
           <button id="practiceModeBtn" class="hero-btn practice">Practice Mode Off</button>
           <button id="bossModeBtn" class="hero-btn boss">Mega Boss Mode</button>
         </div>
+        <div id="homeFanBanner" class="fan-banner"></div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="panel-card" id="profilePanel">
+          <h3 style="margin:0 0 6px;">Profile Progression</h3>
+          <div id="profileHeadline" style="color:#b8c8ec;">Loading player profile...</div>
+          <div class="xp-wrap">
+            <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
+            <div id="xpLabel" style="margin-top:6px;color:#a8b8df;font-size:.9rem;">XP 0 / 100</div>
+          </div>
+          <div class="profile-stats" id="profileStats"></div>
+        </div>
+        <div class="panel-card">
+          <h3 style="margin:0 0 8px;">Featured Game of the Day</h3>
+          <div class="featured-main" id="featuredGameCard"></div>
+        </div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="panel-card">
+          <h3 style="margin:0 0 8px;">Continue Playing</h3>
+          <div class="mini-list" id="continuePlayingList"></div>
+        </div>
+        <div class="panel-card">
+          <h3 style="margin:0 0 8px;">Trending Games</h3>
+          <div class="mini-list" id="trendingGamesList"></div>
+        </div>
+      </div>
+      <div class="ultimate-grid">
+        <div class="panel-card">
+          <h3 style="margin:0 0 8px;">Ultimate Daily Quest Board</h3>
+          <div class="spin-row">
+            <div id="spinStatus" style="color:#b7c8ea; font-size:0.9rem;">Daily Spin available.</div>
+            <button id="dailySpinBtn">Spin Reward Wheel</button>
+          </div>
+          <div id="questBoard"></div>
+        </div>
+        <div class="panel-card">
+          <h3 style="margin:0 0 8px;">Anime Book Finder</h3>
+          <div style="color:#b7c8ea; font-size:0.9rem;">Type an anime title, then jump to buy/search books.</div>
+          <div class="anime-row">
+            <input id="animeTitleInput" type="text" placeholder="Enter anime title, e.g. One Piece">
+            <select id="animeStoreSelect">
+              <option value="amazon">Amazon Books</option>
+              <option value="barnes">Barnes & Noble</option>
+              <option value="googlebooks">Google Books</option>
+            </select>
+            <button id="animeBookSearchBtn">Find Books</button>
+          </div>
+          <div id="animeFinderMsg" style="margin-top:8px;color:#cfe1ff;font-size:0.86rem;"></div>
+          <h4 style="margin:14px 0 6px;">Arcade Activity Feed</h4>
+          <div id="activityFeed" class="feed-list"></div>
+        </div>
       </div>
     </section>
 
-    <section id="games" class="games-panel section panel-active">
+    <section id="games" class="games-panel section">
       <h2>Games Library</h2>
       <div id="gameGrid" class="grid"></div>
     </section>
 
+    <section id="anime" class="anime-panel section">
+      <h2>Anime Zone</h2>
+      <div class="anime-zone-grid">
+        <div class="panel-card">
+          <h3 style="margin:0 0 6px;" id="animeZoneTitle">Your Anime Lounge</h3>
+          <div id="animeZoneSub" style="color:#b8c8ec;">Personalized recommendations and links.</div>
+          <div class="anime-row" style="margin-top:10px;">
+            <input id="animeQuickInput" type="text" placeholder="Update favorite anime">
+            <button id="animeUpdateFavBtn">Save Favorite</button>
+          </div>
+          <div class="anime-vibe-row" id="animeVibeControls">
+            <button data-vibe="epic">Epic</button>
+            <button data-vibe="cozy">Cozy</button>
+            <button data-vibe="chaos">Chaos</button>
+          </div>
+          <div class="anime-audio-row">
+            <select id="animeAmbientSelect">
+              <option value="off">Ambient: Off</option>
+              <option value="shrine">Shrine Bells</option>
+              <option value="night">Night Drift</option>
+              <option value="battle">Battle Pulse</option>
+            </select>
+            <button id="animeAmbientToggleBtn">Play Ambient</button>
+          </div>
+          <div class="visualizer-wrap">
+            <div style="font-size:0.76rem;color:#8fb9ff;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">Visualizer</div>
+            <canvas id="animeVisualizer" width="520" height="90"></canvas>
+          </div>
+          <div>
+            <h4 style="margin:12px 0 6px;">Unlockable Music Players</h4>
+            <div id="animeMusicPlayerGrid" class="music-player-grid"></div>
+          </div>
+          <div id="animeWallpaperStage" class="anime-stage">
+            <div id="animeStageFloaters" class="anime-stage-floaters"></div>
+            <div class="anime-stage-copy">
+              <strong id="animeStageTitle">Favorite Anime Vibes</strong>
+              <div id="animeStageTagline" style="color:#d6e4ff;font-size:0.88rem;">Pick a show to build your wallpaper stage.</div>
+            </div>
+          </div>
+          <div id="animeWallpaperThumbs" class="anime-thumb-row"></div>
+          <div style="margin-top:12px;" id="animeCoverWrap"></div>
+          <div class="quote-box">
+            <div style="font-size:0.76rem;color:#8fb9ff;letter-spacing:.08em;text-transform:uppercase;">Quote of the Moment</div>
+            <div id="animeQuoteText" style="margin:8px 0;color:#eef4ff;font-size:1rem;line-height:1.5;">Your anime quote will appear here.</div>
+            <button id="animeQuoteBtn">New Quote</button>
+          </div>
+          <div id="animeSpotlight" class="spotlight-card"></div>
+          <div class="anime-gallery">
+            <h4 style="margin:14px 0 6px;">Cool Pictures Wall</h4>
+            <div id="animeGalleryGrid" class="anime-gallery-grid"></div>
+          </div>
+          <div class="room-builder">
+            <h4 style="margin:0 0 8px;">Build Your Anime Room</h4>
+            <div id="animeRoomStage" class="room-stage">
+              <div class="room-floor"></div>
+            </div>
+            <div id="animeRoomDecorGrid" class="room-decor-grid"></div>
+          </div>
+        </div>
+        <div class="panel-card">
+          <h3 style="margin:0 0 6px;">Top Manga / Light Novel Picks</h3>
+          <div id="animePicksCarousel" class="carousel"></div>
+          <h4 style="margin:12px 0 6px;">Wishlist</h4>
+          <div class="anime-row">
+            <input id="animeWishlistInput" type="text" placeholder="Add title to wishlist">
+            <button id="animeWishlistAddBtn">Add</button>
+          </div>
+          <div id="animeWishlist" style="margin-top:6px;"></div>
+          <h4 style="margin:12px 0 6px;">Search History</h4>
+          <div id="animeHistory"></div>
+          <div class="fan-card" id="animeFanCard"></div>
+          <h4 style="margin:12px 0 6px;">Fan Badge Shelf</h4>
+          <div id="animeBadgeShelf" class="badge-shelf"></div>
+          <h4 style="margin:12px 0 6px;">Saved Fan Card Gallery</h4>
+          <div id="animeFanGallery" class="fan-gallery"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fan" class="fan-panel section">
+      <h2>Fan Profile</h2>
+      <div class="fan-profile-grid">
+        <div class="fan-profile-card">
+          <h3>Identity Overview</h3>
+          <div id="fanProfileSummary" style="color:#cfe1ff;line-height:1.5;"></div>
+          <h4 style="margin:12px 0 6px;">Seasonal Event</h4>
+          <div id="fanSeasonalEvent" style="color:#b7c8ea;"></div>
+        </div>
+        <div class="fan-profile-card">
+          <h3>Banner Preview</h3>
+          <div id="fanProfileBannerPreview"></div>
+        </div>
+      </div>
+      <div class="fan-profile-card" style="margin-top:12px;">
+        <h3 style="margin-bottom:8px;">Saved Fan Cards</h3>
+        <div id="fanProfileGallery" class="fan-profile-gallery"></div>
+      </div>
+    </section>
+
     <section id="scores" class="leaderboard section">
       <h2>High Scores</h2>
+      <div id="scoresFanBanner" class="fan-banner"></div>
       <ul id="highscoreList" class="score-list"></ul>
     </section>
 
@@ -118,6 +402,23 @@
       <p>All progress and high scores are stored locally in your browser.</p>
       <h3>Achievements</h3>
       <div id="achievementList" style="background:#08122a;border:1px solid rgba(106,114,160,0.35);padding:10px;border-radius:8px;line-height:1.6;"></div>
+      <h3 style="margin-top:16px;">Arcade Shop</h3>
+      <div style="color:#b6c5e6;font-size:0.9rem;">Spend coins on boosts, unlocks, and premium themes.</div>
+      <div id="shopGrid" class="shop-grid"></div>
+      <div class="seasonal-shop-wrap">
+        <h3 style="margin:0 0 6px;">Seasonal Event Shop</h3>
+        <div id="seasonalShopMeta" style="color:#b6c5e6;font-size:0.88rem;">Rotating event stock appears here.</div>
+        <div id="seasonalShopGrid" class="shop-grid" style="margin-top:8px;"></div>
+      </div>
+      <div class="redeem-wrap">
+        <h3 style="margin:0 0 8px;">Redeem Codes</h3>
+        <div style="color:#b6c5e6;font-size:0.88rem;margin-bottom:8px;">Enter promo codes for rewards.</div>
+        <div class="redeem-row">
+          <input id="redeemCodeInput" type="text" placeholder="Enter code (example: WELCOME100)">
+          <button id="redeemCodeBtn">Redeem</button>
+        </div>
+        <div id="redeemCodeMessage" style="margin-top:8px;color:#cfe1ff;font-size:0.86rem;"></div>
+      </div>
     </section>
   </main>
 
@@ -129,7 +430,7 @@
         <div class="modal-controls">
           <button id="restartBtn">Restart</button>
           <button id="fullscreenBtn">Fullscreen</button>
-          <button id="closeBtn">Close</button>
+          <button id="closeBtn">Back to Hub</button>
         </div>
         <div class="modal-game" id="gameArea"></div>
       </div>
@@ -143,6 +444,27 @@
     </div>
   </div>
 
+  <div id="animeOnboardModal" class="anime-onboard">
+    <div class="anime-onboard-card">
+      <h3 style="margin:0 0 6px;">Welcome to Your Anime Lounge</h3>
+      <div style="color:#b9c9ea;">Enter your favorite anime so we can personalize your zone with books, picks, and vibes.</div>
+      <div class="anime-onboard-row">
+        <input id="animeStarterInput" type="text" placeholder="Favorite anime (e.g. Naruto)">
+        <select id="animeStarterGenre">
+          <option value="Shonen">Shonen</option>
+          <option value="Seinen">Seinen</option>
+          <option value="Shojo">Shojo</option>
+          <option value="Isekai">Isekai</option>
+          <option value="Slice of Life">Slice of Life</option>
+          <option value="Fantasy">Fantasy</option>
+        </select>
+        <button id="animeStarterBtn">Start My Zone</button>
+      </div>
+      <div id="animeStarterMsg" style="margin-top:8px;color:#cde0ff;font-size:0.86rem;"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
     // Inlined game engine definitions (no external files needed)
 
@@ -443,111 +765,77 @@
         area.appendChild(text); area.appendChild(choice); render(); },
       dailyChallenge:(area,game)=>{ const idx=new Date().getDate()%5; const list=['reactionTester','colorMatch','targetShootingRange','quickMath','memoryMatch']; gameEngines[list[idx]](area,game); },
       subwaySurfer:(area,game)=>{
-    const c=document.createElement('canvas'); c.width=360;c.height=540; 
-    c.style.cssText='border:3px solid #111; box-shadow:0 15px 40px rgba(0,0,0,0.6); background:#000; border-radius:8px; display:block; margin:0 auto;'; 
-    area.appendChild(c);
-    const ctx=c.getContext('2d');
-
-    let lanes=[-30,0,30]; let laneIdx=1;
-    let p={x:0, y:0, z:20, vy:0, state:'run', rollT:0, flyT:0, magT:0, invT:0};
-    let speed=10; let score=0; let mult=1; let frame=0; let running=true; let worldTime=0;
-    let objs=[]; let particles=[]; let coinRot=0;
-    let state='menu';
-    const skins=[{name:'Surfer',c:'#2ecc71',h:'#f1c40f',score:0},{name:'Ninja',c:'#34495e',h:'#c0392b',score:1000},{name:'Robot',c:'#95a5a6',h:'#3498db',score:2500},{name:'Punk',c:'#e74c3c',h:'#8e44ad',score:5000}];
-    let unlockedSkins = JSON.parse(localStorage.getItem('subwaySurfer_unlockedSkins') || '["Surfer"]');
-    let skinIdx=0;    
-
-    // Assets & Colors
-    const cols={sky:['#4facfe','#00f2fe'], skyN:['#0f2027','#203a43'], ground:'#2c3e50', rail:'#95a5a6', sleeper:'#5d4037', coin:'#ffd700', train:'#c0392b'};
-
-    // Input & Gestures
-    const act=(a)=>{ 
-      if(state==='menu'){
-        if(a==='L'){ skinIdx=(skinIdx-1+skins.length)%skins.length; beep(250,0.03); return; }
-        if(a==='R'){ skinIdx=(skinIdx+1)%skins.length; beep(250,0.03); return; }
-        if(unlockedSkins.includes(skins[skinIdx].name)){
-          state='play'; laneIdx=1; p={x:0,y:0,z:20,vy:0,state:'run',rollT:0,flyT:0,magT:0,invT:0};
-          speed=10; score=0; mult=1; frame=0; worldTime=0; objs=[]; particles=[]; beep(600,0.1);
-        } else {
-          beep(200, 0.1);
-        }
-        return;
+        const c=document.createElement('canvas'); c.width=380; c.height=560;
+        c.style.cssText='max-width:100%;border:2px solid rgba(255,255,255,0.2);border-radius:10px;background:#0a0d14;';
+        area.appendChild(c);
+        const ctx=c.getContext('2d');
+        const lanes=[110,190,270]; let lane=1;
+        let y=470, vy=0, roll=0, t=0, score=0, alive=true;
+        let objs=[];
+        const onKey=(e)=>{ if(!alive) return; if((e.key==='ArrowLeft'||e.key==='a')&&lane>0) lane--; if((e.key==='ArrowRight'||e.key==='d')&&lane<2) lane++; if((e.key==='ArrowUp'||e.key==='w')&&y>=470){ vy=-11; } if((e.key==='ArrowDown'||e.key==='s')) roll=20; };
+        document.addEventListener('keydown', onKey);
+        const spawn=()=>{ const type=Math.random()<0.7?'coin':'train'; objs.push({type, lane:Math.floor(Math.random()*3), z:0}); };
+        const int=setInterval(()=>{ if(!alive) return; t++; if(t%24===0) spawn();
+          vy += 0.6; y = Math.min(470, y + vy); if(y===470) vy=0; if(roll>0) roll--;
+          score += 1; setScore(score);
+          ctx.fillStyle='#1a2e4a'; ctx.fillRect(0,0,c.width,c.height);
+          ctx.fillStyle='#203b62'; ctx.fillRect(70,0,240,560);
+          ctx.strokeStyle='#9fbadf'; ctx.lineWidth=2; ctx.setLineDash([10,14]);
+          ctx.beginPath(); ctx.moveTo(150,0); ctx.lineTo(150,560); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(230,0); ctx.lineTo(230,560); ctx.stroke(); ctx.setLineDash([]);
+          objs.forEach(o=>{ o.z += 10; const size=Math.max(10, 18 + o.z*0.08); const oy=70 + o.z;
+            if(o.type==='coin'){ ctx.fillStyle='#ffd54f'; ctx.beginPath(); ctx.arc(lanes[o.lane], oy, size*0.5, 0, Math.PI*2); ctx.fill(); }
+            else { ctx.fillStyle='#e53935'; ctx.fillRect(lanes[o.lane]-size*0.6, oy-size*0.5, size*1.2, size*1.2); }
+            const hitY = oy > y-20 && oy < y+30;
+            if(hitY && Math.abs(lanes[o.lane]-lanes[lane]) < 24){
+              if(o.type==='coin'){ o.hit=true; score += 20; beep(900,0.02); setScore(score); }
+              else if(roll===0 && y>430){ alive=false; registerScore(game.id, score); }
+            }
+          });
+          objs = objs.filter(o=>!o.hit && o.z<620);
+          ctx.fillStyle='#29b6f6'; ctx.fillRect(lanes[lane]-14, y-(roll>0?12:26), 28, roll>0?14:28);
+          ctx.fillStyle='#e8f3ff'; ctx.fillText('Score: '+score, 12, 22);
+          if(!alive){ ctx.fillStyle='rgba(0,0,0,0.6)'; ctx.fillRect(0,0,c.width,c.height); ctx.fillStyle='#fff'; ctx.font='bold 30px sans-serif'; ctx.fillText('Crashed!', 140, 280); clearInterval(int); document.removeEventListener('keydown', onKey); }
+        }, 33);
+      },
+      subwaySurfers:(area,game)=>{ gameEngines.subwaySurfer(area,game); },
+      slope3D:(area,game)=>{
+        const c=document.createElement('canvas'); c.width=380; c.height=560;
+        c.style.cssText='max-width:100%;border:2px solid rgba(255,255,255,0.2);border-radius:10px;background:#060a12;';
+        area.appendChild(c);
+        const ctx=c.getContext('2d');
+        let ball={x:190,y:470,vx:0}, speed=2, score=0, alive=true;
+        const onMove=(e)=>{ const r=c.getBoundingClientRect(); const tx=e.clientX-r.left; ball.vx=(tx-ball.x)*0.08; };
+        c.addEventListener('mousemove', onMove);
+        const int=setInterval(()=>{ if(!alive) return; score++; speed += 0.01; setScore(score);
+          ctx.fillStyle='#0a1330'; ctx.fillRect(0,0,380,560);
+          for(let i=0;i<16;i++){ const y=i*40+((score*speed)%40); const w=240-(i*8); ctx.fillStyle=i%2?'#2d4f87':'#335c9f'; ctx.fillRect(190-w/2,y,w,36); }
+          ball.x += ball.vx; ball.y -= speed*0.4; if(ball.y<180) ball.y=470;
+          const trackHalf=90; if(ball.x<190-trackHalf||ball.x>190+trackHalf){ alive=false; registerScore(game.id, score); }
+          ctx.fillStyle='#ffca28'; ctx.beginPath(); ctx.arc(ball.x, ball.y, 12, 0, Math.PI*2); ctx.fill();
+          ctx.fillStyle='#e8f3ff'; ctx.fillText('Score: '+score,12,22);
+          if(!alive){ ctx.fillStyle='rgba(0,0,0,0.65)'; ctx.fillRect(0,0,380,560); ctx.fillStyle='#fff'; ctx.font='bold 28px sans-serif'; ctx.fillText('Fell Off!', 130, 280); clearInterval(int); c.removeEventListener('mousemove', onMove); }
+        },33);
+      },
+      carRacer3D:(area,game)=>{
+        const c=document.createElement('canvas'); c.width=380; c.height=560;
+        c.style.cssText='max-width:100%;border:2px solid rgba(255,255,255,0.2);border-radius:10px;background:#070d1a;';
+        area.appendChild(c);
+        const ctx=c.getContext('2d');
+        let carX=190, score=0, alive=true, obs=[];
+        c.addEventListener('mousemove',e=>{ const r=c.getBoundingClientRect(); carX=Math.max(90,Math.min(290,e.clientX-r.left)); });
+        const int=setInterval(()=>{ if(!alive) return; score++; setScore(score);
+          if(Math.random()<0.08) obs.push({x:90+Math.random()*200,y:-30,w:24,h:40});
+          ctx.fillStyle='#0e1b34'; ctx.fillRect(0,0,380,560);
+          ctx.fillStyle='#314e7b'; ctx.fillRect(80,0,220,560);
+          ctx.setLineDash([14,12]); ctx.strokeStyle='#d6e5ff'; ctx.beginPath(); ctx.moveTo(190,0); ctx.lineTo(190,560); ctx.stroke(); ctx.setLineDash([]);
+          obs.forEach(o=>{ o.y += 7; ctx.fillStyle='#ff5252'; ctx.fillRect(o.x,o.y,o.w,o.h); if(o.y>500 && o.y<544 && Math.abs((o.x+12)-carX)<20){ alive=false; registerScore(game.id, score); } });
+          obs = obs.filter(o=>o.y<600);
+          ctx.fillStyle='#40c4ff'; ctx.fillRect(carX-14,510,28,40);
+          ctx.fillStyle='#e8f3ff'; ctx.fillText('Score: '+score,12,22);
+          if(!alive){ ctx.fillStyle='rgba(0,0,0,0.65)'; ctx.fillRect(0,0,380,560); ctx.fillStyle='#fff'; ctx.font='bold 28px sans-serif'; ctx.fillText('Crash!', 150, 280); clearInterval(int); }
+        },33);
       }
-      if(state==='over'){ state='menu'; beep(400,0.05); return; }
-      if(state!=='play')return;
-      if(a==='L'&&laneIdx>0) laneIdx--; if(a==='R'&&laneIdx<2) laneIdx++;
-      if(a==='U'&&p.y===0&&p.state!=='fly'){p.vy=-8;p.state='jump';beep(350,0.04);}
-      if(a==='D'&&p.y===0&&p.state!=='fly'){p.state='roll';p.rollT=40;}
-    };
-    document.addEventListener('keydown',e=>{
-      if(e.key==='ArrowLeft'||e.key==='a') act('L'); if(e.key==='ArrowRight'||e.key==='d') act('R');
-      if(e.key==='ArrowUp'||e.key==='w') act('U'); if(e.key==='ArrowDown'||e.key==='s') act('D');
-    });
-    let sx=0,sy=0; c.onmousedown=e=>{sx=e.clientX;sy=e.clientY;};
-    c.onmouseup=e=>{const dx=e.clientX-sx,dy=e.clientY-sy; if(Math.abs(dx)>Math.abs(dy)) act(dx>0?'R':'L'); else act(dy>0?'D':'U');};
-
-    // 3D Engine
-    function proj(x,y,z){ const fov=320, scale=fov/(fov+z), curve=(z*z)*0.00015; return {x:c.width/2+x*scale, y:c.height/2+(y-50+curve)*scale, s:scale, v:scale>0&&z>-50}; }
-    function shade(hex,amt){ let c=parseInt(hex.replace('#',''),16); let r=(c>>16)+amt,g=((c>>8)&0xFF)+amt,b=(c&0xFF)+amt; return '#'+(0x1000000+(r<0?0:r>255?255:r)*0x10000+(g<0?0:g>255?255:g)*0x100+(b<0?0:b>255?255:b)).toString(16).slice(1); }
-    function box(x,y,z,w,h,d,col,opts={}){
-      const v=[proj(x-w/2,y-h,z), proj(x+w/2,y-h,z), proj(x+w/2,y,z), proj(x-w/2,y,z), proj(x-w/2,y-h,z+d), proj(x+w/2,y-h,z+d), proj(x+w/2,y,z+d), proj(x-w/2,y,z+d)];
-      if(!v[0].v) return;
-      const sc=shade(col,-20), tc=shade(col,20);
-      ctx.fillStyle=tc; ctx.beginPath(); ctx.moveTo(v[0].x,v[0].y); ctx.lineTo(v[1].x,v[1].y); ctx.lineTo(v[5].x,v[5].y); ctx.lineTo(v[4].x,v[4].y); ctx.fill(); // Top
-      ctx.fillStyle=sc; ctx.beginPath(); if(x<0){ctx.moveTo(v[1].x,v[1].y);ctx.lineTo(v[5].x,v[5].y);ctx.lineTo(v[6].x,v[6].y);ctx.lineTo(v[2].x,v[2].y);} else {ctx.moveTo(v[0].x,v[0].y);ctx.lineTo(v[4].x,v[4].y);ctx.lineTo(v[7].x,v[7].y);ctx.lineTo(v[3].x,v[3].y);} ctx.fill(); // Side
-      ctx.fillStyle=col; ctx.beginPath(); ctx.moveTo(v[0].x,v[0].y); ctx.lineTo(v[1].x,v[1].y); ctx.lineTo(v[2].x,v[2].y); ctx.lineTo(v[3].x,v[3].y); ctx.fill(); // Front
-      if(opts.win){ ctx.fillStyle='#8cf'; ctx.fillRect(v[0].x+4*v[0].s, v[0].y+4*v[0].s, (v[1].x-v[0].x)-8*v[0].s, (v[3].y-v[0].y)*0.4); } // Train Window
-    }
-    function poly(pts,col){ if(pts.some(p=>!p.v))return; ctx.fillStyle=col; ctx.beginPath(); ctx.moveTo(pts[0].x,pts[0].y); for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i].x,pts[i].y); ctx.fill(); }
-
-    function handleEndOfGame(finalScore){
-        let board = JSON.parse(localStorage.getItem('leaderboard_subwaySurfer') || '[]');
-        board.push(finalScore);
-        board.sort((a,b)=>b-a);
-        board.splice(3);
-        localStorage.setItem('leaderboard_subwaySurfer', JSON.stringify(board));
-        let newUnlock = false;
-        skins.forEach(s=>{ if(finalScore >= s.score && !unlockedSkins.includes(s.name)){ unlockedSkins.push(s.name); newUnlock = true; }});
-        if(newUnlock) localStorage.setItem('subwaySurfer_unlockedSkins', JSON.stringify(unlockedSkins));
-        registerScore(game.id, finalScore);
-    }
-
-    function loop(){ 
-      if(state==='menu'){
-        const g=ctx.createLinearGradient(0,0,0,c.height); g.addColorStop(0,'#111'); g.addColorStop(1,'#2c3e50'); ctx.fillStyle=g; ctx.fillRect(0,0,c.width,c.height);
-        ctx.textAlign='center'; ctx.fillStyle='#4facfe'; ctx.font='900 30px sans-serif'; ctx.fillText("SUBWAY SURFER 3D",c.width/2,c.height/2-120);
-        const sk=skins[skinIdx];
-        const isUnlocked = unlockedSkins.includes(sk.name);
-        box(0, 20, 150, 20, 30, 15, isUnlocked ? sk.c : '#222'); box(0, -10, 150, 14, 14, 14, isUnlocked ? sk.h : '#444');
-        ctx.fillStyle='#fff'; ctx.font='bold 20px sans-serif'; ctx.fillText(`< ${sk.name} >`,c.width/2,c.height/2+20);
-        if(isUnlocked){ ctx.fillStyle='#f1c40f'; ctx.font='bold 22px sans-serif'; ctx.fillText("Tap / Up to Start",c.width/2,c.height/2+60); }
-        else { ctx.fillStyle='#e74c3c'; ctx.font='bold 20px sans-serif'; ctx.fillText(`LOCKED`,c.width/2,c.height/2+55); ctx.fillStyle='#fff'; ctx.font='16px sans-serif'; ctx.fillText(`Score ${sk.score} to Unlock`,c.width/2,c.height/2+80); }
-        const board = JSON.parse(localStorage.getItem('leaderboard_subwaySurfer') || '[]');
-        ctx.fillStyle = '#fff'; ctx.font = 'bold 20px sans-serif'; ctx.fillText('High Scores', c.width/2, c.height - 110);
-        ctx.font = '18px sans-serif';
-        if(board.length > 0) board.forEach((s, i) => { ctx.fillText(`${i+1}. ${s}`, c.width/2, c.height - 80 + (i * 22)); });
-        else ctx.fillText('No scores yet!', c.width/2, c.height - 80);
-        requestAnimationFrame(loop); return;
-      }
-      if(state==='play'){
-      speed+=0.0015; score+=0.1*mult; setScore(Math.floor(score)); worldTime+=0.02; coinRot+=0.2;
-      if(p.flyT>0){ p.flyT--; p.y=-70; p.state='fly'; if(p.flyT<=0){p.y=0;p.state='run';} } else { if(p.y<0||p.vy!==0){p.y+=p.vy; p.vy+=0.4; if(p.y>0){p.y=0;p.vy=0;p.state='run';}} }
-      if(p.state==='roll'){p.rollT--; if(p.rollT<=0)p.state='run';} if(p.magT>0)p.magT--; p.x += (lanes[laneIdx]-p.x)*0.25;
-      if(frame++ % Math.floor(1300/speed) === 0){ const r=Math.random(), z=2000; if(r<0.08){ const types=['magnet','jetpack','x2']; const t=types[Math.floor(Math.random()*3)]; objs.push({type:'power', pType:t, x:lanes[Math.floor(Math.random()*3)], y:-20, z, w:12, h:12, d:12}); } else if(r<0.4){ const l=Math.floor(Math.random()*3); objs.push({type:'train', x:lanes[l], y:0, z, w:26, h:36, d:120, speed:speed+3}); } else if(r<0.65){ const l=Math.floor(Math.random()*3), h=Math.random()>0.5; objs.push({type:'barrier', style:h?'high':'low', x:lanes[l], y:0, z, w:24, h:h?30:14, d:5}); } else { const l=Math.floor(Math.random()*3), arc=Math.random()>0.7; for(let i=0;i<(arc?10:5);i++) objs.push({type:'coin', x:lanes[l], y:(arc&&i>2&&i<7)?-45:-8, z:z+i*40, w:8, h:8}); } }
-      objs.forEach(o=>{ o.z -= o.speed||speed; if(o.type==='coin' && p.magT>0 && o.z<600 && o.z>-50){ o.x+=(p.x-o.x)*0.2; o.y+=(p.y-o.y)*0.2; o.z+=(p.z-o.z)*0.2; }
-        if(Math.abs(o.z-p.z)<(o.d/2+10) && Math.abs(o.x-p.x)<(o.w/2+10)){ if(o.type==='coin' && !o.hit){ score+=10; beep(1200,0.02); o.hit=true; for(let i=0;i<4;i++)particles.push({x:o.x,y:o.y,z:o.z,vx:(Math.random()-.5)*10,vy:(Math.random()-.5)*10,life:1,c:'#ffd700'}); } else if(o.type==='power' && !o.hit){ o.hit=true; beep(1500,0.1); if(o.pType==='magnet')p.magT=600; if(o.pType==='jetpack')p.flyT=400; if(o.pType==='x2')mult*=2; const msg=document.createElement('div'); msg.textContent=o.pType.toUpperCase(); msg.style.cssText='position:absolute;top:20%;left:50%;transform:translateX(-50%);color:#fff;font-size:24px;font-weight:bold;text-shadow:0 2px 5px #000;animation:fadeUp 1s forwards;'; area.appendChild(msg); setTimeout(()=>msg.remove(),1000); } else if(!o.hit && (o.type==='train' || o.type==='barrier')){ let crash=true; if(o.type==='barrier' && o.style==='low' && p.y<-15) crash=false; if(o.type==='barrier' && o.style==='high' && p.state==='roll') crash=false; if(crash){ state='over'; beep(100,0.4); handleEndOfGame(Math.floor(score)); } } } });
-      objs=objs.filter(o=>o.z>-100 && !o.hit); objs.sort((a,b)=>b.z-a.z); }
-      const sky=Math.sin(worldTime*0.05)>0?cols.sky:cols.skyN; const grad=ctx.createLinearGradient(0,0,0,c.height); grad.addColorStop(0,sky[0]); grad.addColorStop(1,sky[1]); ctx.fillStyle=grad; ctx.fillRect(0,0,c.width,c.height); ctx.textAlign='left'; ctx.fillStyle=cols.ground; ctx.fillRect(0,c.height/2,c.width,c.height/2);
-      for(let z=0;z<2000;z+=100){ let gz=z-(frame*speed)%100; if(gz<10)continue; lanes.forEach(lx=>poly([proj(lx-12,0,gz),proj(lx+12,0,gz),proj(lx+12,0,gz+15),proj(lx-12,0,gz+15)],cols.sleeper)); }
-      lanes.forEach(lx=>{ poly([proj(lx-9,-1,0),proj(lx-7,-1,0),proj(lx-7,-1,2000),proj(lx-9,-1,2000)],cols.rail); poly([proj(lx+7,-1,0),proj(lx+9,-1,0),proj(lx+9,-1,2000),proj(lx+7,-1,2000)],cols.rail); });
-      objs.forEach(o=>{ if(o.type==='coin'){ const pt=proj(o.x,o.y,o.z); if(pt.v){ const rw=o.w*Math.cos(coinRot+o.z*0.01); ctx.fillStyle=cols.coin; ctx.beginPath(); ctx.ellipse(pt.x,pt.y,Math.abs(rw)*pt.s,o.h*pt.s,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#f1c40f'; ctx.beginPath(); ctx.ellipse(pt.x,pt.y,Math.abs(rw*0.7)*pt.s,o.h*0.7*pt.s,0,0,Math.PI*2); ctx.fill(); } } else if(o.type==='power'){ box(o.x, o.y+Math.sin(frame*0.1)*5, o.z, 12, 12, 12, o.pType==='magnet'?'#e74c3c':(o.pType==='jetpack'?'#3498db':'#9b59b6')); } else if(o.type==='train'){ box(o.x,o.y,o.z,o.w,o.h,o.d,cols.train,{win:true}); } else box(o.x,o.y,o.z,o.w,o.h,o.d,'#555'); });
-      const sh=proj(p.x,0,p.z); if(sh.v){ctx.fillStyle='rgba(0,0,0,0.4)';ctx.beginPath();ctx.ellipse(sh.x,sh.y,12*sh.s,6*sh.s,0,0,Math.PI*2);ctx.fill();} const ph=p.state==='roll'?12:24; const pc=p.magT>0?'#e74c3c':(p.flyT>0?'#3498db':skins[skinIdx].c); box(p.x, p.y, p.z, 14, ph, 8, pc); if(p.state!=='roll'){ box(p.x, p.y-ph, p.z, 8, 8, 8, skins[skinIdx].h); box(p.x, p.y-ph-4, p.z, 8, 2, 10, '#e67e22'); } if(p.flyT>0){ box(p.x-5,p.y-10,p.z+6,4,14,4,'#bdc3c7'); box(p.x+5,p.y-10,p.z+6,4,14,4,'#bdc3c7'); for(let i=0;i<2;i++)particles.push({x:p.x+(i?5:-5),y:p.y,z:p.z+8,vx:0,vy:5,life:0.5,c:'#f39c12'}); }
-      particles.forEach((pt,i)=>{ pt.x+=pt.vx; pt.y+=pt.vy; pt.life-=0.05; const pp=proj(pt.x,pt.y,pt.z); if(pp.v){ ctx.globalAlpha=pt.life; ctx.fillStyle=pt.c; ctx.fillRect(pp.x,pp.y,4*pp.s,4*pp.s); ctx.globalAlpha=1; } if(pt.life<=0)particles.splice(i,1); });
-      ctx.fillStyle='#fff'; ctx.font='bold 20px sans-serif'; ctx.fillText("Score: "+Math.floor(score), 20, 30); if(mult>1) ctx.fillText("x"+mult, 20, 55); if(p.magT>0) ctx.fillText("Magnet", 20, 80);
-      if(state==='over'){ ctx.fillStyle='rgba(0,0,0,0.7)'; ctx.fillRect(0,0,c.width,c.height); ctx.textAlign='center'; ctx.fillStyle='#e74c3c'; ctx.font='bold 40px sans-serif'; ctx.fillText("CRASHED!",c.width/2,c.height/2-30); ctx.fillStyle='#fff'; ctx.font='20px sans-serif'; ctx.fillText("Score: "+Math.floor(score),c.width/2,c.height/2+20); ctx.fillStyle='#f1c40f'; ctx.fillText("Tap to Restart",c.width/2,c.height/2+60); }
-      requestAnimationFrame(loop);
-    } loop();
-  }
     };
 
     window.addEventListener('message', (event)=>{
@@ -608,15 +896,20 @@
       {id: 'pattern-memory', title:'Pattern Memory', icon:'🧷', category:'Extra Mini', desc:'Repeat patterns from memory.', engine:'patternMemory'},
       {id: 'quick-math', title:'Quick Math', icon:'➗', category:'Extra Mini', desc:'Solve math problems fast.', engine:'quickMath'},
       {id: 'escape-box', title:'Escape Box Puzzle', icon:'📦', category:'Extra Mini', desc:'Find the way out by logic choices.', engine:'escapeBox'},
-      {id: 'daily-challenge', title:'Random Daily Challenge', icon:'🌞', category:'Extra Mini', desc:'Different mini challenge everyday.', engine:'dailyChallenge'}
+      {id: 'daily-challenge', title:'Random Daily Challenge', icon:'🌞', category:'Extra Mini', desc:'Different mini challenge everyday.', engine:'dailyChallenge'},
+      {id: 'subway-surfers', title:'Subway Surfers 3D', icon:'🏃', category:'3D Action', desc:'Run through 3D tracks, dodge trains and obstacles.', engine:'subwaySurfers'},
+      {id: 'slope-3d', title:'Slope 3D', icon:'🎾', category:'3D Action', desc:'Roll the ball down 3D slopes, avoid holes.', engine:'slope3D'},
+      {id: 'car-racer-3d', title:'3D Car Racer', icon:'🏎️', category:'3D Racing', desc:'Race cars in 3D tracks with obstacles.', engine:'carRacer3D'}
     ];
 
     const localKey = 'arcadeHubHighScores';
     const achievementsKey = 'arcadeHubAchievements';
     const dailyKey = 'arcadeHubDailyScores';
+    const profileKey = 'arcadeHubProfile';
     let highScores = JSON.parse(localStorage.getItem(localKey) || '{}');
     let achievements = JSON.parse(localStorage.getItem(achievementsKey) || '{}');
     let dailyScores = JSON.parse(localStorage.getItem(dailyKey) || '{}');
+    let playerProfile = JSON.parse(localStorage.getItem(profileKey) || '{}');
     let currentGame = null;
     let gameScore = 0;
     let practiceMode = false;
@@ -626,13 +919,287 @@
     let bossModeScore = 0;
     let timerInterval = null;
     let musicNode = null;
+    let currentRun = { gameId: '', bestScore: -1, counted: false };
+    const bossRules = [
+      {mult:1.2, minScore:40, speedNote:'Fast Spawn'},
+      {mult:1.55, minScore:70, speedNote:'Turbo Pace'},
+      {mult:2.0, minScore:100, speedNote:'No Mercy'}
+    ];
+    const shopCatalog = [
+      { id:'xp-booster', title:'XP Booster', cost:180, type:'xp', value:220, desc:'Instant +220 XP to speed up leveling.', oneTime:false },
+      { id:'unlock-token', title:'Unlock Token', cost:260, type:'unlock', value:1, desc:'Unlock one currently locked game instantly.', oneTime:false },
+      { id:'retro-theme', title:'Retro Theme License', cost:140, type:'theme', value:'retro', desc:'Own and equip the Retro theme.', oneTime:true },
+      { id:'cyber-theme', title:'Cyber Theme License', cost:170, type:'theme', value:'cyber', desc:'Own and equip the Cyber theme.', oneTime:true },
+      { id:'dark-theme', title:'Dark Theme License', cost:190, type:'theme', value:'dark', desc:'Own and equip the Dark theme.', oneTime:true }
+    ];
+    const promoCodes = {
+      'WELCOME100': {type:'coins', amount:100, msg:'Welcome bonus: +100 coins'},
+      'LEVELSURGE': {type:'xp', amount:220, msg:'XP boost: +220 XP'},
+      'FREECYBER': {type:'theme', theme:'cyber', msg:'Unlocked Cyber Theme'},
+      'UNLOCKNOW': {type:'unlock', amount:1, msg:'Unlocked 1 random locked game'}
+    };
+    const questCatalog = [
+      { id:'q-play-3', label:'Play 3 games today', rewardXp:90, rewardCoins:70 },
+      { id:'q-score-150', label:'Hit a score of 150+ once', rewardXp:120, rewardCoins:95 },
+      { id:'q-try-2', label:'Play 2 different games today', rewardXp:80, rewardCoins:60 },
+      { id:'q-shrine-turntable', label:'Build the anime shelf and unlock Shrine Turntable', rewardXp:0, rewardCoins:0, rewardMusicPlayer:'shrine', permanent:true },
+      { id:'q-battle-deck', label:'Reach Lv 7 and score 220+ to unlock Battle Deck', rewardXp:0, rewardCoins:0, rewardMusicPlayer:'arena', permanent:true }
+    ];
+    const spinRewards = [
+      { type:'coins', amount:120, label:'+120 coins' },
+      { type:'xp', amount:180, label:'+180 XP' },
+      { type:'unlock', amount:1, label:'Unlock 1 game' },
+      { type:'coins', amount:220, label:'+220 coins JACKPOT' }
+    ];
+    const animeQuotesByGenre = {
+      'Shonen': ['Dreams do not end when the episode does.', 'Train harder, glow louder, protect your crew.', 'Every comeback starts with one reckless step forward.'],
+      'Seinen': ['Power without purpose is just noise.', 'Cool heads hit harder than loud voices.', 'A quiet rival can still shake the whole world.'],
+      'Shojo': ['The heart notices details before the eyes do.', 'A soft moment can feel more powerful than a battle.', 'The right story makes ordinary days sparkle.'],
+      'Isekai': ['If you landed in another world, make it yours.', 'Every strange world is an invitation to reinvent yourself.', 'Adventure begins the second the map stops making sense.'],
+      'Slice of Life': ['Even small scenes can become favorite memories.', 'Comfort is a kind of magic too.', 'Some of the best arcs are just people being human.'],
+      'Fantasy': ['Magic feels strongest when wonder survives.', 'Every legend starts as a rumor whispered at night.', 'A good fantasy leaves stardust on the floor after you leave.']
+    };
+    const animeDecorCatalog = [
+      { id:'poster-wall', label:'Poster Wall', icon:'🖼️', cost:90, x:18, y:18 },
+      { id:'plushie', label:'Hero Plushie', icon:'🧸', cost:120, x:72, y:92 },
+      { id:'manga-stack', label:'Manga Stack', icon:'📚', cost:80, x:26, y:110 },
+      { id:'katana', label:'Display Katana', icon:'🗡️', cost:150, x:82, y:32 },
+      { id:'lantern', label:'Spirit Lantern', icon:'🏮', cost:110, x:58, y:18 },
+      { id:'arcade', label:'Mini Arcade', icon:'🕹️', cost:170, x:8, y:92 }
+    ];
+    const animeBadgeCatalog = [
+      { id:'otaku-initiate', label:'Otaku Initiate', icon:'🌟', desc:'Set your favorite anime.', check: p => Boolean(p.favoriteAnime) },
+      { id:'collector-core', label:'Collector Core', icon:'🗂️', desc:'Own 3 anime room decor items.', check: p => (p.animeDecorOwned || []).length >= 3 },
+      { id:'quest-slayer', label:'Quest Slayer', icon:'⚔️', desc:'3-day login streak.', check: p => Number(p.streak || 0) >= 3 },
+      { id:'manga-hunter', label:'Manga Hunter', icon:'📚', desc:'Add 3 wishlist items.', check: p => (p.animeWishlist || []).length >= 3 },
+      { id:'arcade-sensei', label:'Arcade Sensei', icon:'🕹️', desc:'Reach level 5.', check: p => Number(p.level || 1) >= 5 },
+      { id:'legendary-fan', label:'Legendary Fan', icon:'👑', desc:'Unlock all basic decor.', check: p => (p.animeDecorOwned || []).length >= animeDecorCatalog.length }
+    ];
+    const animeMusicPlayers = [
+      { id:'pocket', label:'Pocket Cassette', desc:'Soft retro glow for late-night episodes.', cost:0, unlockLevel:1, theme:'night', accent:'#5dd0ff' },
+      { id:'shrine', label:'Shrine Turntable', desc:'Warm shrine tones with ceremonial pulse.', cost:240, unlockLevel:4, theme:'shrine', accent:'#ffd36e' },
+      { id:'arena', label:'Battle Deck', desc:'Sharper peaks for showdown energy.', cost:420, unlockLevel:7, theme:'battle', accent:'#ff6d8a' }
+    ];
+    const seasonalEventCatalog = {
+      spring: {
+        id:'spring',
+        title:'Sakura Season Festival',
+        tagline:'Collect blossoms by building your wishlist.',
+        questLabel:'Spring Festival: Save 5 wishlist titles',
+        badge:{ id:'spring-festival', label:'Sakura Champion', icon:'🌸', desc:'Completed the spring seasonal event.' },
+        decor:{ id:'sakura-lantern', label:'Sakura Lantern', icon:'🌸', cost:0, x:44, y:20 }
+      },
+      summer: {
+        id:'summer',
+        title:'Summer Beach Arc',
+        tagline:'Keep a hot streak and keep playing.',
+        questLabel:'Summer Arc: Play 4 games in one day',
+        badge:{ id:'summer-arc', label:'Beach Arc Hero', icon:'🌊', desc:'Completed the summer seasonal event.' },
+        decor:{ id:'surf-board', label:'Wave Board', icon:'🏄', cost:0, x:64, y:26 }
+      },
+      fall: {
+        id:'fall',
+        title:'Autumn Power-Up',
+        tagline:'Unlock badges and rise through the ranks.',
+        questLabel:'Autumn Arc: Unlock 4 badges',
+        badge:{ id:'autumn-arc', label:'Maple Strategist', icon:'🍁', desc:'Completed the autumn seasonal event.' },
+        decor:{ id:'maple-banner', label:'Maple Banner', icon:'🍁', cost:0, x:34, y:18 }
+      },
+      winter: {
+        id:'winter',
+        title:'Winter Finale',
+        tagline:'Hit level 6 and claim your finale reward.',
+        questLabel:'Winter Finale: Reach level 6',
+        badge:{ id:'winter-finale', label:'Snow Finale Ace', icon:'❄️', desc:'Completed the winter seasonal event.' },
+        decor:{ id:'snow-globe', label:'Snow Globe', icon:'❄️', cost:0, x:54, y:22 }
+      }
+    };
+    const seasonalShopCatalog = {
+      spring: [
+        { id:'spring-petal-xp', title:'Petal XP Cache', cost:170, type:'xp', value:240, desc:'Spring event boost: instant +240 XP.', oneTime:false },
+        { id:'spring-sakura-frame', title:'Sakura Banner Frame', cost:230, type:'collectible', value:'sakura-frame', desc:'Seasonal cosmetic for your fan profile banner.', oneTime:true }
+      ],
+      summer: [
+        { id:'summer-wave-coins', title:'Wave Coin Bundle', cost:150, type:'coins', value:260, desc:'Beach arc payout: +260 coins.', oneTime:false },
+        { id:'summer-surf-frame', title:'Surf Banner Frame', cost:230, type:'collectible', value:'surf-frame', desc:'Seasonal cosmetic for your fan profile banner.', oneTime:true }
+      ],
+      fall: [
+        { id:'fall-maple-xp', title:'Maple XP Cache', cost:190, type:'xp', value:300, desc:'Autumn event boost: +300 XP.', oneTime:false },
+        { id:'fall-maple-frame', title:'Maple Banner Frame', cost:230, type:'collectible', value:'maple-frame', desc:'Seasonal cosmetic for your fan profile banner.', oneTime:true }
+      ],
+      winter: [
+        { id:'winter-frost-coins', title:'Frost Coin Bundle', cost:170, type:'coins', value:290, desc:'Winter finale payout: +290 coins.', oneTime:false },
+        { id:'winter-snow-frame', title:'Snow Banner Frame', cost:230, type:'collectible', value:'snow-frame', desc:'Seasonal cosmetic for your fan profile banner.', oneTime:true }
+      ]
+    };
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     let soundOn = true; let musicOn = false;
+    let animeAmbientNodes = [];
+    let animeVisualizerFrame = 0;
+    let animeVisualizerRaf = null;
     const playerNameInput = document.querySelector('#playerName');
 
+    function todayKey(){ return new Date().toISOString().split('T')[0]; }
+    function yesterdayKey(){ const d=new Date(); d.setDate(d.getDate()-1); return d.toISOString().split('T')[0]; }
+    function getXpForLevel(level){ return 120 + (level-1) * 65; }
     function saveHighScores() { localStorage.setItem(localKey, JSON.stringify(highScores)); }
+    function saveProfile(){ localStorage.setItem(profileKey, JSON.stringify(playerProfile)); }
+    function saveAchievements(){ localStorage.setItem(achievementsKey, JSON.stringify(achievements)); }
+    function formatName() { const n = (playerNameInput.value || '').trim(); return n || 'Player'; }
+    function escapeHtml(v){ return String(v || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-    function formatName() { const n = playerNameInput.value.trim(); return n || 'Player'; }
+    function hydrateProfile() {
+      playerProfile = {
+        name: formatName(),
+        level: Number(playerProfile.level || 1),
+        xp: Number(playerProfile.xp || 0),
+        coins: Number(playerProfile.coins || 0),
+        streak: Number(playerProfile.streak || 0),
+        playStreak: Number(playerProfile.playStreak || 0),
+        lastLoginDate: playerProfile.lastLoginDate || '',
+        lastPlayedDate: playerProfile.lastPlayedDate || '',
+        unlockedGames: Array.isArray(playerProfile.unlockedGames) ? playerProfile.unlockedGames : [],
+        recentlyPlayed: Array.isArray(playerProfile.recentlyPlayed) ? playerProfile.recentlyPlayed : [],
+        gameStats: playerProfile.gameStats || {},
+        dailyChallengeClaimedDate: playerProfile.dailyChallengeClaimedDate || '',
+        loginRewardClaimedDate: playerProfile.loginRewardClaimedDate || '',
+        ownedThemes: Array.isArray(playerProfile.ownedThemes) ? playerProfile.ownedThemes : ['neon'],
+        purchases: playerProfile.purchases || {},
+        redeemedCodes: playerProfile.redeemedCodes || {},
+        questClaims: playerProfile.questClaims || {},
+        spinClaimedDate: playerProfile.spinClaimedDate || '',
+        activityLog: Array.isArray(playerProfile.activityLog) ? playerProfile.activityLog : [],
+        playHistoryDaily: playerProfile.playHistoryDaily || {},
+        favoriteAnime: playerProfile.favoriteAnime || '',
+        animeGenre: playerProfile.animeGenre || 'Shonen',
+        animeWishlist: Array.isArray(playerProfile.animeWishlist) ? playerProfile.animeWishlist : [],
+        animeSearchHistory: Array.isArray(playerProfile.animeSearchHistory) ? playerProfile.animeSearchHistory : [],
+        animeVibe: playerProfile.animeVibe || 'epic',
+        animeWallpaperIndex: Number(playerProfile.animeWallpaperIndex || 0),
+        animeDecorOwned: Array.isArray(playerProfile.animeDecorOwned) ? playerProfile.animeDecorOwned : ['poster-wall'],
+        animeDecorEquipped: Array.isArray(playerProfile.animeDecorEquipped) ? playerProfile.animeDecorEquipped : ['poster-wall'],
+        animeAmbientTheme: playerProfile.animeAmbientTheme || 'off',
+        animeAmbientOn: Boolean(playerProfile.animeAmbientOn),
+        animeBadges: Array.isArray(playerProfile.animeBadges) ? playerProfile.animeBadges : [],
+        animeMusicOwned: Array.isArray(playerProfile.animeMusicOwned) ? playerProfile.animeMusicOwned : ['pocket'],
+        animeMusicEquipped: playerProfile.animeMusicEquipped || 'pocket',
+        animePermanentQuestClaims: playerProfile.animePermanentQuestClaims || {},
+        animeSavedCards: Array.isArray(playerProfile.animeSavedCards) ? playerProfile.animeSavedCards : [],
+        animeBannerCardId: playerProfile.animeBannerCardId || '',
+        seasonalEventId: playerProfile.seasonalEventId || '',
+        seasonalEventClaims: playerProfile.seasonalEventClaims || {},
+        seasonalPurchases: playerProfile.seasonalPurchases || {},
+        seasonalInventory: Array.isArray(playerProfile.seasonalInventory) ? playerProfile.seasonalInventory : []
+      };
+      ensureSeasonalContent();
+      unlockEligibleGames();
+      syncAnimeBadges();
+      saveProfile();
+    }
+
+    function getActiveSeasonalEvent(){
+      const month = new Date().getMonth() + 1;
+      if(month >= 3 && month <= 5) return seasonalEventCatalog.spring;
+      if(month >= 6 && month <= 8) return seasonalEventCatalog.summer;
+      if(month >= 9 && month <= 11) return seasonalEventCatalog.fall;
+      return seasonalEventCatalog.winter;
+    }
+
+    function getSeasonalQuestId(eventId){
+      return 'q-season-' + eventId;
+    }
+
+    function getSeasonEndDate(){
+      const now = new Date();
+      const year = now.getFullYear();
+      const m = now.getMonth() + 1;
+      if(m >= 3 && m <= 5) return new Date(year, 5, 1);
+      if(m >= 6 && m <= 8) return new Date(year, 8, 1);
+      if(m >= 9 && m <= 11) return new Date(year, 11, 1);
+      if(m === 12) return new Date(year + 1, 2, 1);
+      return new Date(year, 2, 1);
+    }
+
+    function getSeasonCountdownText(){
+      const now = new Date();
+      const end = getSeasonEndDate();
+      const diffMs = Math.max(0, end.getTime() - now.getTime());
+      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+      return days + 'd ' + hours + 'h left this season';
+    }
+
+    function getSeasonalShopItems(){
+      const event = getActiveSeasonalEvent();
+      const catalog = seasonalShopCatalog[event.id] || [];
+      const seed = daySeed();
+      const rotated = [...catalog];
+      if(rotated.length > 1){
+        const shift = seed % rotated.length;
+        for(let i=0;i<shift;i++) rotated.push(rotated.shift());
+      }
+      return rotated;
+    }
+
+    function ensureSeasonalContent(){
+      const event = getActiveSeasonalEvent();
+      playerProfile.seasonalEventId = event.id;
+      if(!animeDecorCatalog.some(item=>item.id===event.decor.id)){
+        animeDecorCatalog.push({ ...event.decor });
+      }
+      if(!animeBadgeCatalog.some(item=>item.id===event.badge.id)){
+        animeBadgeCatalog.push({
+          id: event.badge.id,
+          label: event.badge.label,
+          icon: event.badge.icon,
+          desc: event.badge.desc,
+          check: p => Boolean(p.seasonalEventClaims?.[event.id])
+        });
+      }
+      const seasonalQuestId = getSeasonalQuestId(event.id);
+      if(!questCatalog.some(item=>item.id===seasonalQuestId)){
+        questCatalog.push({
+          id: seasonalQuestId,
+          label: event.questLabel,
+          rewardXp: 140,
+          rewardCoins: 120,
+          rewardDecor: event.decor.id,
+          rewardEvent: event.id,
+          permanent: true
+        });
+      }
+    }
+
+    function getSeasonalProgress(event, totalPlays, highestBest){
+      if(!event) return 0;
+      if(event.id === 'spring') return (playerProfile.animeWishlist || []).length >= 5 ? 1 : 0;
+      if(event.id === 'summer') return totalPlays >= 4 ? 1 : 0;
+      if(event.id === 'fall') return (playerProfile.animeBadges || []).length >= 4 ? 1 : 0;
+      if(event.id === 'winter') return Number(playerProfile.level || 1) >= 6 ? 1 : 0;
+      return highestBest >= 180 ? 1 : 0;
+    }
+
+    function pushActivity(text){
+      playerProfile.activityLog = [new Date().toLocaleTimeString() + ' - ' + text, ...playerProfile.activityLog].slice(0,16);
+      saveProfile();
+      renderActivityFeed();
+    }
+
+    function getUnlockLevel(game, idx){
+      const hard = /3D|Shooter|Boss|Surfer|Slope|Racer/i.test(game.title + ' ' + game.category);
+      return hard ? Math.min(14, 3 + Math.floor(idx / 6)) : Math.min(10, 1 + Math.floor(idx / 9));
+    }
+    function isGameUnlocked(game, idx){
+      if(playerProfile.unlockedGames.includes(game.id)) return true;
+      return playerProfile.level >= getUnlockLevel(game, idx);
+    }
+    function unlockEligibleGames(){
+      games.forEach((g, idx)=>{
+        if(playerProfile.level >= getUnlockLevel(g, idx) && !playerProfile.unlockedGames.includes(g.id)){
+          playerProfile.unlockedGames.push(g.id);
+        }
+      });
+    }
 
     function beep(freq=440,dur=0.05, vol=0.15) {
       if(!soundOn) return;
@@ -659,26 +1226,1056 @@
     }
     function stopMusic() { if(musicNode){ musicNode.stop(); musicNode.disconnect(); musicNode=null; }}
 
-    function registerScore(gameId, score) {
-      const name = formatName();
-      if (practiceMode) {
-        showMessage('Practice mode active: score not saved');
+    function stopAnimeAmbient(){
+      animeAmbientNodes.forEach(node=>{ try { node.stop?.(); node.disconnect?.(); } catch {} });
+      animeAmbientNodes = [];
+    }
+
+    function getAnimeRankTitle(){
+      const animeScore = (playerProfile.animeWishlist || []).length * 2 + (playerProfile.animeDecorOwned || []).length + (playerProfile.animeBadges || []).length * 2 + (playerProfile.animeSearchHistory || []).length;
+      const arcadeScore = Number(playerProfile.level || 1) + Math.floor(Number(playerProfile.playStreak || 0) / 2);
+      const total = animeScore + arcadeScore;
+      if(total >= 32) return 'Mythic Otaku';
+      if(total >= 24) return 'Elite Arcane Fan';
+      if(total >= 16) return 'Captain of Vibes';
+      if(total >= 9) return 'Arcade Senpai';
+      return 'Rookie Dreamer';
+    }
+
+    function getEquippedAnimePlayer(){
+      return animeMusicPlayers.find(item=>item.id===playerProfile.animeMusicEquipped) || animeMusicPlayers[0];
+    }
+
+    function buildAnimeFanCardCanvas(){
+      const canvas = document.createElement('canvas');
+      canvas.width = 860;
+      canvas.height = 480;
+      const ctx = canvas.getContext('2d');
+      if(!ctx) return null;
+      const rank = getAnimeRankTitle();
+      const musicPlayer = getEquippedAnimePlayer();
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#0d1730');
+      gradient.addColorStop(1, '#251445');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = 'rgba(140,169,255,0.45)';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(18, 18, canvas.width - 36, canvas.height - 36);
+      ctx.fillStyle = '#f4f8ff';
+      ctx.font = '700 34px Georgia';
+      ctx.fillText('Anime Fan Identity Card', 42, 68);
+      ctx.fillStyle = '#ffd36e';
+      ctx.font = '700 22px Georgia';
+      ctx.fillText(rank, 42, 106);
+      ctx.fillStyle = '#bdd1ff';
+      ctx.font = '20px Georgia';
+      ctx.fillText('Favorite: ' + (playerProfile.favoriteAnime || 'Still choosing'), 42, 154);
+      ctx.fillText('Genre: ' + (playerProfile.animeGenre || 'Shonen'), 42, 188);
+      ctx.fillText('Vibe: ' + (playerProfile.animeVibe || 'epic'), 42, 222);
+      ctx.fillText('Wishlist: ' + (playerProfile.animeWishlist || []).length, 42, 256);
+      ctx.fillText('Decor Owned: ' + (playerProfile.animeDecorOwned || []).length, 42, 290);
+      ctx.fillText('Badges: ' + (playerProfile.animeBadges || []).length, 42, 324);
+      ctx.fillText('Arcade Level: ' + playerProfile.level, 42, 358);
+      ctx.fillText('Music Player: ' + musicPlayer.label, 42, 392);
+      ctx.fillStyle = musicPlayer.accent;
+      ctx.fillRect(560, 118, 210, 210);
+      ctx.fillStyle = '#08101e';
+      ctx.beginPath();
+      ctx.arc(665, 223, 76, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#f4f8ff';
+      ctx.font = '700 28px Georgia';
+      ctx.fillText((playerProfile.favoriteAnime || 'Anime').slice(0, 14), 538, 372);
+      return canvas;
+    }
+
+    function saveAnimeFanCardSnapshot(dataUrl){
+      const snapshot = {
+        id: 'fan-' + Date.now(),
+        image: dataUrl,
+        rank: getAnimeRankTitle(),
+        favorite: playerProfile.favoriteAnime || 'Still choosing',
+        player: getEquippedAnimePlayer().label,
+        savedAt: new Date().toLocaleString()
+      };
+      playerProfile.animeSavedCards = [snapshot, ...(playerProfile.animeSavedCards || [])].slice(0, 6);
+      if(!playerProfile.animeBannerCardId) playerProfile.animeBannerCardId = snapshot.id;
+      saveProfile();
+      renderAnimeFanGallery();
+      renderGlobalFanBanners();
+      renderFanProfile();
+    }
+
+    function getSelectedBannerCard(){
+      const saved = playerProfile.animeSavedCards || [];
+      if(!saved.length) return null;
+      const match = saved.find(item=>item.id===playerProfile.animeBannerCardId);
+      return match || saved[0];
+    }
+
+    function renderGlobalFanBanners(){
+      const banner = getSelectedBannerCard();
+      ['homeFanBanner','scoresFanBanner'].forEach(id=>{
+        const mount = document.getElementById(id);
+        if(!mount) return;
+        if(!banner){
+          mount.innerHTML = '<div style="color:#b8c8ea;font-size:0.86rem;">Save a fan card in Anime Zone to create your global banner.</div>';
+          return;
+        }
+        mount.innerHTML = '<img src="' + escapeHtml(banner.image) + '" alt="Fan banner"><div><strong style="color:#f2f7ff;">' + escapeHtml(formatName()) + ' · ' + escapeHtml(banner.rank) + '</strong><div style="color:#c6d8ff;font-size:0.86rem;">Featured anime: ' + escapeHtml(banner.favorite) + ' · Player: ' + escapeHtml(banner.player) + '</div></div>';
+      });
+    }
+
+    function renderFanProfile(){
+      const summary = document.getElementById('fanProfileSummary');
+      const eventWrap = document.getElementById('fanSeasonalEvent');
+      const bannerPreview = document.getElementById('fanProfileBannerPreview');
+      const gallery = document.getElementById('fanProfileGallery');
+      if(!summary || !eventWrap || !bannerPreview || !gallery) return;
+      const rank = getAnimeRankTitle();
+      summary.innerHTML = '<strong>' + escapeHtml(formatName()) + '</strong><br>Rank: ' + escapeHtml(rank) + '<br>Favorite anime: ' + escapeHtml(playerProfile.favoriteAnime || 'Not set') + '<br>Badges: ' + (playerProfile.animeBadges || []).length + ' · Saved cards: ' + (playerProfile.animeSavedCards || []).length;
+      const event = getActiveSeasonalEvent();
+      const eventClaimed = Boolean(playerProfile.seasonalEventClaims?.[event.id]);
+      eventWrap.innerHTML = '<strong>' + escapeHtml(event.title) + '</strong><div style="margin-top:4px;font-size:0.9rem;">' + escapeHtml(event.tagline) + '</div><div class="seasonal-countdown">' + getSeasonCountdownText() + '</div><div style="margin-top:6px;font-size:0.85rem;color:#d6e6ff;">Status: ' + (eventClaimed ? 'Completed' : 'In Progress') + '</div>';
+      const banner = getSelectedBannerCard();
+      if(!banner){
+        bannerPreview.innerHTML = '<div style="color:#b8c8ea;font-size:0.86rem;">No banner yet. Save a fan card first.</div>';
       } else {
-        if (!highScores[gameId] || score > highScores[gameId].score) {
-          highScores[gameId] = {score, name, date: new Date().toLocaleString()};
-          saveHighScores(); showHighScores();
+        bannerPreview.innerHTML = '<div class="fan-banner" style="margin-top:0;"><img src="' + escapeHtml(banner.image) + '" alt="Banner preview"><div><strong style="color:#f2f7ff;">Current Banner</strong><div style="color:#c6d8ff;font-size:0.86rem;">' + escapeHtml(banner.favorite) + ' · ' + escapeHtml(banner.rank) + '</div></div></div>';
+      }
+      const saved = playerProfile.animeSavedCards || [];
+      if(!saved.length){
+        gallery.innerHTML = '<div style="color:#b8c8ea;font-size:0.86rem;">No saved fan cards yet.</div>';
+      } else {
+        gallery.innerHTML = '';
+        saved.forEach(item=>{
+          const node = document.createElement('div');
+          node.className = 'fan-profile-item';
+          node.innerHTML = '<img src="' + escapeHtml(item.image) + '" alt="Saved fan card"><div style="margin-top:6px;color:#dce8ff;font-size:0.85rem;">' + escapeHtml(item.rank) + ' · ' + escapeHtml(item.favorite) + '</div><button data-set-banner="' + item.id + '">' + (playerProfile.animeBannerCardId === item.id ? 'Banner Equipped' : 'Set as Banner') + '</button>';
+          const btn = node.querySelector('button');
+          btn.disabled = playerProfile.animeBannerCardId === item.id;
+          gallery.appendChild(node);
+        });
+      }
+    }
+
+    function buySeasonalItem(itemId){
+      const item = getSeasonalShopItems().find(v=>v.id===itemId);
+      if(!item) return;
+      if(item.oneTime && playerProfile.seasonalPurchases[item.id]){
+        showMessage('You already own ' + item.title + '.');
+        return;
+      }
+      if(Number(playerProfile.coins || 0) < item.cost){
+        showMessage('Not enough coins for ' + item.title + '.');
+        return;
+      }
+      playerProfile.coins -= item.cost;
+      if(item.type === 'xp') addXpAndCoins(item.value, 0);
+      if(item.type === 'coins') addXpAndCoins(0, item.value);
+      if(item.type === 'collectible' && !playerProfile.seasonalInventory.includes(item.value)){
+        playerProfile.seasonalInventory.push(item.value);
+      }
+      playerProfile.seasonalPurchases[item.id] = (playerProfile.seasonalPurchases[item.id] || 0) + 1;
+      saveProfile();
+      renderProfilePanel();
+      renderSeasonalShop();
+      renderFanProfile();
+      showMessage('Purchased seasonal item: ' + item.title);
+      pushActivity('Bought seasonal shop item: ' + item.title);
+    }
+
+    function renderSeasonalShop(){
+      const meta = document.getElementById('seasonalShopMeta');
+      const grid = document.getElementById('seasonalShopGrid');
+      if(!meta || !grid) return;
+      const event = getActiveSeasonalEvent();
+      const items = getSeasonalShopItems();
+      meta.textContent = event.title + ' | ' + getSeasonCountdownText();
+      grid.innerHTML = '';
+      items.forEach(item=>{
+        const owned = Boolean(item.oneTime && playerProfile.seasonalPurchases[item.id]);
+        const afford = Number(playerProfile.coins || 0) >= item.cost;
+        const card = document.createElement('div');
+        card.className = 'shop-item';
+        card.innerHTML = '<h4>' + item.title + '<span class="shop-badge">Seasonal</span></h4><p>' + item.desc + '</p><button>' + (owned ? 'Owned' : ('Buy (' + item.cost + ' coins)')) + '</button>';
+        const btn = card.querySelector('button');
+        btn.disabled = owned || !afford;
+        btn.addEventListener('click', ()=>buySeasonalItem(item.id));
+        grid.appendChild(card);
+      });
+    }
+
+    function stopAnimeVisualizer(){
+      if(animeVisualizerRaf) cancelAnimationFrame(animeVisualizerRaf);
+      animeVisualizerRaf = null;
+      const canvas = document.getElementById('animeVisualizer');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if(!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function drawAnimeVisualizer(){
+      const canvas = document.getElementById('animeVisualizer');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if(!ctx) return;
+      const player = animeMusicPlayers.find(item=>item.id===playerProfile.animeMusicEquipped) || animeMusicPlayers[0];
+      const accent = player.accent;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const bg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      bg.addColorStop(0, 'rgba(15,25,48,0.95)');
+      bg.addColorStop(1, 'rgba(5,9,18,0.98)');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for(let i=0;i<28;i++){
+        const wave = Math.sin(animeVisualizerFrame * 0.06 + i * 0.62);
+        const pulse = playerProfile.animeAmbientOn ? 0.56 : 0.22;
+        const h = 12 + Math.abs(wave) * (canvas.height - 24) * pulse + (i % 3) * 4;
+        const x = 12 + i * ((canvas.width - 34) / 28);
+        ctx.fillStyle = accent;
+        ctx.globalAlpha = 0.18 + Math.abs(wave) * 0.62;
+        ctx.fillRect(x, canvas.height - h - 8, 10, h);
+      }
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = accent;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for(let i=0;i<=36;i++){
+        const x = (i / 36) * canvas.width;
+        const y = canvas.height * 0.45 + Math.sin(animeVisualizerFrame * 0.04 + i * 0.45) * (playerProfile.animeAmbientOn ? 12 : 5);
+        if(i===0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      animeVisualizerFrame += 1;
+      animeVisualizerRaf = requestAnimationFrame(drawAnimeVisualizer);
+    }
+
+    function startAnimeVisualizer(){
+      stopAnimeVisualizer();
+      animeVisualizerRaf = requestAnimationFrame(drawAnimeVisualizer);
+    }
+
+    function startAnimeAmbient(){
+      stopAnimeAmbient();
+      if(!playerProfile.animeAmbientOn || playerProfile.animeAmbientTheme === 'off') return;
+      const theme = playerProfile.animeAmbientTheme;
+      const defs = {
+        shrine: { type:'sine', base:432, mod:18, gain:0.012 },
+        night: { type:'triangle', base:210, mod:9, gain:0.01 },
+        battle: { type:'sawtooth', base:128, mod:24, gain:0.008 }
+      };
+      const def = defs[theme] || defs.shrine;
+      for(let i=0;i<2;i++){
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = def.type;
+        osc.frequency.value = def.base + i * 24;
+        gain.gain.value = def.gain;
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        animeAmbientNodes.push(osc, gain);
+      }
+      const tick = ()=>{
+        if(!animeAmbientNodes.length || !playerProfile.animeAmbientOn) return;
+        animeAmbientNodes.forEach((node, idx)=>{
+          if(node.frequency) node.frequency.value = def.base + Math.sin(Date.now() / (theme==='battle' ? 280 : 820) + idx) * def.mod + (idx * 18);
+        });
+        requestAnimationFrame(tick);
+      };
+      tick();
+      startAnimeVisualizer();
+    }
+
+    function syncAnimeBadges(){
+      playerProfile.animeBadges = animeBadgeCatalog.filter(b=>b.check(playerProfile)).map(b=>b.id);
+    }
+
+    function renderAnimeMusicPlayers(){
+      const grid = document.getElementById('animeMusicPlayerGrid');
+      if(!grid) return;
+      grid.innerHTML = '';
+      animeMusicPlayers.forEach(player=>{
+        const owned = (playerProfile.animeMusicOwned || []).includes(player.id);
+        const equipped = playerProfile.animeMusicEquipped === player.id;
+        const lockedByLevel = Number(playerProfile.level || 1) < player.unlockLevel;
+        const card = document.createElement('div');
+        card.className = 'music-player-card';
+        card.innerHTML = '<div style="font-weight:800;color:' + player.accent + ';">' + player.label + '</div><div style="font-size:0.82rem;color:#aec6ff;margin-top:4px;">' + player.desc + '</div><div style="font-size:0.76rem;color:#7ea3db;margin-top:6px;">Theme: ' + player.theme + '</div><button data-music-player="' + player.id + '">' + (owned ? (equipped ? 'Equipped' : 'Equip') : (lockedByLevel ? ('Reach Lv ' + player.unlockLevel) : ('Buy for ' + player.cost + ' coins'))) + '</button>';
+        const btn = card.querySelector('button');
+        btn.disabled = equipped;
+        grid.appendChild(card);
+      });
+      startAnimeVisualizer();
+    }
+
+    function handleAnimeMusicPlayer(playerId){
+      const player = animeMusicPlayers.find(item=>item.id===playerId);
+      if(!player) return;
+      const owned = (playerProfile.animeMusicOwned || []).includes(playerId);
+      if(!owned){
+        if(Number(playerProfile.level || 1) < player.unlockLevel){
+          showMessage('Reach level ' + player.unlockLevel + ' to unlock ' + player.label + '.');
+          return;
+        }
+        if(Number(playerProfile.coins || 0) < player.cost){
+          showMessage('Not enough coins for ' + player.label + '.');
+          return;
+        }
+        playerProfile.coins -= player.cost;
+        playerProfile.animeMusicOwned.push(playerId);
+        pushActivity('Unlocked the ' + player.label + ' music player.');
+      }
+      playerProfile.animeMusicEquipped = playerId;
+      playerProfile.animeAmbientTheme = player.theme;
+      saveProfile();
+      if(playerProfile.animeAmbientOn) startAnimeAmbient(); else startAnimeVisualizer();
+      renderProfilePanel();
+      renderAnimeLounge();
+    }
+
+    function addXpAndCoins(xpGain, coinGain){
+      playerProfile.xp += xpGain;
+      playerProfile.coins += coinGain;
+      let leveledUp = 0;
+      while(playerProfile.xp >= getXpForLevel(playerProfile.level)){
+        playerProfile.xp -= getXpForLevel(playerProfile.level);
+        playerProfile.level++;
+        leveledUp++;
+      }
+      if(leveledUp > 0){
+        unlockEligibleGames();
+        syncAnimeBadges();
+        showMessage('Level up! +' + leveledUp + ' level(s) gained.');
+        pushActivity('Leveled up to ' + playerProfile.level);
+        document.body.classList.add('achievement-blink');
+      }
+      saveProfile();
+      renderProfilePanel();
+      renderGameGrid();
+    }
+
+    function ensureDailyLoginReward(){
+      const today = todayKey();
+      if(playerProfile.loginRewardClaimedDate === today) return;
+      const wasYesterday = playerProfile.lastLoginDate === yesterdayKey();
+      playerProfile.streak = wasYesterday ? playerProfile.streak + 1 : 1;
+      const rewardCoins = 30 + playerProfile.streak * 8;
+      const rewardXp = 25 + playerProfile.streak * 4;
+      playerProfile.loginRewardClaimedDate = today;
+      playerProfile.lastLoginDate = today;
+      addXpAndCoins(rewardXp, rewardCoins);
+      saveProfile();
+      showMessage('Daily login reward: +' + rewardCoins + ' coins and +' + rewardXp + ' XP. Streak day ' + playerProfile.streak + '.');
+      pushActivity('Claimed daily login reward (' + rewardCoins + ' coins)');
+    }
+
+    function getQuestProgress(){
+      const today = todayKey();
+      const todaysPlays = playerProfile.playHistoryDaily[today] || [];
+      const totalPlays = todaysPlays.length;
+      const uniquePlays = new Set(todaysPlays).size;
+      const highestBest = Object.values(playerProfile.gameStats || {}).reduce((m,v)=>Math.max(m, Number(v.best||0)), 0);
+      const event = getActiveSeasonalEvent();
+      const seasonalQuestId = getSeasonalQuestId(event.id);
+      return {
+        'q-play-3': Math.min(3, totalPlays),
+        'q-score-150': Math.min(1, highestBest >= 150 ? 1 : 0),
+        'q-try-2': Math.min(2, uniquePlays),
+        'q-shrine-turntable': playerProfile.favoriteAnime && (playerProfile.animeWishlist || []).length >= 4 ? 1 : 0,
+        'q-battle-deck': Number(playerProfile.level || 1) >= 7 && highestBest >= 220 ? 1 : 0,
+        [seasonalQuestId]: getSeasonalProgress(event, totalPlays, highestBest)
+      };
+    }
+
+    function questTarget(id){
+      if(id === 'q-play-3') return 3;
+      if(id === 'q-score-150') return 1;
+      if(id === 'q-try-2') return 2;
+      if(id === 'q-shrine-turntable') return 1;
+      if(id === 'q-battle-deck') return 1;
+      if(id.startsWith('q-season-')) return 1;
+      return 1;
+    }
+
+    function hasClaimedQuest(questId){
+      const quest = questCatalog.find(q=>q.id===questId);
+      if(!quest) return false;
+      if(quest.permanent) return Boolean(playerProfile.animePermanentQuestClaims?.[questId]);
+      const today = todayKey();
+      return Boolean(playerProfile.questClaims?.[today]?.[questId]);
+    }
+
+    function claimQuest(questId){
+      const today = todayKey();
+      playerProfile.questClaims[today] = playerProfile.questClaims[today] || {};
+      if(hasClaimedQuest(questId)){ showMessage('Quest already claimed.'); return; }
+      const progress = getQuestProgress();
+      if((progress[questId] || 0) < questTarget(questId)){ showMessage('Quest not completed yet.'); return; }
+      const quest = questCatalog.find(q=>q.id===questId);
+      if(!quest) return;
+      if(quest.permanent){
+        playerProfile.animePermanentQuestClaims[questId] = true;
+      } else {
+        playerProfile.questClaims[today][questId] = true;
+      }
+      if(quest.rewardMusicPlayer){
+        if(!playerProfile.animeMusicOwned.includes(quest.rewardMusicPlayer)){
+          playerProfile.animeMusicOwned.push(quest.rewardMusicPlayer);
         }
       }
+      if(quest.rewardDecor && !playerProfile.animeDecorOwned.includes(quest.rewardDecor)){
+        playerProfile.animeDecorOwned.push(quest.rewardDecor);
+        playerProfile.animeDecorEquipped.push(quest.rewardDecor);
+      }
+      if(quest.rewardEvent){
+        playerProfile.seasonalEventClaims[quest.rewardEvent] = todayKey();
+      }
+      if(quest.rewardXp || quest.rewardCoins){
+        addXpAndCoins(quest.rewardXp, quest.rewardCoins);
+      }
+      syncAnimeBadges();
+      saveProfile();
+      renderQuestBoard();
+      renderAnimeLounge();
+      renderFanProfile();
+      if(quest.rewardMusicPlayer){
+        const player = animeMusicPlayers.find(item=>item.id===quest.rewardMusicPlayer);
+        showMessage('Quest claimed: unlocked ' + (player?.label || 'a music player') + '.');
+        pushActivity('Unlocked music player via quest: ' + (player?.label || quest.rewardMusicPlayer));
+      } else if(quest.rewardDecor){
+        showMessage('Quest claimed: seasonal reward unlocked.');
+      } else {
+        showMessage('Quest claimed: +' + quest.rewardXp + ' XP, +' + quest.rewardCoins + ' coins.');
+      }
+      pushActivity('Claimed quest: ' + quest.label);
+    }
+
+    function renderQuestBoard(){
+      const board = document.getElementById('questBoard');
+      const spinStatus = document.getElementById('spinStatus');
+      const spinBtn = document.getElementById('dailySpinBtn');
+      if(!board || !spinStatus || !spinBtn) return;
+      const today = todayKey();
+      const claims = playerProfile.questClaims[today] || {};
+      const progress = getQuestProgress();
+      board.innerHTML = '';
+      questCatalog.forEach(q=>{
+        const current = progress[q.id] || 0;
+        const target = questTarget(q.id);
+        const done = current >= target;
+        const claimed = q.permanent ? Boolean(playerProfile.animePermanentQuestClaims?.[q.id]) : Boolean(claims[q.id]);
+        const rewardText = q.rewardMusicPlayer
+          ? ('Reward: ' + (animeMusicPlayers.find(item=>item.id===q.rewardMusicPlayer)?.label || 'Music Player'))
+          : ('Reward: +' + q.rewardXp + ' XP, +' + q.rewardCoins + ' coins');
+        const item = document.createElement('div');
+        item.className = 'quest-item';
+        item.innerHTML = '<div><strong>' + q.label + '</strong><div style="font-size:0.82rem;color:#b6c7e7;">Progress: ' + current + '/' + target + ' | ' + rewardText + (q.permanent ? ' | Permanent' : '') + '</div></div><button>' + (claimed ? 'Claimed' : 'Claim') + '</button>';
+        const btn = item.querySelector('button');
+        btn.disabled = claimed || !done;
+        btn.addEventListener('click', ()=>claimQuest(q.id));
+        board.appendChild(item);
+      });
+      const canSpin = playerProfile.spinClaimedDate !== today;
+      spinStatus.textContent = canSpin ? 'Daily Spin available now.' : 'Daily Spin already claimed today.';
+      spinBtn.disabled = !canSpin;
+    }
+
+    function claimDailySpin(){
+      const today = todayKey();
+      if(playerProfile.spinClaimedDate === today){ showMessage('Daily spin already used today.'); return; }
+      const reward = spinRewards[daySeed() % spinRewards.length];
+      if(reward.type === 'coins') addXpAndCoins(0, reward.amount);
+      if(reward.type === 'xp') addXpAndCoins(reward.amount, 0);
+      if(reward.type === 'unlock') unlockRandomLockedGames(reward.amount || 1);
+      playerProfile.spinClaimedDate = today;
+      saveProfile();
+      renderQuestBoard();
+      renderGameGrid();
+      showMessage('Daily Spin reward: ' + reward.label);
+      pushActivity('Claimed Daily Spin reward (' + reward.label + ')');
+    }
+
+    function renderActivityFeed(){
+      const feed = document.getElementById('activityFeed');
+      if(!feed) return;
+      const logs = playerProfile.activityLog || [];
+      if(!logs.length){
+        feed.innerHTML = '<div class="feed-item">No activity yet. Play games, claim quests, spin, or shop.</div>';
+        return;
+      }
+      feed.innerHTML = '';
+      logs.slice(0,10).forEach(line=>{
+        const item = document.createElement('div');
+        item.className = 'feed-item';
+        item.textContent = line;
+        feed.appendChild(item);
+      });
+    }
+
+    function recordAnimeSearch(title){
+      const clean = String(title || '').trim();
+      if(!clean) return;
+      playerProfile.animeSearchHistory = [clean, ...playerProfile.animeSearchHistory.filter(v=>v.toLowerCase()!==clean.toLowerCase())].slice(0,10);
+      saveProfile();
+    }
+
+    async function fetchAnimeCover(title){
+      try {
+        const res = await fetch('https://api.jikan.moe/v4/anime?q=' + encodeURIComponent(title) + '&limit=1');
+        if(!res.ok) return null;
+        const data = await res.json();
+        const first = data?.data?.[0];
+        if(!first) return null;
+        return {
+          id: first.mal_id,
+          image: first.images?.jpg?.large_image_url || first.images?.jpg?.image_url,
+          synopsis: first.synopsis || 'No synopsis available.',
+          title: first.title || title,
+          score: first.score || 'N/A'
+        };
+      } catch {
+        return null;
+      }
+    }
+
+    async function fetchAnimePicks(title){
+      try {
+        const q = encodeURIComponent(title + ' manga light novel');
+        const res = await fetch('https://www.googleapis.com/books/v1/volumes?q=' + q + '&maxResults=8&printType=books');
+        if(!res.ok) return [];
+        const data = await res.json();
+        return (data.items || []).map(item=>({
+          id: item.id,
+          title: item.volumeInfo?.title || 'Untitled',
+          authors: (item.volumeInfo?.authors || []).join(', ') || 'Unknown',
+          link: item.volumeInfo?.infoLink || '#'
+        }));
+      } catch {
+        return [];
+      }
+    }
+
+    async function fetchAnimeGallery(animeId){
+      if(!animeId) return [];
+      try {
+        const [picsRes, charsRes] = await Promise.all([
+          fetch('https://api.jikan.moe/v4/anime/' + animeId + '/pictures'),
+          fetch('https://api.jikan.moe/v4/anime/' + animeId + '/characters')
+        ]);
+        const picsData = picsRes.ok ? await picsRes.json() : { data: [] };
+        const charsData = charsRes.ok ? await charsRes.json() : { data: [] };
+        const picItems = (picsData.data || []).slice(0, 4).map((item, idx)=>(
+          { image: item.jpg?.large_image_url || item.jpg?.image_url, label: 'Scene ' + (idx + 1), link: item.jpg?.large_image_url || item.jpg?.image_url }
+        ));
+        const charItems = (charsData.data || []).slice(0, 4).map((item)=>(
+          { image: item.character?.images?.jpg?.image_url, label: item.character?.name || 'Character', link: item.character?.url || '#' }
+        ));
+        return [...picItems, ...charItems].filter(v=>v.image).slice(0, 8);
+      } catch {
+        return [];
+      }
+    }
+
+    function renderAnimeGallery(items){
+      const grid = document.getElementById('animeGalleryGrid');
+      if(!grid) return;
+      if(!items.length){
+        grid.innerHTML = '<div style="color:#b8c8ea;">No cool pictures found right now.</div>';
+        return;
+      }
+      grid.innerHTML = '';
+      items.forEach(item=>{
+        const card = document.createElement('div');
+        card.className = 'anime-gallery-card';
+        card.innerHTML = '<img src="' + escapeHtml(item.image) + '" alt="Anime image"><a target="_blank" rel="noopener" href="' + escapeHtml(item.link) + '">' + escapeHtml(item.label) + '</a>';
+        grid.appendChild(card);
+      });
+    }
+
+    function getAnimeQuotes(){
+      return animeQuotesByGenre[playerProfile.animeGenre] || animeQuotesByGenre['Shonen'];
+    }
+
+    function renderAnimeQuote(){
+      const el = document.getElementById('animeQuoteText');
+      if(!el) return;
+      const quotes = getAnimeQuotes();
+      const idx = (daySeed() + Math.floor(Math.random() * quotes.length)) % quotes.length;
+      el.textContent = quotes[idx];
+    }
+
+    function renderAnimeFloaters(){
+      const wrap = document.getElementById('animeStageFloaters');
+      if(!wrap) return;
+      const sets = {
+        epic:['⚔️','🔥','⭐'],
+        cozy:['🌸','☁️','💮'],
+        chaos:['💥','⚡','🌀']
+      };
+      const icons = sets[playerProfile.animeVibe] || sets.epic;
+      wrap.innerHTML = '';
+      icons.forEach((icon, idx)=>{
+        const node = document.createElement('div');
+        node.className = 'anime-floater';
+        node.style.left = (12 + idx * 28) + '%';
+        node.style.top = (12 + (idx % 2) * 28) + '%';
+        node.style.animationDelay = (idx * 1.2) + 's';
+        node.textContent = icon;
+        wrap.appendChild(node);
+      });
+    }
+
+    function renderAnimeStage(images){
+      const stage = document.getElementById('animeWallpaperStage');
+      const thumbs = document.getElementById('animeWallpaperThumbs');
+      const title = document.getElementById('animeStageTitle');
+      const tag = document.getElementById('animeStageTagline');
+      const controls = document.getElementById('animeVibeControls');
+      if(!stage || !thumbs || !title || !tag || !controls) return;
+      const vibeCopy = {
+        epic: 'Big energy, hero frames, main-character atmosphere.',
+        cozy: 'Warm tones, calm scenes, comfort-arc feelings.',
+        chaos: 'Loud colors, wild moments, full fan-brain mode.'
+      };
+      title.textContent = (playerProfile.favoriteAnime || 'Anime') + ' Wallpaper Stage';
+      tag.textContent = vibeCopy[playerProfile.animeVibe] || vibeCopy.epic;
+      stage.dataset.vibe = playerProfile.animeVibe;
+      stage.dataset.player = playerProfile.animeMusicEquipped || 'pocket';
+      controls.querySelectorAll('button').forEach(btn=>btn.classList.toggle('active', btn.dataset.vibe === playerProfile.animeVibe));
+      const list = images.length ? images : [{ image:'', label:'Default' }];
+      const safeIndex = Math.max(0, Math.min(playerProfile.animeWallpaperIndex, list.length - 1));
+      playerProfile.animeWallpaperIndex = safeIndex;
+      const active = list[safeIndex];
+      if(active?.image){
+        stage.style.backgroundImage = 'url("' + active.image.replace(/"/g, '%22') + '")';
+      } else {
+        stage.style.backgroundImage = 'linear-gradient(135deg, rgba(32,59,103,0.95), rgba(9,16,31,0.95))';
+      }
+      renderAnimeFloaters();
+      thumbs.innerHTML = '';
+      list.slice(0, 6).forEach((item, idx)=>{
+        const btn = document.createElement('button');
+        btn.title = item.label || ('Wallpaper ' + (idx + 1));
+        btn.innerHTML = item.image ? '<img src="' + escapeHtml(item.image) + '" alt="Wallpaper thumb">' : '<span style="font-size:.75rem;color:#dbe7ff;">Default</span>';
+        btn.addEventListener('click', ()=>{
+          playerProfile.animeWallpaperIndex = idx;
+          saveProfile();
+          renderAnimeStage(list);
+        });
+        thumbs.appendChild(btn);
+      });
+    }
+
+    function renderAnimeRoom(){
+      const stage = document.getElementById('animeRoomStage');
+      const grid = document.getElementById('animeRoomDecorGrid');
+      if(!stage || !grid) return;
+      stage.dataset.player = playerProfile.animeMusicEquipped || 'pocket';
+      stage.querySelectorAll('.room-item').forEach(node=>node.remove());
+      animeDecorCatalog.forEach(item=>{
+        if(playerProfile.animeDecorEquipped.includes(item.id)){
+          const node = document.createElement('div');
+          node.className = 'room-item';
+          node.style.left = item.x + '%';
+          node.style.top = item.y + '%';
+          node.textContent = item.icon;
+          stage.appendChild(node);
+        }
+      });
+      grid.innerHTML = '';
+      animeDecorCatalog.forEach(item=>{
+        const owned = playerProfile.animeDecorOwned.includes(item.id);
+        const equipped = playerProfile.animeDecorEquipped.includes(item.id);
+        const afford = playerProfile.coins >= item.cost;
+        const card = document.createElement('div');
+        card.className = 'room-decor-card';
+        card.innerHTML = '<strong>' + item.icon + ' ' + item.label + '</strong><div style="margin-top:6px;color:#b8c8ea;font-size:0.82rem;">' + (owned ? (equipped ? 'Equipped in room' : 'Owned collectible') : ('Unlock for ' + item.cost + ' coins')) + '</div><button>' + (owned ? (equipped ? 'Unequip' : 'Equip') : 'Unlock') + '</button>';
+        const btn = card.querySelector('button');
+        btn.disabled = !owned && !afford;
+        btn.addEventListener('click', ()=>{
+          if(!owned){
+            playerProfile.coins -= item.cost;
+            playerProfile.animeDecorOwned.push(item.id);
+            playerProfile.animeDecorEquipped.push(item.id);
+            syncAnimeBadges();
+            saveProfile();
+            renderProfilePanel();
+            renderAnimeRoom();
+            renderAnimeBadges();
+            renderAnimeFanCard();
+            pushActivity('Unlocked anime room decor: ' + item.label);
+            return;
+          }
+          if(equipped){
+            playerProfile.animeDecorEquipped = playerProfile.animeDecorEquipped.filter(id=>id!==item.id);
+          } else {
+            playerProfile.animeDecorEquipped.push(item.id);
+          }
+          saveProfile();
+          renderAnimeRoom();
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    function renderAnimeBadges(){
+      const shelf = document.getElementById('animeBadgeShelf');
+      if(!shelf) return;
+      syncAnimeBadges();
+      shelf.innerHTML = '';
+      animeBadgeCatalog.forEach(badge=>{
+        const unlocked = playerProfile.animeBadges.includes(badge.id);
+        const card = document.createElement('div');
+        card.className = 'badge-card' + (unlocked ? '' : ' locked');
+        card.innerHTML = '<div style="font-size:1.4rem;">' + badge.icon + '</div><strong>' + badge.label + '</strong><div style="margin-top:6px;color:#b8c8ea;font-size:0.8rem;">' + badge.desc + '</div>';
+        shelf.appendChild(card);
+      });
+    }
+
+    function renderAnimeFanCard(){
+      const card = document.getElementById('animeFanCard');
+      if(!card) return;
+      const wishlistCount = (playerProfile.animeWishlist || []).length;
+      const decorCount = (playerProfile.animeDecorOwned || []).length;
+      const badgeCount = (playerProfile.animeBadges || []).length;
+      const identity = playerProfile.favoriteAnime ? (playerProfile.favoriteAnime + ' Loyalist') : 'Anime Rookie';
+      const rank = getAnimeRankTitle();
+      card.innerHTML = '<div class="fan-card-title">Fan Identity Card</div><div style="margin-top:6px;color:#b8c8ea;font-size:0.86rem;">' + escapeHtml(formatName()) + ' | ' + escapeHtml(identity) + '</div><div style="margin-top:6px;font-size:0.82rem;color:#ffd36e;letter-spacing:.08em;text-transform:uppercase;">' + escapeHtml(rank) + '</div><div style="margin-top:4px;color:#dce8ff;font-size:0.92rem;">Genre: ' + escapeHtml(playerProfile.animeGenre || 'Shonen') + ' | Vibe: ' + escapeHtml(playerProfile.animeVibe || 'epic') + '</div><div class="fan-card-grid"><div class="fan-metric"><span>Badges</span><strong style="display:block;margin-top:4px;">' + badgeCount + '</strong></div><div class="fan-metric"><span>Decor</span><strong style="display:block;margin-top:4px;">' + decorCount + '</strong></div><div class="fan-metric"><span>Wishlist</span><strong style="display:block;margin-top:4px;">' + wishlistCount + '</strong></div><div class="fan-metric"><span>Arcade Level</span><strong style="display:block;margin-top:4px;">' + playerProfile.level + '</strong></div></div><div class="fan-card-actions"><button id="saveFanCardBtn">Save Card</button><button id="shareFanCardBtn">Copy Summary</button></div>';
+    }
+
+    function renderAnimeFanGallery(){
+      const wrap = document.getElementById('animeFanGallery');
+      if(!wrap) return;
+      const saved = playerProfile.animeSavedCards || [];
+      if(!saved.length){
+        wrap.innerHTML = '<div style="color:#b8c8ea;font-size:0.84rem;">Save a fan card to start your gallery.</div>';
+        return;
+      }
+      wrap.innerHTML = '';
+      saved.forEach(item=>{
+        const card = document.createElement('div');
+        card.className = 'fan-gallery-card';
+        card.innerHTML = '<img src="' + escapeHtml(item.image) + '" alt="Saved fan card"><strong style="display:block;margin-top:8px;">' + escapeHtml(item.rank) + '</strong><div style="margin-top:4px;color:#dce8ff;font-size:0.84rem;">' + escapeHtml(item.favorite) + ' · ' + escapeHtml(item.player) + '</div><time>' + escapeHtml(item.savedAt) + '</time><button data-fan-card-download="' + item.id + '">Download Again</button><button data-set-banner="' + item.id + '">' + (playerProfile.animeBannerCardId === item.id ? 'Banner Equipped' : 'Set as Banner') + '</button>';
+        wrap.appendChild(card);
+      });
+    }
+
+    function exportAnimeFanCard(){
+      const canvas = buildAnimeFanCardCanvas();
+      if(!canvas) return;
+      const dataUrl = canvas.toDataURL('image/png');
+      saveAnimeFanCardSnapshot(dataUrl);
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'anime-fan-card.png';
+      link.click();
+      showMessage('Saved your Anime Fan Identity Card and added it to the gallery.');
+    }
+
+    async function copyAnimeFanSummary(){
+      const summary = 'Anime Fan Card | ' + getAnimeRankTitle() + ' | Favorite: ' + (playerProfile.favoriteAnime || 'Still choosing') + ' | Vibe: ' + (playerProfile.animeVibe || 'epic') + ' | Wishlist: ' + (playerProfile.animeWishlist || []).length + ' | Badges: ' + (playerProfile.animeBadges || []).length + ' | Arcade Level: ' + playerProfile.level;
+      try {
+        await navigator.clipboard.writeText(summary);
+        showMessage('Fan card summary copied to clipboard.');
+      } catch {
+        showMessage('Clipboard copy failed on this browser.');
+      }
+    }
+
+    function renderAnimeSpotlight(items){
+      const wrap = document.getElementById('animeSpotlight');
+      if(!wrap) return;
+      if(!items.length){
+        wrap.innerHTML = '<div><strong>Character Spotlight</strong><div style="color:#b8c8ea;font-size:0.84rem;margin-top:6px;">No character visuals available right now.</div></div>';
+        return;
+      }
+      const pick = items[Math.floor((daySeed() + items.length) % items.length)] || items[0];
+      wrap.innerHTML = '<img src="' + escapeHtml(pick.image) + '" alt="Spotlight"><div><div style="font-size:.75rem;color:#90b9ff;letter-spacing:.08em;text-transform:uppercase;">Character Spotlight</div><strong>' + escapeHtml(pick.label) + '</strong><div style="margin-top:6px;color:#c9daf8;font-size:0.84rem;">One standout visual from your favorite anime lounge.</div></div>';
+    }
+
+    function renderAnimeWishlist(){
+      const wrap = document.getElementById('animeWishlist');
+      if(!wrap) return;
+      if(!playerProfile.animeWishlist.length){
+        wrap.innerHTML = '<div style="color:#b8c8ea;font-size:0.84rem;">No wishlist items yet.</div>';
+        return;
+      }
+      wrap.innerHTML = '';
+      playerProfile.animeWishlist.forEach((item, idx)=>{
+        const row = document.createElement('div');
+        row.className = 'mini-item';
+        row.innerHTML = '<span>' + item + '</span><button>Remove</button>';
+        row.querySelector('button').addEventListener('click', ()=>{
+          playerProfile.animeWishlist.splice(idx, 1);
+          syncAnimeBadges();
+          saveProfile();
+          renderAnimeWishlist();
+          renderAnimeBadges();
+          renderAnimeFanCard();
+        });
+        wrap.appendChild(row);
+      });
+    }
+
+    function renderAnimeHistory(){
+      const wrap = document.getElementById('animeHistory');
+      if(!wrap) return;
+      if(!playerProfile.animeSearchHistory.length){
+        wrap.innerHTML = '<div style="color:#b8c8ea;font-size:0.84rem;">No searches yet.</div>';
+        return;
+      }
+      wrap.innerHTML = playerProfile.animeSearchHistory.map(v=>'<span class="anime-pill">' + escapeHtml(v) + '</span>').join('');
+    }
+
+    async function renderAnimeLounge(){
+      const fav = playerProfile.favoriteAnime || '';
+      const animePanel = document.getElementById('anime');
+      const titleEl = document.getElementById('animeZoneTitle');
+      const subEl = document.getElementById('animeZoneSub');
+      const coverWrap = document.getElementById('animeCoverWrap');
+      const picksWrap = document.getElementById('animePicksCarousel');
+      const quickInput = document.getElementById('animeQuickInput');
+      if(!titleEl || !subEl || !coverWrap || !picksWrap || !quickInput) return;
+      if(animePanel) animePanel.dataset.genre = playerProfile.animeGenre || 'Shonen';
+      const ambientSelect = document.getElementById('animeAmbientSelect');
+      const ambientBtn = document.getElementById('animeAmbientToggleBtn');
+      if(ambientSelect) ambientSelect.value = playerProfile.animeAmbientTheme || 'off';
+      if(ambientBtn) ambientBtn.textContent = playerProfile.animeAmbientOn && playerProfile.animeAmbientTheme !== 'off' ? 'Stop Ambient' : 'Play Ambient';
+
+      if(!fav){
+        titleEl.textContent = 'Your Anime Lounge';
+        subEl.textContent = 'Set your favorite anime to unlock personalized content.';
+        coverWrap.innerHTML = '<div style="color:#b8c8ea;">No favorite anime yet.</div>';
+        picksWrap.innerHTML = '<div class="carousel-item">No picks yet.</div>';
+        renderAnimeStage([]);
+        renderAnimeQuote();
+        renderAnimeSpotlight([]);
+        renderAnimeGallery([]);
+        renderAnimeBadges();
+        renderAnimeFanCard();
+        renderAnimeFanGallery();
+        renderAnimeMusicPlayers();
+        renderAnimeRoom();
+        renderAnimeWishlist();
+        renderAnimeHistory();
+        return;
+      }
+
+      titleEl.textContent = fav + ' Fan Lounge';
+      subEl.textContent = 'Genre vibe: ' + (playerProfile.animeGenre || 'Shonen') + ' | Built just for you.';
+      quickInput.value = fav;
+
+      coverWrap.innerHTML = '<div style="color:#b8c8ea;">Loading anime cover...</div>';
+      picksWrap.innerHTML = '<div class="carousel-item">Loading picks...</div>';
+      const cover = await fetchAnimeCover(fav);
+      const [picks, gallery] = await Promise.all([fetchAnimePicks(fav), fetchAnimeGallery(cover?.id)]);
+
+      if(cover){
+        coverWrap.innerHTML = '<img class="anime-cover" src="' + escapeHtml(cover.image) + '" alt="Anime cover"><div style="margin-top:8px;color:#c9daf8;font-size:0.86rem;"><strong>' + escapeHtml(cover.title) + '</strong> | Score: ' + escapeHtml(cover.score) + '<br>' + escapeHtml(cover.synopsis.slice(0, 220)) + '...</div>';
+      } else {
+        coverWrap.innerHTML = '<div style="color:#b8c8ea;">Cover preview unavailable right now.</div>';
+      }
+
+      if(!picks.length){
+        picksWrap.innerHTML = '<div class="carousel-item">No picks found yet. Try another anime title.</div>';
+      } else {
+        picksWrap.innerHTML = '';
+        picks.forEach(p=>{
+          const card = document.createElement('div');
+          card.className = 'carousel-item';
+          card.innerHTML = '<strong>' + escapeHtml(p.title) + '</strong><div style="font-size:0.8rem;color:#b8cae8;margin:6px 0;">' + escapeHtml(p.authors) + '</div><a target="_blank" rel="noopener" href="' + escapeHtml(p.link) + '">View Book</a>';
+          picksWrap.appendChild(card);
+        });
+      }
+
+      renderAnimeStage(cover && cover.image ? [{ image: cover.image, label: cover.title }, ...gallery] : gallery);
+      renderAnimeQuote();
+      renderAnimeSpotlight(gallery.filter(item=>/Character/i.test(item.label)));
+      renderAnimeGallery(gallery);
+      renderAnimeBadges();
+      renderAnimeFanCard();
+      renderAnimeFanGallery();
+      renderAnimeMusicPlayers();
+      renderAnimeRoom();
+      renderAnimeWishlist();
+      renderAnimeHistory();
+    }
+
+    function setFavoriteAnime(title, genre){
+      const clean = String(title || '').trim();
+      if(!clean) return false;
+      playerProfile.favoriteAnime = clean;
+      playerProfile.animeGenre = genre || playerProfile.animeGenre || 'Shonen';
+      saveProfile();
+      recordAnimeSearch(clean);
+      renderAnimeLounge();
+      renderProfilePanel();
+      pushActivity('Set favorite anime: ' + clean);
+      return true;
+    }
+
+    function openAnimeOnboardingIfNeeded(){
+      const modal = document.getElementById('animeOnboardModal');
+      if(!modal) return;
+      if(!playerProfile.favoriteAnime){
+        modal.classList.add('open');
+      } else {
+        modal.classList.remove('open');
+      }
+    }
+
+    function openAnimeBookSearch(){
+      const input = document.getElementById('animeTitleInput');
+      const store = document.getElementById('animeStoreSelect');
+      const msg = document.getElementById('animeFinderMsg');
+      const title = (input?.value || playerProfile.favoriteAnime || '').trim();
+      if(!title){ if(msg) msg.textContent = 'Enter an anime title first.'; return; }
+      const query = encodeURIComponent(title + ' anime book manga light novel');
+      let url = 'https://www.amazon.com/s?k=' + query;
+      if(store?.value === 'barnes') url = 'https://www.barnesandnoble.com/s/' + query;
+      if(store?.value === 'googlebooks') url = 'https://www.google.com/search?tbm=bks&q=' + query;
+      window.open(url, '_blank', 'noopener');
+      if(msg) msg.textContent = 'Opening book results for "' + title + '"...';
+      recordAnimeSearch(title);
+      renderAnimeHistory();
+      pushActivity('Searched anime books for: ' + title);
+    }
+
+    const Components = {
+      Header: {
+        renderHeroButtons(){
+          const practiceBtn = document.getElementById('practiceModeBtn');
+          practiceBtn.textContent = practiceMode ? 'Practice Mode On' : 'Practice Mode Off';
+          practiceBtn.classList.toggle('active', practiceMode);
+        }
+      },
+      GameCard: {
+        create(game, idx){
+          const unlocked = isGameUnlocked(game, idx);
+          const playCount = Number((playerProfile.gameStats[game.id] || {}).plays || 0);
+          const isTrending = playCount >= 3;
+          const isFeatured = game.id === getFeaturedGame().id;
+          const card = document.createElement('div');
+          card.className = 'card' + (unlocked ? '' : ' locked') + (isTrending ? ' trending' : '') + (isFeatured ? ' featured' : '');
+          card.style.cursor = 'pointer';
+          card.innerHTML = `
+            <div class="card-icon">${game.icon}</div>
+            <div class="card-title">${game.title}</div>
+            <div class="card-meta">${game.category}</div>
+            <div style="font-size:0.85rem;color:#b6c2e1;min-height:40px;">${game.desc}</div>
+            ${unlocked ? '' : `<div class="card-lock">Lvl ${getUnlockLevel(game, idx)}</div>`}
+            <button class="play-btn">${unlocked ? 'Play' : 'Locked'}</button>
+          `;
+          const launch = ()=>{
+            if(!unlocked){
+              showMessage('Unlocks at level ' + getUnlockLevel(game, idx) + '. Keep earning XP.');
+              return;
+            }
+            openGamePage(game);
+          };
+          card.addEventListener('click', (ev)=>{
+            if(ev.target && ev.target.closest('.play-btn')) return;
+            launch();
+          });
+          const btn = card.querySelector('.play-btn');
+          btn.disabled = !unlocked;
+          btn.addEventListener('click', (ev)=>{ ev.stopPropagation(); launch(); });
+          return card;
+        }
+      },
+      Sidebar: {
+        renderGameMeta(game){
+          const how = document.getElementById('howTo');
+          if(!how || !game) return;
+          const ruleText = bossModeActive ? 'Boss Rule: x' + bossRules[Math.max(0,bossModeStage-1)].mult + ' score, min ' + bossRules[Math.max(0,bossModeStage-1)].minScore : 'Standard scoring active.';
+          how.textContent = ruleText + ' Use mouse or keyboard controls based on game.';
+        }
+      },
+      ProfilePanel: {
+        render(){ renderProfilePanel(); }
+      }
+    };
+
+    function registerScore(gameId, rawScore) {
+      const score = Number(rawScore) || 0;
+      if(currentRun.gameId === gameId && score <= currentRun.bestScore) return;
+      if(currentRun.gameId !== gameId){
+        currentRun = { gameId, bestScore: score, counted: false };
+      } else {
+        currentRun.bestScore = score;
+      }
+
+      const name = formatName();
+      const bossRule = bossModeActive ? bossRules[Math.max(0,bossModeStage-1)] : null;
+      const adjustedScore = bossRule ? Math.round(score * bossRule.mult) : score;
+
+      if (practiceMode) {
+        showMessage('Practice mode active: score not saved, but session stats still tracked.');
+      } else {
+        if (!highScores[gameId] || adjustedScore > highScores[gameId].score) {
+          highScores[gameId] = {score: adjustedScore, name, date: new Date().toLocaleString()};
+          saveHighScores();
+          showHighScores();
+        }
+      }
+
+      const stats = playerProfile.gameStats[gameId] || {plays:0,best:0,lastPlayed:''};
+      if(!currentRun.counted){
+        stats.plays += 1;
+        currentRun.counted = true;
+      }
+      stats.best = Math.max(stats.best, adjustedScore);
+      stats.lastPlayed = new Date().toLocaleString();
+      playerProfile.gameStats[gameId] = stats;
+      const today = todayKey();
+      if(playerProfile.lastPlayedDate !== today){
+        playerProfile.playStreak = Number(playerProfile.playStreak || 0);
+        playerProfile.playStreak = playerProfile.lastPlayedDate === yesterdayKey() ? playerProfile.playStreak + 1 : 1;
+      }
+      playerProfile.lastPlayedDate = today;
+      playerProfile.playHistoryDaily[today] = playerProfile.playHistoryDaily[today] || [];
+      playerProfile.playHistoryDaily[today].push(gameId);
+      const oldDays = Object.keys(playerProfile.playHistoryDaily).filter(d=>d!==today && d!==yesterdayKey());
+      oldDays.forEach(d=>delete playerProfile.playHistoryDaily[d]);
+      playerProfile.recentlyPlayed = [gameId, ...playerProfile.recentlyPlayed.filter(id=>id!==gameId)].slice(0,6);
+
+      let xpGain = Math.max(10, Math.floor(adjustedScore * 0.12));
+      let coinGain = Math.max(6, Math.floor(adjustedScore * 0.08));
+      if(bossModeActive){ xpGain += 25; coinGain += 20; }
+      if(practiceMode){ xpGain = Math.floor(xpGain * 0.35); coinGain = 0; }
+
       if (dailyGameId && gameId === dailyGameId) {
-        const dayKey = new Date().toISOString().split('T')[0];
-        const existing = dailyScores[dayKey] || {score:0, name:'none'};
-        if (score > existing.score) {
-          dailyScores[dayKey] = {score, name, gameId};
+        const day = todayKey();
+        const existing = dailyScores[day] || {score:0, name:'none'};
+        if (adjustedScore > existing.score) {
+          dailyScores[day] = {score: adjustedScore, name, gameId};
           localStorage.setItem(dailyKey, JSON.stringify(dailyScores));
           showMessage('New Daily Challenge Record!');
         }
+        if(playerProfile.dailyChallengeClaimedDate !== day){
+          playerProfile.dailyChallengeClaimedDate = day;
+          xpGain += 120;
+          coinGain += 90;
+          showMessage('Daily Challenge bonus claimed: +120 XP and +90 coins.');
+        }
       }
-      updateAchievements(gameId, score);
+
+      addXpAndCoins(xpGain, coinGain);
+      saveProfile();
+      updateAchievements(gameId, adjustedScore);
+      renderContinuePlaying();
+      renderTrending();
+      renderFeatured();
+      renderQuestBoard();
+      pushActivity('Played ' + (games.find(g=>g.id===gameId)?.title || gameId) + ' (score ' + adjustedScore + ')');
+
+      if (bossModeActive) {
+        endBossLevel(adjustedScore);
+      }
     }
 
     function updateAchievements(gameId, score) {
@@ -688,31 +2285,14 @@
       achievements.bossMaster = achievements.bossMaster || false;
       achievements.dailyKing = achievements.dailyKing || false;
       achievements.practicePro = achievements.practicePro || false;
-      if (!achievements.firstPlay) {
-        achievements.firstPlay = true;
-        document.body.classList.add('achievement-blink');
-      }
-      if (score >= 100 && !achievements.highScorer) {
-        achievements.highScorer = true;
-        document.body.classList.add('achievement-blink');
-      }
-      if (score >= 200 && !achievements.master200) {
-        achievements.master200 = true;
-        document.body.classList.add('achievement-blink');
-      }
-      if (practiceMode && !achievements.practicePro) {
-        achievements.practicePro = true;
-        document.body.classList.add('achievement-blink');
-      }
-      if (dailyGameId && gameId === dailyGameId && !achievements.dailyKing) {
-        const today = new Date().toISOString().split('T')[0];
-        const entry = dailyScores[today];
-        if (entry && entry.name === formatName() && score === entry.score) {
-          achievements.dailyKing = true;
-          document.body.classList.add('achievement-blink');
-        }
-      }
-      localStorage.setItem(achievementsKey, JSON.stringify(achievements));
+      achievements.loginStreak3 = achievements.loginStreak3 || false;
+      if (!achievements.firstPlay) achievements.firstPlay = true;
+      if (score >= 100) achievements.highScorer = true;
+      if (score >= 200) achievements.master200 = true;
+      if (practiceMode) achievements.practicePro = true;
+      if (playerProfile.streak >= 3) achievements.loginStreak3 = true;
+      if (dailyGameId && gameId === dailyGameId) achievements.dailyKing = true;
+      saveAchievements();
       renderAchievements();
     }
 
@@ -725,62 +2305,350 @@
         { key:'highScorer', label:'Scored 100+ in one game' },
         { key:'master200', label:'Scored 200+ in one game' },
         { key:'bossMaster', label:'Completed Boss Mode' },
-        { key:'dailyKing', label:'Beat Today’s Daily Challenge' },
-        { key:'practicePro', label:'Played in Practice Mode' }
+        { key:'dailyKing', label:'Won Daily Challenge Bonus' },
+        { key:'practicePro', label:'Played in Practice Mode' },
+        { key:'loginStreak3', label:'3-Day Login Streak' }
       ];
       for(const item of items){
         const li = document.createElement('div');
         const achieved = achievements[item.key];
-        li.textContent = `${achieved ? '✅' : '◻'} ${item.label}`;
+        li.textContent = (achieved ? '✅ ' : '◻ ') + item.label;
         panel.appendChild(li);
       }
     }
 
+    function applyThemeSelection(theme){
+      document.body.classList.remove('theme-retro','theme-cyber','theme-dark');
+      if(theme && theme !== 'neon') document.body.classList.add('theme-' + theme);
+      const select = document.getElementById('themeSelect');
+      if(select) select.value = theme || 'neon';
+      localStorage.setItem('arcadeHubTheme', theme || 'neon');
+    }
+
+    function isThemeOwned(theme){
+      if(theme === 'neon') return true;
+      const owned = Array.isArray(playerProfile.ownedThemes) ? playerProfile.ownedThemes : ['neon'];
+      return owned.includes(theme);
+    }
+
+    function daySeed(){
+      return Number(todayKey().replace(/-/g,''));
+    }
+
+    function getDailyStoreState(){
+      const count = Math.min(3, shopCatalog.length);
+      const seed = daySeed();
+      const arr = [...shopCatalog];
+      for(let i=arr.length-1;i>0;i--){
+        const j = (seed + i * 13) % (i + 1);
+        const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+      const featured = arr.slice(0, count).map(i=>i.id);
+      const prices = {};
+      featured.forEach(id=>{
+        const item = shopCatalog.find(s=>s.id===id);
+        if(item) prices[id] = Math.max(1, Math.floor(item.cost * 0.7));
+      });
+      return { featuredIds: featured, prices };
+    }
+
+    function getShopPrice(item){
+      const daily = getDailyStoreState();
+      return daily.prices[item.id] || item.cost;
+    }
+
+    function buyShopItem(itemId){
+      const item = shopCatalog.find(i=>i.id===itemId);
+      if(!item) return;
+      if(item.oneTime && playerProfile.purchases[item.id]){
+        showMessage('You already own ' + item.title + '.');
+        return;
+      }
+      const price = getShopPrice(item);
+      if(playerProfile.coins < price){
+        showMessage('Not enough coins for ' + item.title + '.');
+        return;
+      }
+
+      playerProfile.coins -= price;
+      if(item.type === 'xp'){
+        addXpAndCoins(item.value, 0);
+      } else if(item.type === 'unlock'){
+        const locked = games.filter((g, idx)=>!isGameUnlocked(g, idx));
+        if(!locked.length){
+          showMessage('All games are already unlocked.');
+          playerProfile.coins += price;
+          return;
+        }
+        const pick = locked[Math.floor(Math.random()*locked.length)];
+        if(!playerProfile.unlockedGames.includes(pick.id)) playerProfile.unlockedGames.push(pick.id);
+        showMessage('Unlocked: ' + pick.title + '!');
+      } else if(item.type === 'theme'){
+        if(!playerProfile.ownedThemes.includes(item.value)) playerProfile.ownedThemes.push(item.value);
+        applyThemeSelection(item.value);
+        showMessage(item.title + ' purchased and applied.');
+      }
+
+      playerProfile.purchases[item.id] = (playerProfile.purchases[item.id] || 0) + 1;
+      saveProfile();
+      renderProfilePanel();
+      renderGameGrid();
+      renderFeatured();
+      renderTrending();
+      renderContinuePlaying();
+      renderShop();
+      renderSeasonalShop();
+    }
+
+    function renderShop(){
+      const grid = document.getElementById('shopGrid');
+      if(!grid) return;
+      grid.innerHTML = '';
+      const daily = getDailyStoreState();
+      shopCatalog.forEach(item=>{
+        const owned = item.oneTime && playerProfile.purchases[item.id];
+        const price = getShopPrice(item);
+        const afford = playerProfile.coins >= price;
+        const isDaily = daily.featuredIds.includes(item.id);
+        const card = document.createElement('div');
+        card.className = 'shop-item';
+        card.innerHTML = '<h4>' + item.title + (isDaily ? '<span class="shop-badge">Daily -30%</span>' : '') + '</h4><p>' + item.desc + '</p><button>' + (owned ? 'Owned' : ('Buy (' + price + ' coins)')) + '</button>';
+        const btn = card.querySelector('button');
+        btn.disabled = Boolean(owned) || !afford;
+        btn.addEventListener('click', ()=>buyShopItem(item.id));
+        grid.appendChild(card);
+      });
+    }
+
+    function unlockRandomLockedGames(count){
+      let unlocked = [];
+      for(let i=0;i<count;i++){
+        const locked = games.filter((g, idx)=>!isGameUnlocked(g, idx) && !unlocked.includes(g.id));
+        if(!locked.length) break;
+        const pick = locked[Math.floor(Math.random()*locked.length)];
+        if(!playerProfile.unlockedGames.includes(pick.id)) playerProfile.unlockedGames.push(pick.id);
+        unlocked.push(pick.id);
+      }
+      return unlocked;
+    }
+
+    function setRedeemMessage(msg, ok=false){
+      const el = document.getElementById('redeemCodeMessage');
+      if(!el) return;
+      el.textContent = msg;
+      el.style.color = ok ? '#7dff9f' : '#ffd2a8';
+    }
+
+    function redeemCode(rawCode){
+      const code = String(rawCode || '').trim().toUpperCase();
+      if(!code){ setRedeemMessage('Enter a code first.'); return; }
+      const promo = promoCodes[code];
+      if(!promo){ setRedeemMessage('Invalid code.'); return; }
+      if(playerProfile.redeemedCodes[code]){ setRedeemMessage('Code already redeemed on this profile.'); return; }
+
+      if(promo.type === 'coins'){
+        addXpAndCoins(0, promo.amount);
+      } else if(promo.type === 'xp'){
+        addXpAndCoins(promo.amount, 0);
+      } else if(promo.type === 'theme'){
+        if(!playerProfile.ownedThemes.includes(promo.theme)) playerProfile.ownedThemes.push(promo.theme);
+        applyThemeSelection(promo.theme);
+      } else if(promo.type === 'unlock'){
+        const unlocked = unlockRandomLockedGames(promo.amount || 1);
+        if(!unlocked.length){
+          setRedeemMessage('All games are already unlocked.');
+          return;
+        }
+      }
+
+      playerProfile.redeemedCodes[code] = todayKey();
+      saveProfile();
+      renderProfilePanel();
+      renderGameGrid();
+      renderShop();
+      renderSeasonalShop();
+      renderFeatured();
+      setRedeemMessage(promo.msg, true);
+    }
+
+    function renderProfilePanel(){
+      const headline = document.getElementById('profileHeadline');
+      const fill = document.getElementById('xpFill');
+      const label = document.getElementById('xpLabel');
+      const stats = document.getElementById('profileStats');
+      if(!headline || !fill || !label || !stats) return;
+      const xpNeed = getXpForLevel(playerProfile.level);
+      const percent = Math.max(0, Math.min(100, (playerProfile.xp / xpNeed) * 100));
+      headline.textContent = formatName() + ' | Level ' + playerProfile.level;
+      fill.style.width = percent + '%';
+      label.textContent = 'XP ' + playerProfile.xp + ' / ' + xpNeed;
+      stats.innerHTML = '';
+      const entries = [
+        ['Coins', playerProfile.coins],
+        ['Login Streak', playerProfile.streak + ' days'],
+        ['Play Streak', playerProfile.playStreak + ' days'],
+        ['Unlocked', playerProfile.unlockedGames.length + '/' + games.length],
+        ['Daily', playerProfile.dailyChallengeClaimedDate === todayKey() ? 'Done' : 'Pending']
+      ];
+      entries.forEach(([k,v])=>{
+        const node=document.createElement('div');
+        node.className='stat-chip';
+        node.innerHTML='<span>'+k+'</span><strong>'+v+'</strong>';
+        stats.appendChild(node);
+      });
+    }
+
     function showHighScores() {
-      const list = document.querySelector('#highscoreList'); list.innerHTML='';
-      const today = new Date().toISOString().split('T')[0];
+      const list = document.querySelector('#highscoreList');
+      list.innerHTML='';
+      renderGlobalFanBanners();
+      const today = todayKey();
       if(dailyScores[today]){
         const d = dailyScores[today];
-        const item = document.createElement('li'); item.className='score-item';
-        item.innerHTML = `<strong>Daily ${today}</strong>: ${d.score} by ${d.name} (${games.find(g=>g.id===d.gameId)?.title||d.gameId})`;
+        const item = document.createElement('li');
+        item.className='score-item';
+        item.innerHTML = '<strong>Daily ' + today + '</strong>: ' + d.score + ' by ' + d.name + ' (' + (games.find(g=>g.id===d.gameId)?.title || d.gameId) + ')';
         list.appendChild(item);
       }
       const entries = Object.entries(highScores).sort((a,b)=>b[1].score-a[1].score).slice(0,25);
-      if(entries.length===0){ list.innerHTML+='<li class="score-item">No scores yet. Play a game!</li>'; return; }
-      for(const [id,data] of entries){ const item=document.createElement('li'); item.className='score-item'; item.innerHTML=`<strong>${games.find(g=>g.id===id)?.title||id}</strong>: ${data.score} by ${data.name} <small>${data.date}</small>`; list.appendChild(item);} }
+      if(entries.length===0){
+        list.innerHTML += '<li class="score-item">No scores yet. Play a game!</li>';
+        return;
+      }
+      for(const [id,data] of entries){
+        const item=document.createElement('li');
+        item.className='score-item';
+        item.innerHTML='<strong>' + (games.find(g=>g.id===id)?.title || id) + '</strong>: ' + data.score + ' by ' + data.name + ' <small>' + data.date + '</small>';
+        list.appendChild(item);
+      }
+    }
+
+    function getFeaturedGame(){
+      const unlocked = games.filter((g, idx)=>isGameUnlocked(g, idx));
+      const pickFrom = unlocked.length ? unlocked : games;
+      const idx = new Date().getDate() % pickFrom.length;
+      return pickFrom[idx];
+    }
+    function getDailyGame(){
+      const unlocked = games.filter((g, idx)=>isGameUnlocked(g, idx) && g.id !== 'daily-challenge');
+      const pool = unlocked.length ? unlocked : games.filter(g=>g.id !== 'daily-challenge');
+      const idx = new Date().getDate() % pool.length;
+      return pool[idx];
+    }
+    function getRandomGame(){
+      const unlocked = games.filter((g, idx)=>isGameUnlocked(g, idx));
+      const pool = unlocked.length ? unlocked : games;
+      return pool[Math.floor(Math.random()*pool.length)];
+    }
+
+    function renderFeatured(){
+      const slot = document.getElementById('featuredGameCard');
+      if(!slot) return;
+      const game = getFeaturedGame();
+      slot.innerHTML = '<h4 style="margin:0 0 6px;">' + game.icon + ' ' + game.title + '</h4><p style="margin:0 0 10px;color:#b8cae7;">' + game.desc + '</p><button class="play-btn" id="featuredPlay">Play Featured</button>';
+      const btn = document.getElementById('featuredPlay');
+      if(btn) btn.addEventListener('click', ()=>openGamePage(game));
+    }
+
+    function renderContinuePlaying(){
+      const list = document.getElementById('continuePlayingList');
+      if(!list) return;
+      const ids = playerProfile.recentlyPlayed.slice(0,4);
+      if(!ids.length){
+        list.innerHTML = '<div class="mini-item"><span>No recent sessions yet. Launch a game to populate this list.</span></div>';
+        return;
+      }
+      list.innerHTML = '';
+      ids.forEach(id=>{
+        const game = games.find(g=>g.id===id);
+        if(!game) return;
+        const item=document.createElement('div');
+        item.className='mini-item';
+        item.innerHTML = '<span>' + game.icon + ' ' + game.title + '</span><button>Resume</button>';
+        item.querySelector('button').addEventListener('click', ()=>openGamePage(game));
+        list.appendChild(item);
+      });
+    }
+
+    function renderTrending(){
+      const list = document.getElementById('trendingGamesList');
+      if(!list) return;
+      const entries = Object.entries(playerProfile.gameStats)
+        .sort((a,b)=> (b[1].plays||0) - (a[1].plays||0))
+        .slice(0,4);
+      if(!entries.length){
+        list.innerHTML = '<div class="mini-item"><span>Trending will appear after a few plays.</span></div>';
+        return;
+      }
+      list.innerHTML = '';
+      entries.forEach(([id,data], i)=>{
+        const game = games.find(g=>g.id===id);
+        if(!game) return;
+        const item=document.createElement('div');
+        item.className='mini-item';
+        item.innerHTML = '<span>#' + (i+1) + ' ' + game.icon + ' ' + game.title + ' (' + (data.plays||0) + ' plays)</span><button>Play</button>';
+        item.querySelector('button').addEventListener('click', ()=>openGamePage(game));
+        list.appendChild(item);
+      });
+    }
 
     function renderGameGrid() {
       const grid = document.getElementById('gameGrid');
       if (!grid) return;
       grid.innerHTML = '';
-      games.forEach(game => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="card-icon">${game.icon}</div>
-          <div class="card-title">${game.title}</div>
-          <div class="card-meta">${game.category}</div>
-          <div style="font-size:0.85rem;color:#b6c2e1;min-height:40px;">${game.desc}</div>
-          <button class="play-btn">Play</button>
-        `;
-        const btn = card.querySelector('.play-btn');
-        btn.addEventListener('click', () => {
-          openModal(game);
-        });
-        grid.appendChild(card);
-      });
+      games.forEach((game, idx) => grid.appendChild(Components.GameCard.create(game, idx)));
     }
 
     function setScore(value){ gameScore=value; document.querySelector('#scoreValue').textContent=gameScore; }
     function updateBestValue(gameId){ const best = highScores[gameId]?.score || 0; document.querySelector('#bestValue').textContent = best; }
 
-    function getRandomGame(){ return games[Math.floor(Math.random()*games.length)]; }
-    function getDailyGame(){ const dailyList = games.filter(g=>g.id !== 'daily-challenge'); const idx = new Date().getDate() % dailyList.length; return dailyList[idx]; }
-    function playRandomGame(){ const game = getRandomGame(); if(game){ openModal(game); showMessage('Random Game: '+game.title); }}
-    function playDailyChallenge(){ const game = getDailyGame(); if(!game){ showMessage('Daily Challenge unavailable.'); return;} dailyGameId = game.id; openModal(game); showMessage('Daily Challenge: '+game.title+' (today)'); }
-    function startBossMode(){ bossModeActive = true; bossModeStage = 0; bossModeScore = 0; showMessage('Boss Mode started! 3 games, best total score wins.'); playNextBossLevel(); }
-    function playNextBossLevel(){ if(!bossModeActive) return; bossModeStage++; if(bossModeStage > 3){ showMessage('Boss Mode complete! Total score: '+bossModeScore); bossModeActive=false; return; } const game = getRandomGame(); if(game){ openModal(game); showMessage('Boss Mode level '+bossModeStage+': '+game.title); }}
-    function endBossLevel(score){ if(!bossModeActive) return; bossModeScore += score; if(bossModeStage >= 3){ bossModeActive=false; showMessage('Boss Mode complete! Total score: '+bossModeScore); if(!achievements.bossMaster){ achievements.bossMaster=true; localStorage.setItem(achievementsKey, JSON.stringify(achievements)); renderAchievements(); document.body.classList.add('achievement-blink'); }} else { showMessage('Great! Next boss game coming...'); setTimeout(playNextBossLevel,1200); }}
+    function playRandomGame(){ const game = getRandomGame(); if(game){ openGamePage(game); showMessage('Random unlocked game: '+game.title); }}
+    function playDailyChallenge(){ const game = getDailyGame(); if(!game){ showMessage('Daily Challenge unavailable.'); return;} dailyGameId = game.id; openGamePage(game); showMessage('Daily Challenge: '+game.title+' for bonus XP/coins.'); }
+    function startBossMode(){
+      bossModeActive = true;
+      bossModeStage = 0;
+      bossModeScore = 0;
+      showMessage('Boss Mode started. Difficulty and score multipliers increase each stage.');
+      playNextBossLevel();
+    }
+    function playNextBossLevel(){
+      if(!bossModeActive) return;
+      bossModeStage++;
+      if(bossModeStage > 3){
+        showMessage('Boss Mode complete! Total adjusted score: ' + bossModeScore);
+        bossModeActive = false;
+        achievements.bossMaster = true;
+        saveAchievements();
+        renderAchievements();
+        return;
+      }
+      const rule = bossRules[bossModeStage-1];
+      const game = getRandomGame();
+      if(game){
+        openGamePage(game);
+        showMessage('Boss Stage ' + bossModeStage + ': ' + game.title + ' | x' + rule.mult + ' score | Min ' + rule.minScore + ' | ' + rule.speedNote);
+      }
+    }
+    function endBossLevel(score){
+      if(!bossModeActive) return;
+      const rule = bossRules[Math.max(0,bossModeStage-1)];
+      if(score < rule.minScore){
+        bossModeActive = false;
+        showMessage('Boss Mode failed. Needed ' + rule.minScore + ', got ' + score + '.');
+        return;
+      }
+      bossModeScore += score;
+      if(bossModeStage >= 3){
+        bossModeActive = false;
+        achievements.bossMaster = true;
+        saveAchievements();
+        renderAchievements();
+        showMessage('Boss Mode cleared! Total adjusted score: ' + bossModeScore);
+      } else {
+        showMessage('Boss stage cleared. Next stage loading...');
+        setTimeout(playNextBossLevel, 1200);
+      }
+    }
 
     function showMessage(msg){ const target=document.getElementById('howTo'); if(target){ target.textContent = msg; }}
 
@@ -788,17 +2656,30 @@
       clearInterval(timerInterval); timerInterval=null;
       document.getElementById('gameModal').classList.remove('open');
       document.getElementById('gameArea').innerHTML=''; currentGame=null;
+      currentRun = { gameId: '', bestScore: -1, counted: false };
+      document.body.classList.remove('in-game');
       stopMusic(); if(musicOn) startMusic();
     }
 
-    function openModal(game) {
+    function openGamePage(game, updateHash = true) {
+      const gameIdx = games.findIndex(g=>g.id===game.id);
+      if(gameIdx >= 0 && !isGameUnlocked(game, gameIdx)){
+        showMessage('This game is locked. Reach level ' + getUnlockLevel(game, gameIdx) + ' to unlock it.');
+        return;
+      }
       currentGame = game;
+      currentRun = { gameId: game.id, bestScore: -1, counted: false };
       const modal = document.getElementById('gameModal');
       modal.classList.add('open');
+      document.body.classList.add('in-game');
+      document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
       document.getElementById('gameTitle').textContent = game.title;
       document.getElementById('gameDesc').textContent = game.desc;
-      document.getElementById('howTo').textContent = 'All games now run inside this page, no external frames needed.';
+      Components.Sidebar.renderGameMeta(game);
       updateBestValue(game.id);
+      if(updateHash){
+        history.pushState({ gameId: game.id }, '', '#game/' + game.id);
+      }
 
       const area = document.getElementById('gameArea');
       area.innerHTML = '';
@@ -818,22 +2699,179 @@
       }
     }
 
-    document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const target=btn.dataset.panel; ['home','games','scores','settings'].forEach(p=>document.getElementById(p).classList.remove('panel-active')); document.getElementById(target).classList.add('panel-active'); if(target==='scores') showHighScores(); }); });
+    function openModal(game) { openGamePage(game); }
+
+    function closeGamePage(updateHash = true) {
+      closeModal();
+      if(updateHash){
+        history.pushState({}, '', '#home');
+      }
+      const homeBtn = document.querySelector('.nav-btn[data-panel="home"]');
+      if(homeBtn) homeBtn.click();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function routeFromHash() {
+      const hash = (location.hash || '').replace(/^#/, '');
+      if(hash.startsWith('game/')){
+        const gameId = hash.slice(5);
+        const game = games.find(g=>g.id===gameId);
+        if(game){
+          openGamePage(game, false);
+          return;
+        }
+      }
+      closeModal();
+    }
+
+    document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const target=btn.dataset.panel; ['home','games','anime','fan','scores','settings'].forEach(p=>document.getElementById(p).classList.remove('panel-active')); document.getElementById(target).classList.add('panel-active'); if(target==='scores') showHighScores(); if(target==='anime') renderAnimeLounge(); if(target==='fan') renderFanProfile(); }); });
     document.getElementById('randomGameBtn').addEventListener('click', playRandomGame);
     document.getElementById('dailyChallengeBtn').addEventListener('click', playDailyChallenge);
-    document.getElementById('practiceModeBtn').addEventListener('click', (e)=>{ practiceMode = !practiceMode; e.target.textContent = practiceMode ? 'Practice Mode On' : 'Practice Mode Off'; e.target.classList.toggle('active', practiceMode); showMessage(practiceMode ? 'Practice mode enabled: no high score updates' : 'Normal mode'); });
+    document.getElementById('practiceModeBtn').addEventListener('click', ()=>{ practiceMode = !practiceMode; Components.Header.renderHeroButtons(); showMessage(practiceMode ? 'Practice mode enabled: reduced XP, no coins.' : 'Normal mode enabled.'); });
     document.getElementById('bossModeBtn').addEventListener('click', startBossMode);
+    const spinBtn = document.getElementById('dailySpinBtn');
+    if(spinBtn) spinBtn.addEventListener('click', claimDailySpin);
+    const animeBtn = document.getElementById('animeBookSearchBtn');
+    const animeInput = document.getElementById('animeTitleInput');
+    if(animeBtn) animeBtn.addEventListener('click', openAnimeBookSearch);
+    if(animeInput) animeInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') openAnimeBookSearch(); });
+    const animeAmbientSelect = document.getElementById('animeAmbientSelect');
+    const animeAmbientToggleBtn = document.getElementById('animeAmbientToggleBtn');
+    if(animeAmbientSelect){
+      animeAmbientSelect.addEventListener('change', ()=>{
+        playerProfile.animeAmbientTheme = animeAmbientSelect.value;
+        if(playerProfile.animeAmbientTheme === 'off') playerProfile.animeAmbientOn = false;
+        saveProfile();
+        if(playerProfile.animeAmbientOn) startAnimeAmbient(); else stopAnimeAmbient();
+        renderAnimeLounge();
+      });
+    }
+    if(animeAmbientToggleBtn){
+      animeAmbientToggleBtn.addEventListener('click', ()=>{
+        if((playerProfile.animeAmbientTheme || 'off') === 'off') playerProfile.animeAmbientTheme = 'shrine';
+        playerProfile.animeAmbientOn = !playerProfile.animeAmbientOn;
+        saveProfile();
+        if(playerProfile.animeAmbientOn) startAnimeAmbient(); else stopAnimeAmbient();
+        renderAnimeLounge();
+      });
+    }
+    document.addEventListener('click', (event)=>{
+      const musicBtn = event.target.closest('[data-music-player]');
+      if(musicBtn){
+        handleAnimeMusicPlayer(musicBtn.dataset.musicPlayer);
+        return;
+      }
+      const bannerBtn = event.target.closest('[data-set-banner]');
+      if(bannerBtn){
+        playerProfile.animeBannerCardId = bannerBtn.dataset.setBanner;
+        saveProfile();
+        renderAnimeFanGallery();
+        renderGlobalFanBanners();
+        renderFanProfile();
+        showMessage('Fan banner updated.');
+        return;
+      }
+      const galleryBtn = event.target.closest('[data-fan-card-download]');
+      if(galleryBtn){
+        const saved = (playerProfile.animeSavedCards || []).find(item=>item.id===galleryBtn.dataset.fanCardDownload);
+        if(saved){
+          const link = document.createElement('a');
+          link.href = saved.image;
+          link.download = saved.id + '.png';
+          link.click();
+          showMessage('Downloaded saved fan card snapshot.');
+        }
+        return;
+      }
+      if(event.target.id === 'saveFanCardBtn'){
+        exportAnimeFanCard();
+        return;
+      }
+      if(event.target.id === 'shareFanCardBtn'){
+        copyAnimeFanSummary();
+      }
+    });
+    const quoteBtn = document.getElementById('animeQuoteBtn');
+    if(quoteBtn) quoteBtn.addEventListener('click', renderAnimeQuote);
+    const vibeControls = document.getElementById('animeVibeControls');
+    if(vibeControls){
+      vibeControls.querySelectorAll('button').forEach(btn=>btn.addEventListener('click', ()=>{
+        playerProfile.animeVibe = btn.dataset.vibe || 'epic';
+        saveProfile();
+        renderAnimeLounge();
+      }));
+    }
+    const animeUpdateBtn = document.getElementById('animeUpdateFavBtn');
+    const animeQuickInput = document.getElementById('animeQuickInput');
+    if(animeUpdateBtn && animeQuickInput){
+      animeUpdateBtn.addEventListener('click', ()=>{
+        if(setFavoriteAnime(animeQuickInput.value, playerProfile.animeGenre)){
+          showMessage('Anime lounge updated for ' + playerProfile.favoriteAnime + '.');
+        }
+      });
+      animeQuickInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ animeUpdateBtn.click(); } });
+    }
+    const wishlistBtn = document.getElementById('animeWishlistAddBtn');
+    const wishlistInput = document.getElementById('animeWishlistInput');
+    if(wishlistBtn && wishlistInput){
+      wishlistBtn.addEventListener('click', ()=>{
+        const val = (wishlistInput.value || '').trim();
+        if(!val) return;
+        playerProfile.animeWishlist = [val, ...playerProfile.animeWishlist.filter(v=>v.toLowerCase()!==val.toLowerCase())].slice(0,20);
+        syncAnimeBadges();
+        saveProfile();
+        renderAnimeWishlist();
+        renderAnimeBadges();
+        renderAnimeFanCard();
+        wishlistInput.value='';
+        pushActivity('Added to anime wishlist: ' + val);
+      });
+      wishlistInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ wishlistBtn.click(); } });
+    }
+    const starterBtn = document.getElementById('animeStarterBtn');
+    const starterInput = document.getElementById('animeStarterInput');
+    const starterGenre = document.getElementById('animeStarterGenre');
+    const starterMsg = document.getElementById('animeStarterMsg');
+    if(starterBtn && starterInput && starterGenre){
+      starterBtn.addEventListener('click', ()=>{
+        const ok = setFavoriteAnime(starterInput.value, starterGenre.value);
+        if(!ok){ if(starterMsg) starterMsg.textContent = 'Enter your favorite anime to start.'; return; }
+        const modal = document.getElementById('animeOnboardModal');
+        if(modal) modal.classList.remove('open');
+        if(starterMsg) starterMsg.textContent = 'Personal anime zone ready!';
+        const animeNav = document.querySelector('.nav-btn[data-panel="anime"]');
+        if(animeNav) animeNav.click();
+      });
+      starterInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') starterBtn.click(); });
+    }
     document.getElementById('fullscreenBtn').addEventListener('click', ()=>{ const modal=document.querySelector('.modal'); if(modal){ if(!document.fullscreenElement){ modal.requestFullscreen().catch(()=>{}); } else{ document.exitFullscreen().catch(()=>{}); } }});
-    document.getElementById('closeBtn').addEventListener('click', closeModal);
-    document.getElementById('restartBtn').addEventListener('click',()=>{ if(currentGame){ openModal(currentGame); } });
+    document.getElementById('closeBtn').addEventListener('click', ()=>closeGamePage(true));
+    document.getElementById('restartBtn').addEventListener('click',()=>{ if(currentGame){ openGamePage(currentGame, false); } });
     document.getElementById('soundToggle').addEventListener('click',e=>{ soundOn=!soundOn; e.target.classList.toggle('active', soundOn); e.target.textContent = soundOn ? 'Sound On':'Sound Off'; });
     document.getElementById('musicToggle').addEventListener('click',e=>{ musicOn=!musicOn; e.target.classList.toggle('active', musicOn); e.target.textContent = musicOn ? 'Music On':'Music Off'; if(musicOn) startMusic(); else stopMusic(); });
-    document.getElementById('themeSelect').addEventListener('change',(e)=>{ const theme=e.target.value; document.body.classList.remove('theme-retro','theme-cyber','theme-dark'); if(theme && theme!=='neon'){ document.body.classList.add(`theme-${theme}`); } else { document.body.classList.remove('theme-retro','theme-cyber','theme-dark'); } localStorage.setItem('arcadeHubTheme', theme); });
-    playerNameInput.addEventListener('change',()=>{ localStorage.setItem('arcadeHubPlayer', playerNameInput.value); });
+    document.getElementById('themeSelect').addEventListener('change',(e)=>{
+      const theme=e.target.value;
+      if(!isThemeOwned(theme)){
+        showMessage('Theme locked. Buy it in Arcade Shop.');
+        const fallback = localStorage.getItem('arcadeHubTheme') || 'neon';
+        applyThemeSelection(isThemeOwned(fallback) ? fallback : 'neon');
+        return;
+      }
+      applyThemeSelection(theme);
+    });
+    const redeemBtn = document.getElementById('redeemCodeBtn');
+    const redeemInput = document.getElementById('redeemCodeInput');
+    if(redeemBtn){
+      redeemBtn.addEventListener('click', ()=>{ redeemCode(redeemInput ? redeemInput.value : ''); if(redeemInput) redeemInput.value=''; });
+    }
+    if(redeemInput){
+      redeemInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ redeemCode(redeemInput.value); redeemInput.value=''; } });
+    }
+    playerNameInput.addEventListener('change',()=>{ playerProfile.name = formatName(); localStorage.setItem('arcadeHubPlayer', playerNameInput.value); saveProfile(); renderProfilePanel(); });
     const savedName = localStorage.getItem('arcadeHubPlayer'); if(savedName){ playerNameInput.value=savedName; }
     const savedTheme = localStorage.getItem('arcadeHubTheme') || 'neon';
     const themeSelect = document.getElementById('themeSelect');
-    if(themeSelect){ themeSelect.value = savedTheme; if(savedTheme !== 'neon'){ document.body.classList.add(`theme-${savedTheme}`); } }
+    if(themeSelect){ applyThemeSelection(isThemeOwned(savedTheme) ? savedTheme : 'neon'); }
 
     function initParticles(){ const canvas=document.getElementById('particleCanvas'); const ctx=canvas.getContext('2d'); const particles=[]; function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
       window.addEventListener('resize', resize); resize(); for(let i=0;i<120;i++){ particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r: Math.random()*1.4+0.3, vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3, alpha:Math.random()*0.8+0.2}); }
@@ -852,14 +2890,33 @@
       if (score >= 100){ document.body.style.animation = 'pulse 0.6s ease alternate 2'; setTimeout(()=>document.body.style.animation='', 1400); }
     });
 
-    window.addEventListener('keydown', (event)=>{
-      const iframe = document.getElementById('gameFrame');
-      if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.focus();
-      }
-    });
+    window.addEventListener('hashchange', routeFromHash);
+    window.addEventListener('popstate', routeFromHash);
 
-    function init(){ renderGameGrid(); showHighScores(); renderAchievements(); initParticles(); }
+    function init(){
+      hydrateProfile();
+      ensureDailyLoginReward();
+      Components.Header.renderHeroButtons();
+      Components.ProfilePanel.render();
+      renderGlobalFanBanners();
+      renderFanProfile();
+      renderFeatured();
+      renderContinuePlaying();
+      renderTrending();
+      renderQuestBoard();
+      renderActivityFeed();
+      renderAnimeLounge();
+      openAnimeOnboardingIfNeeded();
+      if(playerProfile.animeAmbientOn) startAnimeAmbient(); else stopAnimeAmbient();
+      renderShop();
+      renderSeasonalShop();
+      setRedeemMessage('Tip: try code WELCOME100');
+      renderGameGrid();
+      showHighScores();
+      renderAchievements();
+      initParticles();
+      routeFromHash();
+    }
     init();
 
     const style = document.createElement('style');
@@ -869,3 +2926,4 @@
   </script>
 </body>
 </html>
+      
