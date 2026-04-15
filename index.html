@@ -443,6 +443,23 @@
           <button id="savePlayerNameBtn">Save Name</button>
         </div>
       </label>
+      <div class="panel-card" style="margin-bottom:12px;">
+        <h3 style="margin:0 0 8px;">Music</h3>
+        <div style="color:#b6c5e6;font-size:0.88rem;margin-bottom:8px;">Chill lofi controls for the Music toggle. Saved per account.</div>
+        <div class="redeem-row" style="align-items:center;">
+          <label for="musicVolume" style="min-width:96px;color:#d2dcf7;">Volume</label>
+          <input id="musicVolume" type="range" min="0" max="100" step="1" value="55" style="flex:1;">
+          <span id="musicVolumeLabel" style="min-width:42px;color:#cfe1ff;">55%</span>
+        </div>
+        <div class="redeem-row" style="margin-top:8px;">
+          <label for="musicStyleSelect" style="min-width:96px;color:#d2dcf7;">LoFi Style</label>
+          <select id="musicStyleSelect" style="flex:1; min-width:220px; padding:8px; border-radius:8px; border:1px solid rgba(138,76,255,0.35); background:#0d162b; color:#e6ecff;">
+            <option value="warm">Warm Tape</option>
+            <option value="rainy">Rainy Nights</option>
+            <option value="night">Night Drive</option>
+          </select>
+        </div>
+      </div>
       <p>All progress and high scores are stored locally in your browser.</p>
       <h3>Achievements</h3>
       <div id="achievementList" style="background:#08122a;border:1px solid rgba(106,114,160,0.35);padding:10px;border-radius:8px;line-height:1.6;"></div>
@@ -1027,6 +1044,7 @@
     const dailyKey = 'arcadeHubDailyScores';
     const profileKey = 'arcadeHubProfile';
     const themeKey = 'arcadeHubTheme';
+    const musicPrefsKey = 'arcadeHubMusicPrefs';
     const accountsKey = 'arcadeHubAccounts';
     const activeAccountKey = 'arcadeHubActiveAccount';
     let accountList = [];
@@ -1047,6 +1065,8 @@
     let musicTimers = [];
     let musicLiveNodes = [];
     let lofiNoiseBuffer = null;
+    let musicVolume = 0.55;
+    let musicStyle = 'warm';
     let currentRun = { gameId: '', bestScore: -1, counted: false };
     const bossRules = [
       {mult:1.2, minScore:40, speedNote:'Fast Spawn'},
@@ -1179,6 +1199,13 @@
     function saveDailyScores(){ localStorage.setItem(accountScopedKey(dailyKey), JSON.stringify(dailyScores)); }
     function saveProfile(){ localStorage.setItem(accountScopedKey(profileKey), JSON.stringify(playerProfile)); }
     function saveAchievements(){ localStorage.setItem(accountScopedKey(achievementsKey), JSON.stringify(achievements)); }
+    function saveMusicPrefs(){
+      localStorage.setItem(accountScopedKey(musicPrefsKey), JSON.stringify({
+        enabled: Boolean(musicOn),
+        volume: Math.max(0, Math.min(1, Number(musicVolume) || 0.55)),
+        style: String(musicStyle || 'warm')
+      }));
+    }
     function formatName() { const n = (playerNameInput?.value || '').trim(); return n || 'Player'; }
     function escapeHtml(v){ return String(v || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
@@ -1211,6 +1238,10 @@
       const scopedTheme = themeKey + '_' + accountId;
       if(!localStorage.getItem(scopedTheme) && localStorage.getItem(themeKey)){
         localStorage.setItem(scopedTheme, localStorage.getItem(themeKey));
+      }
+      const scopedMusic = musicPrefsKey + '_' + accountId;
+      if(!localStorage.getItem(scopedMusic)){
+        localStorage.setItem(scopedMusic, JSON.stringify({ enabled:false, volume:0.55, style:'warm' }));
       }
     }
 
@@ -1262,6 +1293,9 @@
       hydrateProfile();
       syncActiveAccountName(playerProfile.name || 'Player');
       ensureDailyLoginReward();
+      stopMusic();
+      loadMusicPrefs();
+      updateMusicControlUI();
       const themePref = localStorage.getItem(accountScopedKey(themeKey)) || 'neon';
       applyThemeSelection(isThemeOwned(themePref) ? themePref : 'neon');
       Components.Header.renderHeroButtons();
@@ -1283,6 +1317,7 @@
       renderAchievements();
       renderAccountList();
       if(playerNameInput) playerNameInput.value = playerProfile.name || '';
+      if(musicOn) startMusic();
     }
 
     function switchAccount(accountId){
@@ -1309,8 +1344,31 @@
       localStorage.setItem(achievementsKey + '_' + id, '{}');
       localStorage.setItem(dailyKey + '_' + id, '{}');
       localStorage.setItem(themeKey + '_' + id, 'neon');
+      localStorage.setItem(musicPrefsKey + '_' + id, JSON.stringify({ enabled:false, volume:0.55, style:'warm' }));
       switchAccount(id);
       showAccountMessage('Created and switched to account: ' + clean, true);
+    }
+
+    function loadMusicPrefs(){
+      const prefs = readJson(accountScopedKey(musicPrefsKey), { enabled:false, volume:0.55, style:'warm' });
+      musicOn = Boolean(prefs.enabled);
+      musicVolume = Math.max(0, Math.min(1, Number(prefs.volume) || 0.55));
+      musicStyle = ['warm','rainy','night'].includes(String(prefs.style)) ? String(prefs.style) : 'warm';
+    }
+
+    function updateMusicControlUI(){
+      const toggle = document.getElementById('musicToggle');
+      if(toggle){
+        toggle.classList.toggle('active', musicOn);
+        toggle.textContent = musicOn ? 'Music On' : 'Music Off';
+      }
+      const volumeInput = document.getElementById('musicVolume');
+      const volumeLabel = document.getElementById('musicVolumeLabel');
+      const styleSelect = document.getElementById('musicStyleSelect');
+      const percent = Math.round(musicVolume * 100);
+      if(volumeInput) volumeInput.value = String(percent);
+      if(volumeLabel) volumeLabel.textContent = percent + '%';
+      if(styleSelect) styleSelect.value = musicStyle;
     }
 
     function getAccountExportData(accountId){
@@ -1327,7 +1385,8 @@
           highScores: readJson(localKey + '_' + accountId, {}),
           achievements: readJson(achievementsKey + '_' + accountId, {}),
           dailyScores: readJson(dailyKey + '_' + accountId, {}),
-          theme: localStorage.getItem(themeKey + '_' + accountId) || 'neon'
+          theme: localStorage.getItem(themeKey + '_' + accountId) || 'neon',
+          musicPrefs: readJson(musicPrefsKey + '_' + accountId, { enabled:false, volume:0.55, style:'warm' })
         }
       };
     }
@@ -1368,6 +1427,7 @@
       localStorage.setItem(achievementsKey + '_' + id, JSON.stringify(payload.data.achievements || {}));
       localStorage.setItem(dailyKey + '_' + id, JSON.stringify(payload.data.dailyScores || {}));
       localStorage.setItem(themeKey + '_' + id, payload.data.theme || 'neon');
+      localStorage.setItem(musicPrefsKey + '_' + id, JSON.stringify(payload.data.musicPrefs || { enabled:false, volume:0.55, style:'warm' }));
       switchAccount(id);
       showAccountMessage('Imported and switched to account: ' + name, true);
     }
@@ -1592,10 +1652,17 @@
       stopMusic();
       if(audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
       musicNode = { active:true };
-      const bpm = 74;
+      const styleDefs = {
+        warm: { bpm:74, chord:[220.00,261.63,329.63], hat:0.012, snare:0.05, bass:0.09, melody:0.015 },
+        rainy: { bpm:68, chord:[196.00,246.94,293.66], hat:0.008, snare:0.038, bass:0.08, melody:0.012 },
+        night: { bpm:82, chord:[233.08,293.66,349.23], hat:0.015, snare:0.055, bass:0.095, melody:0.017 }
+      };
+      const style = styleDefs[musicStyle] || styleDefs.warm;
+      const master = Math.max(0, Math.min(1, musicVolume));
+      const bpm = style.bpm;
       const beatMs = (60 / bpm) * 1000;
       const chordProgression = [
-        [220.00, 261.63, 329.63],
+        style.chord,
         [196.00, 246.94, 293.66],
         [174.61, 220.00, 261.63],
         [196.00, 233.08, 293.66]
@@ -1607,19 +1674,19 @@
         const beat = step % 4;
         const chord = chordProgression[Math.floor(step / 4) % chordProgression.length];
         if(beat === 0){
-          chord.forEach((freq, idx)=>playLofiTone(freq * (idx===0 ? 0.5 : 1), 0.68, 'triangle', idx===0 ? 0.03 : 0.018, now));
-          playLofiTone(82.41, 0.11, 'sine', 0.09, now);
+          chord.forEach((freq, idx)=>playLofiTone(freq * (idx===0 ? 0.5 : 1), 0.68, 'triangle', (idx===0 ? 0.03 : 0.018) * master, now));
+          playLofiTone(82.41, 0.11, 'sine', style.bass * master, now);
         }
         if(beat === 2){
-          playLofiTone(92.50, 0.09, 'sine', 0.08, now);
+          playLofiTone(92.50, 0.09, 'sine', style.bass * 0.88 * master, now);
         }
         if(beat === 1 || beat === 3){
-          playLofiNoise(0.18, 0.05, 900, now);
+          playLofiNoise(0.18, style.snare * master, musicStyle === 'rainy' ? 700 : 900, now);
         }
-        playLofiNoise(0.04, 0.012, 6000, now);
+        playLofiNoise(0.04, style.hat * master, musicStyle === 'night' ? 6800 : 6000, now);
         if(beat === 3){
           const melody = [329.63, 293.66, 261.63, 246.94][Math.floor(Math.random()*4)];
-          playLofiTone(melody, 0.18, 'sawtooth', 0.015, now + 0.02);
+          playLofiTone(melody, 0.18, musicStyle === 'night' ? 'triangle' : 'sawtooth', style.melody * master, now + 0.02);
         }
         step++;
       };
@@ -3403,7 +3470,26 @@
       e.target.classList.toggle('active', musicOn);
       e.target.textContent = musicOn ? 'Music On':'Music Off';
       if(musicOn) startMusic(); else stopMusic();
+      saveMusicPrefs();
     });
+    const musicVolumeInput = document.getElementById('musicVolume');
+    const musicStyleSelect = document.getElementById('musicStyleSelect');
+    if(musicVolumeInput){
+      musicVolumeInput.addEventListener('input', ()=>{
+        musicVolume = Math.max(0, Math.min(1, Number(musicVolumeInput.value) / 100));
+        updateMusicControlUI();
+        if(musicOn){ startMusic(); }
+        saveMusicPrefs();
+      });
+    }
+    if(musicStyleSelect){
+      musicStyleSelect.addEventListener('change', ()=>{
+        musicStyle = String(musicStyleSelect.value || 'warm');
+        updateMusicControlUI();
+        if(musicOn){ startMusic(); }
+        saveMusicPrefs();
+      });
+    }
     document.getElementById('themeSelect').addEventListener('change',(e)=>{
       const theme=e.target.value;
       if(!isThemeOwned(theme)){
@@ -3510,6 +3596,8 @@
       hydrateProfile();
       syncActiveAccountName(playerProfile.name || 'Player');
       ensureDailyLoginReward();
+      loadMusicPrefs();
+      updateMusicControlUI();
       renderAccountList();
       if(playerNameInput) playerNameInput.value = playerProfile.name || '';
       Components.Header.renderHeroButtons();
@@ -3532,6 +3620,7 @@
       renderAchievements();
       initParticles();
       routeFromHash();
+      if(musicOn) startMusic();
     }
     init();
 
