@@ -560,14 +560,23 @@
       {mult:2.0, minScore:100, speedNote:'No Mercy'}
     ];
     const shopCatalog = [
-      { id:'xp-booster', title:'XP Booster', cost:180, type:'xp', value:220, desc:'Instant +220 XP to speed up leveling.', oneTime:false },
-      { id:'unlock-token', title:'Unlock Token', cost:260, type:'unlock', value:1, desc:'Unlock one currently locked game instantly.', oneTime:false },
-      { id:'retro-theme', title:'Retro Theme License', cost:140, type:'theme', value:'retro', desc:'Own and equip the Retro theme.', oneTime:true },
-      { id:'cyber-theme', title:'Cyber Theme License', cost:170, type:'theme', value:'cyber', desc:'Own and equip the Cyber theme.', oneTime:true },
-      { id:'dark-theme', title:'Dark Theme License', cost:190, type:'theme', value:'dark', desc:'Own and equip the Dark theme.', oneTime:true },
-      { id:'forest-theme', title:'Forest Theme License', cost:210, type:'theme', value:'forest', desc:'Own and equip the Forest theme.', oneTime:true },
-      { id:'sunset-theme', title:'Sunset Theme License', cost:210, type:'theme', value:'sunset', desc:'Own and equip the Sunset theme.', oneTime:true },
-      { id:'ocean-theme', title:'Ocean Theme License', cost:220, type:'theme', value:'ocean', desc:'Own and equip the Ocean theme.', oneTime:true }
+      { id:'xp-booster', title:'XP Booster', cost:200, type:'xp', value:220, desc:'Instant +220 XP to speed up leveling.', oneTime:false, rarity:'common', unlockLevel:1 },
+      { id:'unlock-token', title:'Unlock Token', cost:310, type:'unlock', value:1, desc:'Unlock one currently locked game instantly.', oneTime:false, rarity:'rare', unlockLevel:3 },
+      { id:'coin-pass', title:'Coin Multiplier Pass', cost:260, type:'coin-pass', value:3, desc:'Next 3 score runs grant +20% coins.', oneTime:false, rarity:'rare', unlockLevel:4, stockDaily:1 },
+      { id:'xp-weekend', title:'XP Weekend Pass', cost:380, type:'xp-window', value:1.25, windowDays:2, desc:'For 48 hours, all score runs grant +25% XP.', oneTime:false, rarity:'epic', unlockLevel:5, stockDaily:1 },
+      { id:'streak-shield', title:'Streak Shield', cost:190, type:'streak-shield', value:1, desc:'Protect your login streak from one missed day.', oneTime:false, rarity:'common', unlockLevel:2, stockDaily:2 },
+      { id:'quest-reroll', title:'Quest Reroll Token', cost:230, type:'quest-reroll', value:1, desc:'Instantly complete one unfinished daily quest.', oneTime:false, rarity:'rare', unlockLevel:4, stockDaily:1 },
+      { id:'retro-theme', title:'Retro Theme License', cost:140, type:'theme', value:'retro', desc:'Own and equip the Retro theme.', oneTime:true, rarity:'common', unlockLevel:1 },
+      { id:'cyber-theme', title:'Cyber Theme License', cost:170, type:'theme', value:'cyber', desc:'Own and equip the Cyber theme.', oneTime:true, rarity:'rare', unlockLevel:2 },
+      { id:'dark-theme', title:'Dark Theme License', cost:190, type:'theme', value:'dark', desc:'Own and equip the Dark theme.', oneTime:true, rarity:'rare', unlockLevel:2 },
+      { id:'forest-theme', title:'Forest Theme License', cost:210, type:'theme', value:'forest', desc:'Own and equip the Forest theme.', oneTime:true, rarity:'epic', unlockLevel:3 },
+      { id:'sunset-theme', title:'Sunset Theme License', cost:210, type:'theme', value:'sunset', desc:'Own and equip the Sunset theme.', oneTime:true, rarity:'epic', unlockLevel:3 },
+      { id:'ocean-theme', title:'Ocean Theme License', cost:220, type:'theme', value:'ocean', desc:'Own and equip the Ocean theme.', oneTime:true, rarity:'epic', unlockLevel:3 }
+    ];
+    const shopBundles = [
+      { id:'starter-pack', title:'Starter Surge Pack', desc:'+140 XP, +100 coins, and 1 Streak Shield.', cost:280, oneTime:true, rarity:'rare', unlockLevel:1, grants:[{type:'xp', amount:140},{type:'coins', amount:100},{type:'streak-shield', amount:1}] },
+      { id:'rank-climb', title:'Rank Climber Pack', desc:'+280 XP and 1 Quest Reroll Token.', cost:380, oneTime:false, rarity:'epic', unlockLevel:4, grants:[{type:'xp', amount:280},{type:'quest-reroll', amount:1}] },
+      { id:'collector-pack', title:'Collector Utility Pack', desc:'+150 coins, 1 Unlock Token, and Coin Pass.', cost:490, oneTime:false, rarity:'mythic', unlockLevel:5, grants:[{type:'coins', amount:150},{type:'unlock', amount:1},{type:'coin-pass', amount:1}] }
     ];
     const promoCodes = {
       'WELCOME100': {type:'coins', amount:100, msg:'Welcome bonus: +100 coins'},
@@ -1011,7 +1020,15 @@
         seasonalEventId: playerProfile.seasonalEventId || '',
         seasonalEventClaims: playerProfile.seasonalEventClaims || {},
         seasonalPurchases: playerProfile.seasonalPurchases || {},
-        seasonalInventory: Array.isArray(playerProfile.seasonalInventory) ? playerProfile.seasonalInventory : []
+        seasonalInventory: Array.isArray(playerProfile.seasonalInventory) ? playerProfile.seasonalInventory : [],
+        equippedSeasonalFrame: playerProfile.equippedSeasonalFrame || '',
+        runCoinBoostRuns: Number(playerProfile.runCoinBoostRuns || 0),
+        xpBoostUntil: playerProfile.xpBoostUntil || '',
+        streakShields: Number(playerProfile.streakShields || 0),
+        questRerollTokens: Number(playerProfile.questRerollTokens || 0),
+        dailyStockPurchases: playerProfile.dailyStockPurchases || {},
+        bundlePurchases: playerProfile.bundlePurchases || {},
+        questAutoClaims: playerProfile.questAutoClaims || {}
       };
       ensureSeasonalContent();
       unlockEligibleGames();
@@ -1280,6 +1297,12 @@
 
     function renderGlobalFanBanners(){
       const banner = getSelectedBannerCard();
+      const frameId = playerProfile.equippedSeasonalFrame || '';
+      const frameAccent = frameId.includes('snow') ? '#e0f4ff'
+        : frameId.includes('surf') ? '#7fe6ff'
+          : frameId.includes('maple') ? '#ffbe79'
+            : frameId.includes('sakura') ? '#ff9dce'
+              : 'rgba(140,169,255,0.45)';
       ['homeFanBanner','scoresFanBanner'].forEach(id=>{
         const mount = document.getElementById(id);
         if(!mount) return;
@@ -1287,7 +1310,7 @@
           mount.innerHTML = '<div style="color:#b8c8ea;font-size:0.86rem;">Save a fan card in Anime Zone to create your global banner.</div>';
           return;
         }
-        mount.innerHTML = '<img src="' + escapeHtml(banner.image) + '" alt="Fan banner"><div><strong style="color:#f2f7ff;">' + escapeHtml(formatName()) + ' · ' + escapeHtml(banner.rank) + '</strong><div style="color:#c6d8ff;font-size:0.86rem;">Featured anime: ' + escapeHtml(banner.favorite) + ' · Player: ' + escapeHtml(banner.player) + '</div></div>';
+        mount.innerHTML = '<img src="' + escapeHtml(banner.image) + '" alt="Fan banner" style="border:2px solid ' + frameAccent + ';border-radius:10px;"><div><strong style="color:#f2f7ff;">' + escapeHtml(formatName()) + ' · ' + escapeHtml(banner.rank) + '</strong><div style="color:#c6d8ff;font-size:0.86rem;">Featured anime: ' + escapeHtml(banner.favorite) + ' · Player: ' + escapeHtml(banner.player) + (frameId ? ' · Frame: ' + escapeHtml(frameId) : '') + '</div></div>';
       });
     }
 
@@ -1306,7 +1329,13 @@
       if(!banner){
         bannerPreview.innerHTML = '<div style="color:#b8c8ea;font-size:0.86rem;">No banner yet. Save a fan card first.</div>';
       } else {
-        bannerPreview.innerHTML = '<div class="fan-banner" style="margin-top:0;"><img src="' + escapeHtml(banner.image) + '" alt="Banner preview"><div><strong style="color:#f2f7ff;">Current Banner</strong><div style="color:#c6d8ff;font-size:0.86rem;">' + escapeHtml(banner.favorite) + ' · ' + escapeHtml(banner.rank) + '</div></div></div>';
+        const frameId = playerProfile.equippedSeasonalFrame || '';
+        const frameAccent = frameId.includes('snow') ? '#e0f4ff'
+          : frameId.includes('surf') ? '#7fe6ff'
+            : frameId.includes('maple') ? '#ffbe79'
+              : frameId.includes('sakura') ? '#ff9dce'
+                : 'rgba(140,169,255,0.45)';
+        bannerPreview.innerHTML = '<div class="fan-banner" style="margin-top:0;"><img src="' + escapeHtml(banner.image) + '" alt="Banner preview" style="border:2px solid ' + frameAccent + ';border-radius:10px;"><div><strong style="color:#f2f7ff;">Current Banner</strong><div style="color:#c6d8ff;font-size:0.86rem;">' + escapeHtml(banner.favorite) + ' · ' + escapeHtml(banner.rank) + (frameId ? ' · Frame: ' + escapeHtml(frameId) : '') + '</div></div></div>';
       }
       const saved = playerProfile.animeSavedCards || [];
       if(!saved.length){
@@ -1340,6 +1369,7 @@
       if(item.type === 'coins') addXpAndCoins(0, item.value);
       if(item.type === 'collectible' && !playerProfile.seasonalInventory.includes(item.value)){
         playerProfile.seasonalInventory.push(item.value);
+        if(!playerProfile.equippedSeasonalFrame) playerProfile.equippedSeasonalFrame = item.value;
       }
       playerProfile.seasonalPurchases[item.id] = (playerProfile.seasonalPurchases[item.id] || 0) + 1;
       saveProfile();
@@ -1360,14 +1390,30 @@
       grid.innerHTML = '';
       items.forEach(item=>{
         const owned = Boolean(item.oneTime && playerProfile.seasonalPurchases[item.id]);
+        const equipped = item.type === 'collectible' && playerProfile.equippedSeasonalFrame === item.value;
         const afford = Number(playerProfile.coins || 0) >= item.cost;
         const card = document.createElement('div');
         card.className = 'shop-item';
-        card.innerHTML = '<h4>' + item.title + '<span class="shop-badge">Seasonal</span></h4><p>' + item.desc + '</p><button>' + (owned ? 'Owned' : ('Buy (' + item.cost + ' coins)')) + '</button>';
+        const buttonLabel = owned
+          ? (item.type === 'collectible' ? (equipped ? 'Equipped' : 'Equip Frame') : 'Owned')
+          : ('Buy (' + item.cost + ' coins)');
+        card.innerHTML = '<h4>' + item.title + '<span class="shop-badge">Seasonal</span></h4><p>' + item.desc + '</p><button>' + buttonLabel + '</button>';
         const btn = card.querySelector('button');
-        btn.disabled = owned;
+        btn.disabled = owned && item.type !== 'collectible';
+        if(equipped) btn.disabled = true;
         if(!afford && !owned) btn.style.opacity = '0.72';
-        btn.addEventListener('click', ()=>buySeasonalItem(item.id));
+        btn.addEventListener('click', ()=>{
+          if(owned && item.type === 'collectible'){
+            playerProfile.equippedSeasonalFrame = item.value;
+            saveProfile();
+            renderFanProfile();
+            renderGlobalFanBanners();
+            renderSeasonalShop();
+            showMessage('Equipped seasonal frame: ' + item.title + '.');
+            return;
+          }
+          buySeasonalItem(item.id);
+        });
         grid.appendChild(card);
       });
     }
@@ -1527,7 +1573,13 @@
       const today = todayKey();
       if(playerProfile.loginRewardClaimedDate === today) return;
       const wasYesterday = playerProfile.lastLoginDate === yesterdayKey();
-      playerProfile.streak = wasYesterday ? playerProfile.streak + 1 : 1;
+      if(!wasYesterday && Number(playerProfile.streak || 0) > 0 && Number(playerProfile.streakShields || 0) > 0 && playerProfile.lastLoginDate){
+        playerProfile.streakShields -= 1;
+        playerProfile.streak = playerProfile.streak + 1;
+        pushActivity('Streak Shield consumed to protect login streak.');
+      } else {
+        playerProfile.streak = wasYesterday ? playerProfile.streak + 1 : 1;
+      }
       const rewardCoins = 30 + playerProfile.streak * 8;
       const rewardXp = 25 + playerProfile.streak * 4;
       playerProfile.loginRewardClaimedDate = today;
@@ -1627,6 +1679,10 @@
       const today = todayKey();
       const claims = playerProfile.questClaims[today] || {};
       const progress = getQuestProgress();
+      const auto = playerProfile.questAutoClaims[today] || {};
+      Object.keys(auto).forEach(id=>{
+        progress[id] = Math.max(progress[id] || 0, Number(auto[id] || 0));
+      });
       board.innerHTML = '';
       questCatalog.forEach(q=>{
         const current = progress[q.id] || 0;
@@ -1647,6 +1703,20 @@
       const canSpin = playerProfile.spinClaimedDate !== today;
       spinStatus.textContent = canSpin ? 'Daily Spin available now.' : 'Daily Spin already claimed today.';
       spinBtn.disabled = !canSpin;
+      if(playerProfile.questRerollTokens > 0){
+        const quickBtn = document.createElement('button');
+        quickBtn.textContent = 'Use Quest Reroll Token (' + playerProfile.questRerollTokens + ')';
+        quickBtn.style.marginTop = '8px';
+        quickBtn.addEventListener('click', ()=>{
+          if(useQuestRerollToken()){
+            saveProfile();
+            renderQuestBoard();
+          } else {
+            showMessage('No unfinished daily quest to reroll right now.');
+          }
+        });
+        board.appendChild(quickBtn);
+      }
     }
 
     function claimDailySpin(){
@@ -2312,6 +2382,11 @@
         }
       }
       if(bossModeActive){ xpGain += 25; coinGain += 20; }
+      if(isXpBoostActive()) xpGain = Math.max(10, Math.round(xpGain * 1.25));
+      if(Number(playerProfile.runCoinBoostRuns || 0) > 0){
+        coinGain = Math.max(6, Math.round(coinGain * 1.2));
+        playerProfile.runCoinBoostRuns = Math.max(0, Number(playerProfile.runCoinBoostRuns || 0) - 1);
+      }
       if(practiceMode){ xpGain = Math.floor(xpGain * 0.35); coinGain = 0; }
 
       if (dailyGameId && gameId === dailyGameId) {
@@ -2401,6 +2476,57 @@
       return Number(todayKey().replace(/-/g,''));
     }
 
+    function getRarityLabel(rarity){
+      const map = {
+        common: 'Common',
+        rare: 'Rare',
+        epic: 'Epic',
+        mythic: 'Mythic'
+      };
+      return map[String(rarity || 'common').toLowerCase()] || 'Common';
+    }
+
+    function getRarityColor(rarity){
+      const map = {
+        common: '#9cb5de',
+        rare: '#6ad7ff',
+        epic: '#ffb66d',
+        mythic: '#ff7d9f'
+      };
+      return map[String(rarity || 'common').toLowerCase()] || '#9cb5de';
+    }
+
+    function getWeeklyStoreState(){
+      if(!shopCatalog.length) return { featuredId: '', priceById: {} };
+      const now = new Date();
+      const yearStart = new Date(now.getFullYear(), 0, 1);
+      const week = Math.ceil((now - yearStart) / (1000 * 60 * 60 * 24 * 7));
+      const seed = Number(String(now.getFullYear()) + String(week));
+      const idx = seed % shopCatalog.length;
+      const item = shopCatalog[idx];
+      const priceById = {};
+      if(item) priceById[item.id] = Math.max(1, Math.floor(item.cost * 0.75));
+      return { featuredId: item ? item.id : '', priceById };
+    }
+
+    function getItemDailyPurchaseCount(itemId){
+      const key = todayKey();
+      const map = playerProfile.dailyStockPurchases?.[key] || {};
+      return Number(map[itemId] || 0);
+    }
+
+    function recordDailyPurchase(itemId, amount){
+      const key = todayKey();
+      playerProfile.dailyStockPurchases[key] = playerProfile.dailyStockPurchases[key] || {};
+      playerProfile.dailyStockPurchases[key][itemId] = Number(playerProfile.dailyStockPurchases[key][itemId] || 0) + Number(amount || 1);
+      Object.keys(playerProfile.dailyStockPurchases).forEach(k=>{ if(k !== key) delete playerProfile.dailyStockPurchases[k]; });
+    }
+
+    function isXpBoostActive(){
+      if(!playerProfile.xpBoostUntil) return false;
+      return new Date(playerProfile.xpBoostUntil).getTime() > Date.now();
+    }
+
     function getDailyStoreState(){
       const count = Math.min(3, shopCatalog.length);
       const seed = daySeed();
@@ -2413,22 +2539,96 @@
       const prices = {};
       featured.forEach(id=>{
         const item = shopCatalog.find(s=>s.id===id);
-        if(item) prices[id] = Math.max(1, Math.floor(item.cost * 0.7));
+        if(item) prices[id] = Math.max(1, Math.floor(item.cost * 0.8));
       });
       return { featuredIds: featured, prices };
     }
 
     function getShopPrice(item){
       const daily = getDailyStoreState();
-      return daily.prices[item.id] || item.cost;
+      const weekly = getWeeklyStoreState();
+      return weekly.priceById[item.id] || daily.prices[item.id] || item.cost;
+    }
+
+    function getBundlePrice(bundle){
+      const seed = daySeed() + bundle.id.length * 17;
+      const discounted = seed % 4 === 0;
+      return discounted ? Math.max(1, Math.floor(bundle.cost * 0.9)) : bundle.cost;
+    }
+
+    function applyShopGrant(type, amount){
+      if(type === 'xp') addXpAndCoins(amount, 0);
+      if(type === 'coins') addXpAndCoins(0, amount);
+      if(type === 'unlock') unlockRandomLockedGames(amount || 1);
+      if(type === 'streak-shield') playerProfile.streakShields = Math.min(5, Number(playerProfile.streakShields || 0) + Number(amount || 1));
+      if(type === 'quest-reroll') playerProfile.questRerollTokens = Math.min(5, Number(playerProfile.questRerollTokens || 0) + Number(amount || 1));
+      if(type === 'coin-pass') playerProfile.runCoinBoostRuns = Math.min(12, Number(playerProfile.runCoinBoostRuns || 0) + Number(amount || 0));
+    }
+
+    function useQuestRerollToken(){
+      if(Number(playerProfile.questRerollTokens || 0) <= 0) return false;
+      const progress = getQuestProgress();
+      const today = todayKey();
+      const targetList = questCatalog.filter(q=>!q.permanent && !q.id.startsWith('q-season-'));
+      const pick = targetList.find(q=>!hasClaimedQuest(q.id) && (progress[q.id] || 0) < questTarget(q.id));
+      if(!pick) return false;
+      playerProfile.questRerollTokens -= 1;
+      playerProfile.questAutoClaims[today] = playerProfile.questAutoClaims[today] || {};
+      playerProfile.questAutoClaims[today][pick.id] = questTarget(pick.id);
+      showMessage('Quest rerolled into a completed objective: ' + pick.label + '.');
+      pushActivity('Used Quest Reroll Token on ' + pick.label);
+      return true;
+    }
+
+    function buyBundle(bundleId){
+      const bundle = shopBundles.find(b=>b.id===bundleId);
+      if(!bundle) return;
+      if(Number(playerProfile.level || 1) < Number(bundle.unlockLevel || 1)){
+        showMessage('Reach level ' + bundle.unlockLevel + ' to buy ' + bundle.title + '.');
+        return;
+      }
+      if(bundle.oneTime && playerProfile.bundlePurchases[bundle.id]){
+        showMessage('You already own ' + bundle.title + '.');
+        return;
+      }
+      const price = getBundlePrice(bundle);
+      if(Number(playerProfile.coins || 0) < price){
+        showMessage('Not enough coins for ' + bundle.title + '.');
+        return;
+      }
+      playerProfile.coins -= price;
+      (bundle.grants || []).forEach(grant=>applyShopGrant(grant.type, grant.amount));
+      playerProfile.bundlePurchases[bundle.id] = (playerProfile.bundlePurchases[bundle.id] || 0) + 1;
+      saveProfile();
+      renderProfilePanel();
+      renderGameGrid();
+      renderFeatured();
+      renderTrending();
+      renderContinuePlaying();
+      renderQuestBoard();
+      renderShop();
+      renderSeasonalShop();
+      showMessage('Bundle purchased: ' + bundle.title + '.');
+      pushActivity('Bought bundle: ' + bundle.title);
     }
 
     function buyShopItem(itemId){
       const item = shopCatalog.find(i=>i.id===itemId);
       if(!item) return;
+      if(Number(playerProfile.level || 1) < Number(item.unlockLevel || 1)){
+        showMessage('Reach level ' + item.unlockLevel + ' to buy ' + item.title + '.');
+        return;
+      }
       if(item.oneTime && playerProfile.purchases[item.id]){
         showMessage('You already own ' + item.title + '.');
         return;
+      }
+      if(item.stockDaily){
+        const boughtToday = getItemDailyPurchaseCount(item.id);
+        if(boughtToday >= Number(item.stockDaily)){
+          showMessage(item.title + ' is sold out for today.');
+          return;
+        }
       }
       const price = getShopPrice(item);
       if(playerProfile.coins < price){
@@ -2453,38 +2653,89 @@
         if(!playerProfile.ownedThemes.includes(item.value)) playerProfile.ownedThemes.push(item.value);
         applyThemeSelection(item.value);
         showMessage(item.title + ' purchased and applied.');
+      } else if(item.type === 'coin-pass'){
+        playerProfile.runCoinBoostRuns = Math.min(12, Number(playerProfile.runCoinBoostRuns || 0) + Number(item.value || 0));
+        showMessage(item.title + ' activated. Coin-pass runs: ' + playerProfile.runCoinBoostRuns + '.');
+      } else if(item.type === 'xp-window'){
+        const now = Date.now();
+        const base = isXpBoostActive() ? new Date(playerProfile.xpBoostUntil).getTime() : now;
+        const addMs = Number(item.windowDays || 2) * 24 * 60 * 60 * 1000;
+        const capMs = now + (7 * 24 * 60 * 60 * 1000);
+        playerProfile.xpBoostUntil = new Date(Math.min(base + addMs, capMs)).toISOString();
+        showMessage(item.title + ' activated. XP boost is now live.');
+      } else if(item.type === 'streak-shield'){
+        playerProfile.streakShields = Math.min(5, Number(playerProfile.streakShields || 0) + Number(item.value || 1));
+        showMessage('Streak Shield added. Current shields: ' + playerProfile.streakShields + '.');
+      } else if(item.type === 'quest-reroll'){
+        playerProfile.questRerollTokens = Math.min(5, Number(playerProfile.questRerollTokens || 0) + Number(item.value || 1));
+        const rerolled = useQuestRerollToken();
+        if(!rerolled) showMessage('Quest token stored. Use it once an unfinished daily quest appears.');
       }
 
       playerProfile.purchases[item.id] = (playerProfile.purchases[item.id] || 0) + 1;
+      if(item.stockDaily) recordDailyPurchase(item.id, 1);
       saveProfile();
       renderProfilePanel();
       renderGameGrid();
       renderFeatured();
       renderTrending();
       renderContinuePlaying();
+      renderQuestBoard();
       renderShop();
       renderSeasonalShop();
     }
 
     function renderShop(){
       const grid = document.getElementById('shopGrid');
+      const bundleGrid = document.getElementById('shopBundleGrid');
       if(!grid) return;
       grid.innerHTML = '';
       const daily = getDailyStoreState();
+      const weekly = getWeeklyStoreState();
       shopCatalog.forEach(item=>{
         const owned = item.oneTime && playerProfile.purchases[item.id];
+        const lockedByLevel = Number(playerProfile.level || 1) < Number(item.unlockLevel || 1);
         const price = getShopPrice(item);
         const afford = playerProfile.coins >= price;
         const isDaily = daily.featuredIds.includes(item.id);
+        const isWeekly = weekly.featuredId === item.id;
+        const stockLeft = item.stockDaily ? Math.max(0, Number(item.stockDaily) - getItemDailyPurchaseCount(item.id)) : null;
         const card = document.createElement('div');
         card.className = 'shop-item';
-        card.innerHTML = '<h4>' + item.title + (isDaily ? '<span class="shop-badge">Daily -30%</span>' : '') + '</h4><p>' + item.desc + '</p><button>' + (owned ? 'Owned' : ('Buy (' + price + ' coins)')) + '</button>';
+        const rarity = getRarityLabel(item.rarity);
+        const badges = (isWeekly ? '<span class="shop-badge">Weekly -25%</span>' : '') + (isDaily && !isWeekly ? '<span class="shop-badge">Daily -20%</span>' : '');
+        const meta = 'Rarity: <span style="color:' + getRarityColor(item.rarity) + ';font-weight:700;">' + rarity + '</span> | Unlock Lv ' + (item.unlockLevel || 1) + (item.stockDaily ? (' | Stock today: ' + stockLeft) : '');
+        const btnLabel = owned ? 'Owned' : (lockedByLevel ? ('Reach Lv ' + item.unlockLevel) : ('Buy (' + price + ' coins)'));
+        card.innerHTML = '<h4>' + item.title + badges + '</h4><p>' + item.desc + '</p><div style="font-size:0.78rem;color:#95aedb;margin-bottom:8px;">' + meta + '</div><button>' + btnLabel + '</button>';
         const btn = card.querySelector('button');
-        btn.disabled = Boolean(owned);
-        if(!afford && !owned) btn.style.opacity = '0.72';
+        const soldOut = item.stockDaily && stockLeft <= 0;
+        btn.disabled = Boolean(owned || lockedByLevel || soldOut);
+        if((!afford && !owned && !lockedByLevel) || soldOut) btn.style.opacity = '0.72';
+        if(soldOut && !owned) btn.textContent = 'Sold Out Today';
         btn.addEventListener('click', ()=>buyShopItem(item.id));
         grid.appendChild(card);
       });
+
+      if(bundleGrid){
+        bundleGrid.innerHTML = '';
+        shopBundles.forEach(bundle=>{
+          const owned = bundle.oneTime && playerProfile.bundlePurchases[bundle.id];
+          const lockedByLevel = Number(playerProfile.level || 1) < Number(bundle.unlockLevel || 1);
+          const price = getBundlePrice(bundle);
+          const afford = Number(playerProfile.coins || 0) >= price;
+          const discounted = price < bundle.cost;
+          const card = document.createElement('div');
+          card.className = 'shop-item';
+          const meta = 'Rarity: <span style="color:' + getRarityColor(bundle.rarity) + ';font-weight:700;">' + getRarityLabel(bundle.rarity) + '</span> | Unlock Lv ' + (bundle.unlockLevel || 1);
+          const btnLabel = owned ? 'Owned' : (lockedByLevel ? ('Reach Lv ' + bundle.unlockLevel) : ('Buy Bundle (' + price + ' coins)'));
+          card.innerHTML = '<h4>' + bundle.title + (discounted ? '<span class="shop-badge">Daily Bundle -10%</span>' : '') + '</h4><p>' + bundle.desc + '</p><div style="font-size:0.78rem;color:#95aedb;margin-bottom:8px;">' + meta + '</div><button>' + btnLabel + '</button>';
+          const btn = card.querySelector('button');
+          btn.disabled = Boolean(owned || lockedByLevel);
+          if(!afford && !owned && !lockedByLevel) btn.style.opacity = '0.72';
+          btn.addEventListener('click', ()=>buyBundle(bundle.id));
+          bundleGrid.appendChild(card);
+        });
+      }
     }
 
     function unlockRandomLockedGames(count){
@@ -2501,9 +2752,15 @@
 
     function setRedeemMessage(msg, ok=false){
       const el = document.getElementById('redeemCodeMessage');
-      if(!el) return;
-      el.textContent = msg;
-      el.style.color = ok ? '#7dff9f' : '#ffd2a8';
+      const elShop = document.getElementById('shopRedeemCodeMessage');
+      if(el){
+        el.textContent = msg;
+        el.style.color = ok ? '#7dff9f' : '#ffd2a8';
+      }
+      if(elShop){
+        elShop.textContent = msg;
+        elShop.style.color = ok ? '#7dff9f' : '#ffd2a8';
+      }
     }
 
     function redeemCode(rawCode){
@@ -3044,6 +3301,19 @@
         showMessage('Fan banner updated.');
         return;
       }
+      const frameBtn = event.target.closest('[data-equip-frame]');
+      if(frameBtn){
+        const frameId = frameBtn.dataset.equipFrame;
+        if((playerProfile.seasonalInventory || []).includes(frameId)){
+          playerProfile.equippedSeasonalFrame = frameId;
+          saveProfile();
+          renderFanProfile();
+          renderGlobalFanBanners();
+          renderSeasonalShop();
+          showMessage('Seasonal frame equipped.');
+        }
+        return;
+      }
       const galleryBtn = event.target.closest('[data-fan-card-download]');
       if(galleryBtn){
         const saved = (playerProfile.animeSavedCards || []).find(item=>item.id===galleryBtn.dataset.fanCardDownload);
@@ -3166,6 +3436,14 @@
     }
     if(redeemInput){
       redeemInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ redeemCode(redeemInput.value); redeemInput.value=''; } });
+    }
+    const shopRedeemBtn = document.getElementById('shopRedeemCodeBtn');
+    const shopRedeemInput = document.getElementById('shopRedeemCodeInput');
+    if(shopRedeemBtn){
+      shopRedeemBtn.addEventListener('click', ()=>{ redeemCode(shopRedeemInput ? shopRedeemInput.value : ''); if(shopRedeemInput) shopRedeemInput.value=''; });
+    }
+    if(shopRedeemInput){
+      shopRedeemInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ redeemCode(shopRedeemInput.value); shopRedeemInput.value=''; } });
     }
     const saveNameBtn = document.getElementById('savePlayerNameBtn');
     if(saveNameBtn){

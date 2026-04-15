@@ -458,10 +458,24 @@
       <h2>Arcade Shop</h2>
       <div style="color:#b6c5e6;font-size:0.9rem;">Spend coins on boosts, unlocks, and premium themes.</div>
       <div id="shopGrid" class="shop-grid"></div>
+      <div class="seasonal-shop-wrap" style="margin-top:10px;">
+        <h3 style="margin:0 0 6px;">Bundle Deals</h3>
+        <div style="color:#b6c5e6;font-size:0.88rem;">Rotating packs with utility boosts and discount windows.</div>
+        <div id="shopBundleGrid" class="shop-grid" style="margin-top:8px;"></div>
+      </div>
       <div class="seasonal-shop-wrap">
         <h3 style="margin:0 0 6px;">Seasonal Event Shop</h3>
         <div id="seasonalShopMeta" style="color:#b6c5e6;font-size:0.88rem;">Rotating event stock appears here.</div>
         <div id="seasonalShopGrid" class="shop-grid" style="margin-top:8px;"></div>
+      </div>
+      <div class="seasonal-shop-wrap" style="margin-top:10px;">
+        <h3 style="margin:0 0 6px;">Redeem Codes</h3>
+        <div style="color:#b6c5e6;font-size:0.88rem;margin-bottom:8px;">Redeem quick rewards right from the shop.</div>
+        <div class="redeem-row">
+          <input id="shopRedeemCodeInput" type="text" placeholder="Enter code (example: WELCOME100)">
+          <button id="shopRedeemCodeBtn">Redeem</button>
+        </div>
+        <div id="shopRedeemCodeMessage" style="margin-top:8px;color:#cfe1ff;font-size:0.86rem;"></div>
       </div>
     </section>
 
