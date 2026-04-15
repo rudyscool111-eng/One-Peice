@@ -56,6 +56,12 @@
     .standee.tall { --standee-height:254px; --standee-width:100px; }
     .standee.short { --standee-height:206px; --standee-width:84px; }
     .standee.center { transform:translateY(-8px) scale(1.04); }
+    .standee-image { width:126px; height:268px; padding:0; border-radius:24px; overflow:visible; background:none; }
+    .standee-image::before,
+    .standee-image::after { display:none; }
+    .standee-image img { width:100%; height:100%; object-fit:contain; display:block; filter:drop-shadow(0 18px 28px rgba(0,0,0,0.42)); }
+    .standee-image .standee-badge,
+    .standee-image .standee-name { z-index:2; }
     .standee.luffy { --standee-accent:#c83d2c; --standee-accent2:#f0b33a; }
     .standee.naruto { --standee-accent:#ff7b21; --standee-accent2:#ffe27a; }
     .standee.goku { --standee-accent:#ff5b2e; --standee-accent2:#4ac5ff; }
@@ -301,8 +307,9 @@
             <div class="standee-badge">Pirate</div>
             <div class="standee-name">Zoro</div>
           </div>
-          <div class="standee center tall luffy">
+          <div class="standee standee-image center tall luffy">
             <div class="standee-badge">Captain</div>
+            <img src="src/main/java/luffy1.jpg" alt="Luffy featured in the anime lineup">
             <div class="standee-name">Luffy</div>
           </div>
           <div class="standee goku">
