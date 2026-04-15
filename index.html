@@ -234,16 +234,6 @@
   </div>
 
   <main class="content">
-    <div class="panel-card profile-shell" id="profilePanel">
-      <h3 style="margin:0 0 6px;">Profile Progression</h3>
-      <div id="profileHeadline" style="color:#b8c8ec;">Loading player profile...</div>
-      <div class="xp-wrap">
-        <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
-        <div id="xpLabel" style="margin-top:6px;color:#a8b8df;font-size:.9rem;">XP 0 / 100</div>
-      </div>
-      <div class="profile-stats" id="profileStats"></div>
-    </div>
-
     <section id="home" class="panel-active">
       <div class="hero">
         <h1>Arcade Hub</h1>
@@ -255,6 +245,10 @@
           <button id="bossModeBtn" class="hero-btn boss">Mega Boss Mode</button>
         </div>
       </div>
+    </section>
+
+    <section id="games" class="games-panel section">
+      <h2>Games Library</h2>
       <div class="dashboard-grid">
         <div class="panel-card" style="grid-column:1 / -1;">
           <h3 style="margin:0 0 8px;">Trending Games</h3>
@@ -276,10 +270,6 @@
           <div id="activityFeed" class="feed-list"></div>
         </div>
       </div>
-    </section>
-
-    <section id="games" class="games-panel section">
-      <h2>Games Library</h2>
       <div class="dashboard-grid">
         <div class="panel-card">
           <h3 style="margin:0 0 8px;">Featured Game of the Day</h3>
@@ -386,6 +376,15 @@
 
     <section id="fan" class="fan-panel section">
       <h2>Fan Profile</h2>
+      <div class="panel-card profile-shell" id="profilePanel">
+        <h3 style="margin:0 0 6px;">Profile Progression</h3>
+        <div id="profileHeadline" style="color:#b8c8ec;">Loading player profile...</div>
+        <div class="xp-wrap">
+          <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
+          <div id="xpLabel" style="margin-top:6px;color:#a8b8df;font-size:.9rem;">XP 0 / 100</div>
+        </div>
+        <div class="profile-stats" id="profileStats"></div>
+      </div>
       <div class="fan-profile-grid">
         <div class="fan-profile-card">
           <h3>Identity Overview</h3>
