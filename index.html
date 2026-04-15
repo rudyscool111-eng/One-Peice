@@ -14,6 +14,12 @@
       --shadow: 0 0 25px rgba(138, 76, 255, 0.35);
     }
     body { margin: 0; min-height:100dvh; font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: radial-gradient(circle at 20% 20%, #0d1631 0%, #060914 70%); color: var(--text); overflow-x: hidden; }
+    body.theme-retro { --accent:#ff8a3d; --accent2:#ffe07a; background:radial-gradient(circle at 15% 10%, #3a2740 0%, #1b1324 55%, #100b18 100%); }
+    body.theme-cyber { --accent:#00c2ff; --accent2:#6fff9e; background:radial-gradient(circle at 20% 20%, #04233a 0%, #031420 60%, #010a12 100%); }
+    body.theme-dark { --accent:#5d6f8f; --accent2:#7f8ea8; background:radial-gradient(circle at 20% 20%, #141820 0%, #0c1016 65%, #080b10 100%); }
+    body.theme-forest { --accent:#2ca36a; --accent2:#a8d66f; background:radial-gradient(circle at 20% 20%, #173a2b 0%, #102a1f 60%, #0b1b15 100%); }
+    body.theme-sunset { --accent:#ff6f4d; --accent2:#ffca6b; background:radial-gradient(circle at 20% 20%, #5b2740 0%, #3e2036 52%, #221523 100%); }
+    body.theme-ocean { --accent:#2f9ee9; --accent2:#53dfdf; background:radial-gradient(circle at 20% 20%, #102f52 0%, #0b2140 58%, #09172c 100%); }
     .nav { display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(16px); background: rgba(7, 11, 19, 0.72); border-bottom: 1px solid rgba(138,76,255,0.35); padding: 12px 24px; position: sticky; top:0; z-index:100; }
     .logo { font-size:1.65rem; font-weight:800; letter-spacing:1px; color:#fff; text-shadow:0 0 16px rgba(138,76,255,0.85); }
     .nav-links { display:flex; gap: 14px; }
@@ -229,6 +235,9 @@
         <option value="retro">Theme: Retro</option>
         <option value="cyber">Theme: Cyber</option>
         <option value="dark">Theme: Dark</option>
+        <option value="forest">Theme: Forest</option>
+        <option value="sunset">Theme: Sunset</option>
+        <option value="ocean">Theme: Ocean</option>
       </select>
     </div>
   </div>
@@ -410,7 +419,25 @@
 
     <section id="settings" class="settings-panel section">
       <h2>Settings</h2>
-      <label style="display:block; margin-bottom:12px;">Player name: <input id="playerName" type="text" placeholder="Enter name" style="padding:8px 8px; width:220px; border-radius:8px; border:1px solid rgba(160,170,210,0.5); background:#0d162b; color:#e6ecff;"></label>
+      <div class="panel-card" style="margin-bottom:12px;">
+        <h3 style="margin:0 0 8px;">Accounts</h3>
+        <div style="color:#b6c5e6;font-size:0.88rem;margin-bottom:8px;">Create or switch profiles. Each account keeps separate progress, scores, and theme.</div>
+        <div class="redeem-row">
+          <select id="accountSelect" style="flex:1; min-width:220px; padding:8px; border-radius:8px; border:1px solid rgba(138,76,255,0.35); background:#0d162b; color:#e6ecff;"></select>
+          <button id="switchAccountBtn">Switch Account</button>
+        </div>
+        <div class="redeem-row" style="margin-top:8px;">
+          <input id="newAccountName" type="text" placeholder="New account name">
+          <button id="createAccountBtn">Create Account</button>
+        </div>
+        <div id="accountMessage" style="margin-top:8px;color:#cfe1ff;font-size:0.86rem;"></div>
+      </div>
+      <label style="display:block; margin-bottom:12px;">Player name:
+        <div class="redeem-row" style="margin-top:8px; max-width:420px;">
+          <input id="playerName" type="text" placeholder="Enter name" style="padding:8px 8px; width:220px; border-radius:8px; border:1px solid rgba(160,170,210,0.5); background:#0d162b; color:#e6ecff;">
+          <button id="savePlayerNameBtn">Save Name</button>
+        </div>
+      </label>
       <p>All progress and high scores are stored locally in your browser.</p>
       <h3>Achievements</h3>
       <div id="achievementList" style="background:#08122a;border:1px solid rgba(106,114,160,0.35);padding:10px;border-radius:8px;line-height:1.6;"></div>
@@ -994,10 +1021,15 @@
     const achievementsKey = 'arcadeHubAchievements';
     const dailyKey = 'arcadeHubDailyScores';
     const profileKey = 'arcadeHubProfile';
-    let highScores = JSON.parse(localStorage.getItem(localKey) || '{}');
-    let achievements = JSON.parse(localStorage.getItem(achievementsKey) || '{}');
-    let dailyScores = JSON.parse(localStorage.getItem(dailyKey) || '{}');
-    let playerProfile = JSON.parse(localStorage.getItem(profileKey) || '{}');
+    const themeKey = 'arcadeHubTheme';
+    const accountsKey = 'arcadeHubAccounts';
+    const activeAccountKey = 'arcadeHubActiveAccount';
+    let accountList = [];
+    let activeAccountId = '';
+    let highScores = {};
+    let achievements = {};
+    let dailyScores = {};
+    let playerProfile = {};
     let currentGame = null;
     let gameScore = 0;
     let practiceMode = false;
@@ -1018,7 +1050,10 @@
       { id:'unlock-token', title:'Unlock Token', cost:260, type:'unlock', value:1, desc:'Unlock one currently locked game instantly.', oneTime:false },
       { id:'retro-theme', title:'Retro Theme License', cost:140, type:'theme', value:'retro', desc:'Own and equip the Retro theme.', oneTime:true },
       { id:'cyber-theme', title:'Cyber Theme License', cost:170, type:'theme', value:'cyber', desc:'Own and equip the Cyber theme.', oneTime:true },
-      { id:'dark-theme', title:'Dark Theme License', cost:190, type:'theme', value:'dark', desc:'Own and equip the Dark theme.', oneTime:true }
+      { id:'dark-theme', title:'Dark Theme License', cost:190, type:'theme', value:'dark', desc:'Own and equip the Dark theme.', oneTime:true },
+      { id:'forest-theme', title:'Forest Theme License', cost:210, type:'theme', value:'forest', desc:'Own and equip the Forest theme.', oneTime:true },
+      { id:'sunset-theme', title:'Sunset Theme License', cost:210, type:'theme', value:'sunset', desc:'Own and equip the Sunset theme.', oneTime:true },
+      { id:'ocean-theme', title:'Ocean Theme License', cost:220, type:'theme', value:'ocean', desc:'Own and equip the Ocean theme.', oneTime:true }
     ];
     const promoCodes = {
       'WELCOME100': {type:'coins', amount:100, msg:'Welcome bonus: +100 coins'},
@@ -1130,15 +1165,152 @@
     function todayKey(){ return new Date().toISOString().split('T')[0]; }
     function yesterdayKey(){ const d=new Date(); d.setDate(d.getDate()-1); return d.toISOString().split('T')[0]; }
     function getXpForLevel(level){ return 120 + (level-1) * 65; }
-    function saveHighScores() { localStorage.setItem(localKey, JSON.stringify(highScores)); }
-    function saveProfile(){ localStorage.setItem(profileKey, JSON.stringify(playerProfile)); }
-    function saveAchievements(){ localStorage.setItem(achievementsKey, JSON.stringify(achievements)); }
-    function formatName() { const n = (playerNameInput.value || '').trim(); return n || 'Player'; }
+    function accountScopedKey(base){ return base + '_' + activeAccountId; }
+    function readJson(key, fallback){ try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); } catch { return fallback; } }
+    function saveHighScores() { localStorage.setItem(accountScopedKey(localKey), JSON.stringify(highScores)); }
+    function saveDailyScores(){ localStorage.setItem(accountScopedKey(dailyKey), JSON.stringify(dailyScores)); }
+    function saveProfile(){ localStorage.setItem(accountScopedKey(profileKey), JSON.stringify(playerProfile)); }
+    function saveAchievements(){ localStorage.setItem(accountScopedKey(achievementsKey), JSON.stringify(achievements)); }
+    function formatName() { const n = (playerNameInput?.value || '').trim(); return n || 'Player'; }
     function escapeHtml(v){ return String(v || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+    function saveAccountDirectory(){ localStorage.setItem(accountsKey, JSON.stringify(accountList)); }
+
+    function showAccountMessage(text, good=false){
+      const msg = document.getElementById('accountMessage');
+      if(!msg) return;
+      msg.textContent = text;
+      msg.style.color = good ? '#7dff9f' : '#cfe1ff';
+    }
+
+    function ensureLegacyDataMigrated(accountId){
+      const scopedProfile = profileKey + '_' + accountId;
+      if(!localStorage.getItem(scopedProfile) && localStorage.getItem(profileKey)){
+        localStorage.setItem(scopedProfile, localStorage.getItem(profileKey));
+      }
+      const scopedScores = localKey + '_' + accountId;
+      if(!localStorage.getItem(scopedScores) && localStorage.getItem(localKey)){
+        localStorage.setItem(scopedScores, localStorage.getItem(localKey));
+      }
+      const scopedAchievements = achievementsKey + '_' + accountId;
+      if(!localStorage.getItem(scopedAchievements) && localStorage.getItem(achievementsKey)){
+        localStorage.setItem(scopedAchievements, localStorage.getItem(achievementsKey));
+      }
+      const scopedDaily = dailyKey + '_' + accountId;
+      if(!localStorage.getItem(scopedDaily) && localStorage.getItem(dailyKey)){
+        localStorage.setItem(scopedDaily, localStorage.getItem(dailyKey));
+      }
+      const scopedTheme = themeKey + '_' + accountId;
+      if(!localStorage.getItem(scopedTheme) && localStorage.getItem(themeKey)){
+        localStorage.setItem(scopedTheme, localStorage.getItem(themeKey));
+      }
+    }
+
+    function initializeAccounts(){
+      accountList = readJson(accountsKey, []);
+      if(!Array.isArray(accountList)) accountList = [];
+      const legacyName = localStorage.getItem('arcadeHubPlayer') || 'Player';
+      if(accountList.length === 0){
+        const defaultId = 'acct-' + Date.now().toString(36);
+        accountList = [{ id: defaultId, name: legacyName }];
+        activeAccountId = defaultId;
+        localStorage.setItem(activeAccountKey, activeAccountId);
+        saveAccountDirectory();
+        ensureLegacyDataMigrated(activeAccountId);
+      } else {
+        const saved = localStorage.getItem(activeAccountKey) || '';
+        activeAccountId = accountList.some(a=>a.id===saved) ? saved : accountList[0].id;
+        localStorage.setItem(activeAccountKey, activeAccountId);
+        ensureLegacyDataMigrated(activeAccountId);
+      }
+      highScores = readJson(accountScopedKey(localKey), {});
+      achievements = readJson(accountScopedKey(achievementsKey), {});
+      dailyScores = readJson(accountScopedKey(dailyKey), {});
+      playerProfile = readJson(accountScopedKey(profileKey), {});
+    }
+
+    function renderAccountList(){
+      const select = document.getElementById('accountSelect');
+      if(!select) return;
+      select.innerHTML = '';
+      accountList.forEach(acc=>{
+        const option = document.createElement('option');
+        option.value = acc.id;
+        option.textContent = acc.name;
+        if(acc.id === activeAccountId) option.selected = true;
+        select.appendChild(option);
+      });
+    }
+
+    function syncActiveAccountName(name){
+      const clean = String(name || '').trim() || 'Player';
+      const item = accountList.find(acc=>acc.id===activeAccountId);
+      if(item) item.name = clean;
+      saveAccountDirectory();
+      renderAccountList();
+    }
+
+    function refreshAllForAccountSwitch(){
+      hydrateProfile();
+      syncActiveAccountName(playerProfile.name || 'Player');
+      ensureDailyLoginReward();
+      const themePref = localStorage.getItem(accountScopedKey(themeKey)) || 'neon';
+      applyThemeSelection(isThemeOwned(themePref) ? themePref : 'neon');
+      Components.Header.renderHeroButtons();
+      Components.ProfilePanel.render();
+      renderGlobalFanBanners();
+      renderFanProfile();
+      renderFeatured();
+      renderContinuePlaying();
+      renderTrending();
+      renderQuestBoard();
+      renderActivityFeed();
+      renderAnimeLounge();
+      openAnimeOnboardingIfNeeded();
+      if(playerProfile.animeAmbientOn) startAnimeAmbient(); else stopAnimeAmbient();
+      renderShop();
+      renderSeasonalShop();
+      renderGameGrid();
+      showHighScores();
+      renderAchievements();
+      renderAccountList();
+      if(playerNameInput) playerNameInput.value = playerProfile.name || '';
+    }
+
+    function switchAccount(accountId){
+      if(!accountList.some(acc=>acc.id===accountId)) return;
+      activeAccountId = accountId;
+      localStorage.setItem(activeAccountKey, activeAccountId);
+      highScores = readJson(accountScopedKey(localKey), {});
+      achievements = readJson(accountScopedKey(achievementsKey), {});
+      dailyScores = readJson(accountScopedKey(dailyKey), {});
+      playerProfile = readJson(accountScopedKey(profileKey), {});
+      refreshAllForAccountSwitch();
+      const active = accountList.find(acc=>acc.id===activeAccountId);
+      showAccountMessage('Switched to account: ' + (active?.name || 'Player'), true);
+    }
+
+    function createAccount(name){
+      const clean = String(name || '').trim();
+      if(!clean){ showAccountMessage('Enter a new account name first.'); return; }
+      const id = 'acct-' + Date.now().toString(36) + Math.floor(Math.random()*9999).toString(36);
+      accountList.push({ id, name: clean });
+      saveAccountDirectory();
+      localStorage.setItem(profileKey + '_' + id, JSON.stringify({ name: clean, ownedThemes:['neon'] }));
+      localStorage.setItem(localKey + '_' + id, '{}');
+      localStorage.setItem(achievementsKey + '_' + id, '{}');
+      localStorage.setItem(dailyKey + '_' + id, '{}');
+      localStorage.setItem(themeKey + '_' + id, 'neon');
+      switchAccount(id);
+      showAccountMessage('Created and switched to account: ' + clean, true);
+    }
+
+    initializeAccounts();
+
     function hydrateProfile() {
+      const accountName = accountList.find(acc=>acc.id===activeAccountId)?.name || 'Player';
       playerProfile = {
-        name: formatName(),
+        name: String(playerProfile.name || accountName || 'Player').trim() || 'Player',
         level: Number(playerProfile.level || 1),
         xp: Number(playerProfile.xp || 0),
         coins: Number(playerProfile.coins || 0),
@@ -2341,7 +2513,7 @@
         const existing = dailyScores[day] || {score:0, name:'none'};
         if (adjustedScore > existing.score) {
           dailyScores[day] = {score: adjustedScore, name, gameId};
-          localStorage.setItem(dailyKey, JSON.stringify(dailyScores));
+          saveDailyScores();
           showMessage('New Daily Challenge Record!');
         }
         if(playerProfile.dailyChallengeClaimedDate !== day){
@@ -2406,11 +2578,11 @@
     }
 
     function applyThemeSelection(theme){
-      document.body.classList.remove('theme-retro','theme-cyber','theme-dark');
+      document.body.classList.remove('theme-retro','theme-cyber','theme-dark','theme-forest','theme-sunset','theme-ocean');
       if(theme && theme !== 'neon') document.body.classList.add('theme-' + theme);
       const select = document.getElementById('themeSelect');
       if(select) select.value = theme || 'neon';
-      localStorage.setItem('arcadeHubTheme', theme || 'neon');
+      if(activeAccountId) localStorage.setItem(accountScopedKey(themeKey), theme || 'neon');
     }
 
     function isThemeOwned(theme){
@@ -3079,7 +3251,7 @@
       const theme=e.target.value;
       if(!isThemeOwned(theme)){
         showMessage('Theme locked. Buy it in Arcade Shop.');
-        const fallback = localStorage.getItem('arcadeHubTheme') || 'neon';
+        const fallback = localStorage.getItem(accountScopedKey(themeKey)) || 'neon';
         applyThemeSelection(isThemeOwned(fallback) ? fallback : 'neon');
         return;
       }
@@ -3093,9 +3265,45 @@
     if(redeemInput){
       redeemInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ redeemCode(redeemInput.value); redeemInput.value=''; } });
     }
-    playerNameInput.addEventListener('change',()=>{ playerProfile.name = formatName(); localStorage.setItem('arcadeHubPlayer', playerNameInput.value); saveProfile(); renderProfilePanel(); });
-    const savedName = localStorage.getItem('arcadeHubPlayer'); if(savedName){ playerNameInput.value=savedName; }
-    const savedTheme = localStorage.getItem('arcadeHubTheme') || 'neon';
+    const saveNameBtn = document.getElementById('savePlayerNameBtn');
+    if(saveNameBtn){
+      saveNameBtn.addEventListener('click', ()=>{
+        const newName = formatName();
+        if(!newName){ showMessage('Enter a valid player name.'); return; }
+        if(newName === (playerProfile.name || '')){ showMessage('Name is already set to ' + newName + '.'); return; }
+        const createNew = window.confirm('Create a new account with this name?\nPress OK to create a new account.\nPress Cancel to keep this account and just rename it.');
+        if(createNew){
+          createAccount(newName);
+          return;
+        }
+        playerProfile.name = newName;
+        saveProfile();
+        syncActiveAccountName(newName);
+        renderProfilePanel();
+        renderGlobalFanBanners();
+        renderFanProfile();
+        showMessage('Name updated to ' + newName + '.');
+        showAccountMessage('Renamed current account to ' + newName + '.', true);
+      });
+    }
+
+    const accountSelect = document.getElementById('accountSelect');
+    const switchAccountBtn = document.getElementById('switchAccountBtn');
+    const newAccountNameInput = document.getElementById('newAccountName');
+    const createAccountBtn = document.getElementById('createAccountBtn');
+    if(switchAccountBtn && accountSelect){
+      switchAccountBtn.addEventListener('click', ()=>switchAccount(accountSelect.value));
+      accountSelect.addEventListener('change', ()=>showAccountMessage('Selected account ready. Click Switch Account to load it.'));
+    }
+    if(createAccountBtn && newAccountNameInput){
+      createAccountBtn.addEventListener('click', ()=>{
+        createAccount(newAccountNameInput.value);
+        newAccountNameInput.value = '';
+      });
+      newAccountNameInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ createAccountBtn.click(); } });
+    }
+
+    const savedTheme = localStorage.getItem(accountScopedKey(themeKey)) || 'neon';
     const themeSelect = document.getElementById('themeSelect');
     if(themeSelect){ applyThemeSelection(isThemeOwned(savedTheme) ? savedTheme : 'neon'); }
 
@@ -3121,7 +3329,10 @@
 
     function init(){
       hydrateProfile();
+      syncActiveAccountName(playerProfile.name || 'Player');
       ensureDailyLoginReward();
+      renderAccountList();
+      if(playerNameInput) playerNameInput.value = playerProfile.name || '';
       Components.Header.renderHeroButtons();
       Components.ProfilePanel.render();
       renderGlobalFanBanners();
