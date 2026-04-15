@@ -20,8 +20,12 @@
     body.theme-forest { --accent:#2ca36a; --accent2:#a8d66f; background:radial-gradient(circle at 20% 20%, #173a2b 0%, #102a1f 60%, #0b1b15 100%); }
     body.theme-sunset { --accent:#ff6f4d; --accent2:#ffca6b; background:radial-gradient(circle at 20% 20%, #5b2740 0%, #3e2036 52%, #221523 100%); }
     body.theme-ocean { --accent:#2f9ee9; --accent2:#53dfdf; background:radial-gradient(circle at 20% 20%, #102f52 0%, #0b2140 58%, #09172c 100%); }
-    .nav { display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(16px); background: rgba(7, 11, 19, 0.72); border-bottom: 1px solid rgba(138,76,255,0.35); padding: 12px 24px; position: sticky; top:0; z-index:100; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; backdrop-filter: blur(16px); background: rgba(7, 11, 19, 0.72); border-bottom: 1px solid rgba(138,76,255,0.35); padding: 12px 24px; position: sticky; top:0; z-index:100; }
+    .nav-left { display:flex; align-items:center; gap:14px; min-width:0; }
     .logo { font-size:1.65rem; font-weight:800; letter-spacing:1px; color:#fff; text-shadow:0 0 16px rgba(138,76,255,0.85); }
+    .top-coin-badge { display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,212,79,0.35); background:linear-gradient(135deg, rgba(46,34,9,0.95), rgba(28,20,6,0.84)); box-shadow:0 0 20px rgba(255,212,79,0.14); color:#fff3b0; font-weight:800; white-space:nowrap; }
+    .top-coin-badge strong { color:#ffe082; font-size:1rem; }
+    .top-coin-icon { font-size:1rem; filter:drop-shadow(0 0 10px rgba(255,212,79,0.45)); }
     .nav-links { display:flex; gap: 14px; }
     .nav-links button { border:none; background:transparent; color:var(--text); padding:8px 12px; border-radius:10px; transition:0.2s ease; cursor:pointer; font-size:0.96rem; }
     .nav-links button:hover, .nav-links button.active { background: rgba(131, 69, 255, 0.2); box-shadow: 0 0 10px rgba(138,76,255,0.25); }
@@ -37,6 +41,29 @@
     .hero-btn.boss { background:rgba(100,30,30,0.82); border-color:rgba(255,99,79,0.5); }
     .hero-btn.daily { background:rgba(45,75,45,0.85); border-color:rgba(71,178,79,0.45); }
     .hero-btn.practice { background:rgba(120,87,20,0.82); border-color:rgba(255,192,0,0.45); }
+    .home-anime-lineup { position:relative; margin:10px 0 28px; padding:28px 18px 24px; border-radius:22px; border:1px solid rgba(138,76,255,0.22); background:linear-gradient(180deg, rgba(12,17,29,0.75), rgba(7,10,18,0.92)); overflow:hidden; }
+    .home-anime-lineup::before { content:''; position:absolute; inset:auto -10% 46% -10%; height:180px; background:radial-gradient(circle, rgba(19,216,255,0.12), transparent 60%); pointer-events:none; }
+    .lineup-copy { position:relative; z-index:1; text-align:center; margin-bottom:18px; }
+    .lineup-copy h3 { margin:0; font-size:1.2rem; color:#f4f8ff; }
+    .lineup-copy p { margin:8px auto 0; max-width:720px; color:#aebdde; font-size:0.92rem; }
+    .anime-standees { position:relative; z-index:1; display:flex; justify-content:center; align-items:flex-end; gap:12px; min-height:310px; padding:30px 10px 0; }
+    .anime-standees::after { content:''; position:absolute; left:6%; right:6%; bottom:18px; height:20px; border-radius:999px; background:radial-gradient(circle, rgba(84,118,196,0.4), rgba(84,118,196,0.04) 70%); filter:blur(4px); }
+    .standee { --standee-accent:#7b2eff; --standee-accent2:#26c9ff; --standee-height:220px; --standee-width:92px; position:relative; width:var(--standee-width); height:var(--standee-height); display:flex; align-items:flex-end; justify-content:center; }
+    .standee::before { content:''; position:absolute; top:26px; left:50%; width:48px; height:48px; border-radius:50%; transform:translateX(-50%); background:radial-gradient(circle at 35% 30%, #fff6cf 0 10%, color-mix(in srgb, var(--standee-accent2) 42%, #ffe4c4) 40%, var(--standee-accent) 100%); border:2px solid rgba(255,255,255,0.2); box-shadow:0 0 24px rgba(0,0,0,0.18); }
+    .standee::after { content:''; position:absolute; left:50%; bottom:52px; width:64px; height:150px; transform:translateX(-50%); border-radius:24px 24px 14px 14px; background:linear-gradient(180deg, color-mix(in srgb, var(--standee-accent2) 36%, white), var(--standee-accent)); border:2px solid rgba(255,255,255,0.15); box-shadow:0 18px 32px rgba(0,0,0,0.24); }
+    .standee-name { position:absolute; bottom:0; left:50%; transform:translateX(-50%); white-space:nowrap; padding:6px 10px; border-radius:999px; background:rgba(6,10,18,0.88); border:1px solid rgba(255,255,255,0.1); color:#eef4ff; font-size:0.78rem; letter-spacing:.04em; }
+    .standee-badge { position:absolute; top:2px; left:50%; transform:translateX(-50%); padding:4px 8px; border-radius:999px; background:rgba(12,18,30,0.8); border:1px solid rgba(255,255,255,0.1); color:#b8d2ff; font-size:0.68rem; text-transform:uppercase; letter-spacing:.08em; }
+    .standee.tall { --standee-height:254px; --standee-width:100px; }
+    .standee.short { --standee-height:206px; --standee-width:84px; }
+    .standee.center { transform:translateY(-8px) scale(1.04); }
+    .standee.luffy { --standee-accent:#c83d2c; --standee-accent2:#f0b33a; }
+    .standee.naruto { --standee-accent:#ff7b21; --standee-accent2:#ffe27a; }
+    .standee.goku { --standee-accent:#ff5b2e; --standee-accent2:#4ac5ff; }
+    .standee.gojo { --standee-accent:#4f63c9; --standee-accent2:#d7ecff; }
+    .standee.tanjiro { --standee-accent:#127956; --standee-accent2:#69d8a0; }
+    .standee.sailor { --standee-accent:#d94b8d; --standee-accent2:#ffd76a; }
+    .standee.levi { --standee-accent:#4b6b52; --standee-accent2:#cdd9cc; }
+    .standee.zoro { --standee-accent:#19814d; --standee-accent2:#8cf0b0; }
     .dashboard-grid { display:grid; grid-template-columns: 1.2fr .8fr; gap:14px; margin: 12px 0 20px; }
     .panel-card { background:linear-gradient(135deg, rgba(10,16,28,0.95), rgba(8,13,23,0.82)); border:1px solid rgba(138,76,255,0.28); border-radius:14px; padding:12px; box-shadow:0 8px 22px rgba(0,0,0,0.28); }
     .profile-stats { display:grid; grid-template-columns: repeat(4, minmax(110px,1fr)); gap:8px; margin-top:10px; }
@@ -209,16 +236,22 @@
     body.in-game .content { display:none; }
     body.in-game .nav-links .nav-btn { opacity:.5; }
     body.in-game .nav-links .nav-btn.active { opacity:1; }
-    @media (max-width: 930px) { .modal { grid-template-columns:1fr; max-height:none; } .modal-right { border-left:none; border-top:1px solid rgba(138,76,255,0.25); } .dashboard-grid { grid-template-columns:1fr; } .ultimate-grid { grid-template-columns:1fr; } .anime-zone-grid { grid-template-columns:1fr; } .profile-stats { grid-template-columns: repeat(2, minmax(110px,1fr)); } }
-    @media (max-width: 700px) { .modal-root { width:min(100vw - 16px, 1280px); } .modal-left { padding:14px; } .modal-controls { width:100%; } .modal-controls button { flex:1 1 120px; } .modal-game { min-height:clamp(220px, 52dvh, 420px); padding:10px; } }
-    @media (max-width: 500px) { .nav-links { display:none; } .nav { padding: 10px 14px; } .hero h1 { font-size:2rem; } .toggle-group { gap:6px; } .toggle { padding:6px 8px; font-size:0.82rem; } .modal { border-radius:14px; } .modal-title { font-size:1.3rem; }}
+    @media (max-width: 930px) { .modal { grid-template-columns:1fr; max-height:none; } .modal-right { border-left:none; border-top:1px solid rgba(138,76,255,0.25); } .dashboard-grid { grid-template-columns:1fr; } .ultimate-grid { grid-template-columns:1fr; } .anime-zone-grid { grid-template-columns:1fr; } .profile-stats { grid-template-columns: repeat(2, minmax(110px,1fr)); } .nav { flex-wrap:wrap; } .nav-links { order:3; width:100%; justify-content:center; } }
+    @media (max-width: 700px) { .modal-root { width:min(100vw - 16px, 1280px); } .modal-left { padding:14px; } .modal-controls { width:100%; } .modal-controls button { flex:1 1 120px; } .modal-game { min-height:clamp(220px, 52dvh, 420px); padding:10px; } .anime-standees { gap:8px; min-height:260px; overflow-x:auto; justify-content:flex-start; padding-bottom:12px; } .standee { flex:0 0 auto; } .nav-left { width:100%; justify-content:space-between; } .toggle-group { width:100%; justify-content:flex-end; flex-wrap:wrap; } }
+    @media (max-width: 500px) { .nav-links { display:none; } .nav { padding: 10px 14px; } .hero h1 { font-size:2rem; } .toggle-group { gap:6px; justify-content:flex-start; } .toggle { padding:6px 8px; font-size:0.82rem; } .top-coin-badge { padding:7px 10px; font-size:0.86rem; } .logo { font-size:1.25rem; } .modal { border-radius:14px; } .modal-title { font-size:1.3rem; }}
     @media (hover:hover) and (pointer:fine) { .touch-controls { display:none; } }
   </style>
 </head>
 <body>
   <canvas id="particleCanvas" class="particles"></canvas>
   <div class="nav">
-    <div class="logo">Arcade Hub</div>
+    <div class="nav-left">
+      <div class="top-coin-badge" aria-label="Current coin balance">
+        <span class="top-coin-icon">🪙</span>
+        <span>Coins <strong id="topCoinCount">0</strong></span>
+      </div>
+      <div class="logo">Arcade Hub</div>
+    </div>
     <div class="nav-links">
       <button class="nav-btn active" data-panel="home">Home</button>
       <button class="nav-btn" data-panel="games">Games</button>
@@ -252,6 +285,46 @@
           <button id="dailyChallengeBtn" class="hero-btn daily">Daily Challenge</button>
           <button id="practiceModeBtn" class="hero-btn practice">Practice Mode Off</button>
           <button id="bossModeBtn" class="hero-btn boss">Mega Boss Mode</button>
+        </div>
+      </div>
+      <div class="home-anime-lineup">
+        <div class="lineup-copy">
+          <h3>Anime Legends Lineup</h3>
+          <p>A home-screen group shot inspired by the biggest anime icons, styled as a single squad standing together at the bottom of the page.</p>
+        </div>
+        <div class="anime-standees" aria-label="Top anime characters group lineup">
+          <div class="standee short naruto">
+            <div class="standee-badge">Leaf</div>
+            <div class="standee-name">Naruto</div>
+          </div>
+          <div class="standee tall zoro">
+            <div class="standee-badge">Pirate</div>
+            <div class="standee-name">Zoro</div>
+          </div>
+          <div class="standee center tall luffy">
+            <div class="standee-badge">Captain</div>
+            <div class="standee-name">Luffy</div>
+          </div>
+          <div class="standee goku">
+            <div class="standee-badge">Saiyan</div>
+            <div class="standee-name">Goku</div>
+          </div>
+          <div class="standee tall gojo">
+            <div class="standee-badge">Sorcerer</div>
+            <div class="standee-name">Gojo</div>
+          </div>
+          <div class="standee tanjiro">
+            <div class="standee-badge">Slayer</div>
+            <div class="standee-name">Tanjiro</div>
+          </div>
+          <div class="standee short levi">
+            <div class="standee-badge">Scout</div>
+            <div class="standee-name">Levi</div>
+          </div>
+          <div class="standee sailor">
+            <div class="standee-badge">Moon</div>
+            <div class="standee-name">Usagi</div>
+          </div>
         </div>
       </div>
     </section>
@@ -2952,6 +3025,8 @@
       const fill = document.getElementById('xpFill');
       const label = document.getElementById('xpLabel');
       const stats = document.getElementById('profileStats');
+      const topCoinCount = document.getElementById('topCoinCount');
+      if(topCoinCount) topCoinCount.textContent = String(playerProfile.coins || 0);
       if(!headline || !fill || !label || !stats) return;
       const xpNeed = getXpForLevel(playerProfile.level);
       const percent = Math.max(0, Math.min(100, (playerProfile.xp / xpNeed) * 100));
