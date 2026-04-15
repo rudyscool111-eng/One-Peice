@@ -121,7 +121,7 @@
     .panel-hidden { display:none; }
     .section { margin-top:30px; }
     .section h2 { font-size:1.25rem; margin-bottom:12px; border-bottom:1px solid rgba(138,76,255,0.35); padding-bottom:8px; color: #f4f7ff; }
-    .leaderboard, .settings-panel, .games-panel, .anime-panel, .fan-panel { display:none; }
+    .leaderboard, .settings-panel, .games-panel, .anime-panel, .fan-panel, .shop-panel { display:none; }
     .panel-active { display:block; }
     .fan-banner { margin-top:12px; background:linear-gradient(145deg, rgba(10,18,32,0.95), rgba(22,14,44,0.92)); border:1px solid rgba(126,147,201,0.4); border-radius:12px; padding:10px; display:flex; gap:10px; align-items:center; }
     .fan-banner img { width:108px; height:60px; object-fit:cover; border-radius:8px; border:1px solid rgba(136,152,194,0.4); }
@@ -234,6 +234,7 @@
       <button class="nav-btn" data-panel="games">Games</button>
       <button class="nav-btn" data-panel="anime">Anime Zone</button>
       <button class="nav-btn" data-panel="fan">Fan Profile</button>
+      <button class="nav-btn" data-panel="shop">Shop</button>
       <button class="nav-btn" data-panel="scores">High Scores</button>
       <button class="nav-btn" data-panel="settings">Settings</button>
     </div>
@@ -260,9 +261,38 @@
         <div class="hero-actions">
           <button id="randomGameBtn" class="hero-btn">Random Game</button>
           <button id="dailyChallengeBtn" class="hero-btn daily">Daily Challenge</button>
+          <button id="continueLastGameBtn" class="hero-btn">Continue Last Game</button>
           <button id="practiceModeBtn" class="hero-btn practice">Practice Mode Off</button>
           <button id="bossModeBtn" class="hero-btn boss">Mega Boss Mode</button>
         </div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="panel-card" style="grid-column:1 / -1;">
+          <h3 style="margin:0 0 8px;">Quick Snapshot</h3>
+          <div class="profile-stats" id="homeQuickStats"></div>
+        </div>
+        <div class="panel-card">
+          <h3 style="margin:0 0 8px;">Today's Mission</h3>
+          <div class="mini-list" id="homeMissionCard"></div>
+        </div>
+        <div class="panel-card">
+          <h3 style="margin:0 0 8px;">Featured Spotlight</h3>
+          <div class="featured-main" id="homeFeaturedCard"></div>
+        </div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="panel-card">
+          <h3 style="margin:0 0 8px;">Continue Playing</h3>
+          <div class="mini-list" id="homeContinueList"></div>
+        </div>
+        <div class="panel-card">
+          <h3 style="margin:0 0 8px;">Arcade Feed</h3>
+          <div class="feed-list" id="homeActivityFeed"></div>
+        </div>
+      </div>
+      <div class="panel-card">
+        <h3 style="margin:0 0 8px;">Arcade Pulse</h3>
+        <div id="homeTipTicker" style="color:#bcd0ef;font-size:0.92rem;">Loading tips...</div>
       </div>
     </section>
 
@@ -427,6 +457,17 @@
       <ul id="highscoreList" class="score-list"></ul>
     </section>
 
+    <section id="shop" class="shop-panel section">
+      <h2>Arcade Shop</h2>
+      <div style="color:#b6c5e6;font-size:0.9rem;">Spend coins on boosts, unlocks, and premium themes.</div>
+      <div id="shopGrid" class="shop-grid"></div>
+      <div class="seasonal-shop-wrap">
+        <h3 style="margin:0 0 6px;">Seasonal Event Shop</h3>
+        <div id="seasonalShopMeta" style="color:#b6c5e6;font-size:0.88rem;">Rotating event stock appears here.</div>
+        <div id="seasonalShopGrid" class="shop-grid" style="margin-top:8px;"></div>
+      </div>
+    </section>
+
     <section id="settings" class="settings-panel section">
       <h2>Settings</h2>
       <div class="panel-card" style="margin-bottom:12px;">
@@ -473,14 +514,6 @@
       <p>All progress and high scores are stored locally in your browser.</p>
       <h3>Achievements</h3>
       <div id="achievementList" style="background:#08122a;border:1px solid rgba(106,114,160,0.35);padding:10px;border-radius:8px;line-height:1.6;"></div>
-      <h3 style="margin-top:16px;">Arcade Shop</h3>
-      <div style="color:#b6c5e6;font-size:0.9rem;">Spend coins on boosts, unlocks, and premium themes.</div>
-      <div id="shopGrid" class="shop-grid"></div>
-      <div class="seasonal-shop-wrap">
-        <h3 style="margin:0 0 6px;">Seasonal Event Shop</h3>
-        <div id="seasonalShopMeta" style="color:#b6c5e6;font-size:0.88rem;">Rotating event stock appears here.</div>
-        <div id="seasonalShopGrid" class="shop-grid" style="margin-top:8px;"></div>
-      </div>
       <div class="redeem-wrap">
         <h3 style="margin:0 0 8px;">Redeem Codes</h3>
         <div style="color:#b6c5e6;font-size:0.88rem;margin-bottom:8px;">Enter promo codes for rewards.</div>
@@ -1077,6 +1110,15 @@
     let lofiNoiseBuffer = null;
     let musicVolume = 0.55;
     let musicStyle = 'warm';
+    let homeTipTimer = null;
+    let homeTipIndex = 0;
+    const homeTips = [
+      'Tip: Daily Challenge gives bonus XP and coins once per day.',
+      'Tip: Featured Shop items get a daily discount.',
+      'Tip: Promo code WELCOME100 gives a quick coin boost.',
+      'News: Seasonal shop stock rotates each day.',
+      'Tip: Practice mode helps warm up before score runs.'
+    ];
     let currentRun = { gameId: '', bestScore: -1, counted: false };
     const bossRules = [
       {mult:1.2, minScore:40, speedNote:'Fast Spawn'},
@@ -1314,6 +1356,7 @@
       renderFanProfile();
       renderFeatured();
       renderContinuePlaying();
+      renderHomeDashboard();
       renderTrending();
       renderQuestBoard();
       renderActivityFeed();
@@ -1628,6 +1671,7 @@
       playerProfile.activityLog = [new Date().toLocaleTimeString() + ' - ' + text, ...playerProfile.activityLog].slice(0,16);
       saveProfile();
       renderActivityFeed();
+      renderHomeDashboard();
     }
 
     function getUnlockLevel(game, idx){
@@ -1887,7 +1931,8 @@
         card.className = 'shop-item';
         card.innerHTML = '<h4>' + item.title + '<span class="shop-badge">Seasonal</span></h4><p>' + item.desc + '</p><button>' + (owned ? 'Owned' : ('Buy (' + item.cost + ' coins)')) + '</button>';
         const btn = card.querySelector('button');
-        btn.disabled = owned || !afford;
+        btn.disabled = owned;
+        if(!afford && !owned) btn.style.opacity = '0.72';
         btn.addEventListener('click', ()=>buySeasonalItem(item.id));
         grid.appendChild(card);
       });
@@ -2200,6 +2245,120 @@
         item.textContent = line;
         feed.appendChild(item);
       });
+    }
+
+    function renderHomeTipTicker(){
+      const ticker = document.getElementById('homeTipTicker');
+      if(!ticker) return;
+      if(!homeTips.length){
+        ticker.textContent = 'Play a game to get started.';
+        return;
+      }
+      ticker.textContent = homeTips[homeTipIndex % homeTips.length];
+    }
+
+    function startHomeTipTicker(){
+      if(homeTipTimer) return;
+      homeTipTimer = setInterval(()=>{
+        homeTipIndex = (homeTipIndex + 1) % homeTips.length;
+        renderHomeTipTicker();
+      }, 7000);
+    }
+
+    function getContinueGame(){
+      const gameId = (playerProfile.recentlyPlayed || []).find(id=>games.some(g=>g.id===id));
+      return gameId ? games.find(g=>g.id===gameId) : null;
+    }
+
+    function playContinueLastGame(){
+      const game = getContinueGame();
+      if(!game){
+        showMessage('No recent game yet. Try a random game first.');
+        return;
+      }
+      openGamePage(game);
+      showMessage('Continuing: ' + game.title);
+    }
+
+    function renderHomeDashboard(){
+      const quick = document.getElementById('homeQuickStats');
+      const mission = document.getElementById('homeMissionCard');
+      const featured = document.getElementById('homeFeaturedCard');
+      const continueList = document.getElementById('homeContinueList');
+      const feed = document.getElementById('homeActivityFeed');
+      if(!quick || !mission || !featured || !continueList || !feed) return;
+
+      const xpNeed = getXpForLevel(playerProfile.level);
+      quick.innerHTML = '';
+      [
+        ['Coins', playerProfile.coins],
+        ['Level', playerProfile.level],
+        ['XP', playerProfile.xp + '/' + xpNeed],
+        ['Streak', playerProfile.streak + ' days']
+      ].forEach(([k,v])=>{
+        const chip = document.createElement('div');
+        chip.className = 'stat-chip';
+        chip.innerHTML = '<span>' + k + '</span><strong>' + v + '</strong>';
+        quick.appendChild(chip);
+      });
+
+      const progress = getQuestProgress();
+      const nextQuest = questCatalog.find(q=>!hasClaimedQuest(q.id) && (progress[q.id] || 0) < questTarget(q.id));
+      mission.innerHTML = '';
+      if(nextQuest){
+        const current = progress[nextQuest.id] || 0;
+        const target = questTarget(nextQuest.id);
+        const reward = nextQuest.rewardMusicPlayer
+          ? ('Reward: ' + (animeMusicPlayers.find(item=>item.id===nextQuest.rewardMusicPlayer)?.label || 'Music Player'))
+          : ('Reward: +' + (nextQuest.rewardXp || 0) + ' XP, +' + (nextQuest.rewardCoins || 0) + ' coins');
+        const item = document.createElement('div');
+        item.className = 'mini-item';
+        item.innerHTML = '<span><strong>' + nextQuest.label + '</strong><br><small style="color:#9fb5df;">Progress: ' + current + '/' + target + ' | ' + reward + '</small></span><button id="homeMissionActionBtn">Play Daily</button>';
+        mission.appendChild(item);
+        const actionBtn = document.getElementById('homeMissionActionBtn');
+        if(actionBtn) actionBtn.addEventListener('click', playDailyChallenge);
+      } else {
+        mission.innerHTML = '<div class="mini-item"><span>All current missions are complete. Nice work!</span><button id="homeMissionFallbackBtn">Spin</button></div>';
+        const spinBtn = document.getElementById('homeMissionFallbackBtn');
+        if(spinBtn) spinBtn.addEventListener('click', claimDailySpin);
+      }
+
+      const game = getFeaturedGame();
+      featured.innerHTML = '<h4 style="margin:0 0 6px;">' + game.icon + ' ' + game.title + '</h4><p style="margin:0 0 10px;color:#b8cae7;">' + game.desc + '</p><button class="play-btn" id="homeFeaturedPlayBtn">Play Featured</button>';
+      const playBtn = document.getElementById('homeFeaturedPlayBtn');
+      if(playBtn) playBtn.addEventListener('click', ()=>openGamePage(game));
+
+      const recentIds = (playerProfile.recentlyPlayed || []).slice(0,3);
+      continueList.innerHTML = '';
+      if(!recentIds.length){
+        continueList.innerHTML = '<div class="mini-item"><span>No recent sessions yet. Launch a game to populate this list.</span></div>';
+      } else {
+        recentIds.forEach(id=>{
+          const recentGame = games.find(g=>g.id===id);
+          if(!recentGame) return;
+          const node = document.createElement('div');
+          node.className = 'mini-item';
+          node.innerHTML = '<span>' + recentGame.icon + ' ' + recentGame.title + '</span><button>Resume</button>';
+          node.querySelector('button').addEventListener('click', ()=>openGamePage(recentGame));
+          continueList.appendChild(node);
+        });
+      }
+
+      const logs = playerProfile.activityLog || [];
+      feed.innerHTML = '';
+      if(!logs.length){
+        feed.innerHTML = '<div class="feed-item">No activity yet. Play games, claim quests, spin, or shop.</div>';
+      } else {
+        logs.slice(0,4).forEach(line=>{
+          const item = document.createElement('div');
+          item.className = 'feed-item';
+          item.textContent = line;
+          feed.appendChild(item);
+        });
+      }
+
+      renderHomeTipTicker();
+      startHomeTipTicker();
     }
 
     function recordAnimeSearch(title){
@@ -2900,7 +3059,8 @@
         card.className = 'shop-item';
         card.innerHTML = '<h4>' + item.title + (isDaily ? '<span class="shop-badge">Daily -30%</span>' : '') + '</h4><p>' + item.desc + '</p><button>' + (owned ? 'Owned' : ('Buy (' + price + ' coins)')) + '</button>';
         const btn = card.querySelector('button');
-        btn.disabled = Boolean(owned) || !afford;
+        btn.disabled = Boolean(owned);
+        if(!afford && !owned) btn.style.opacity = '0.72';
         btn.addEventListener('click', ()=>buyShopItem(item.id));
         grid.appendChild(card);
       });
@@ -2984,6 +3144,7 @@
         node.innerHTML='<span>'+k+'</span><strong>'+v+'</strong>';
         stats.appendChild(node);
       });
+      renderHomeDashboard();
     }
 
     function showHighScores() {
@@ -3350,9 +3511,10 @@
       closeModal();
     }
 
-    document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const target=btn.dataset.panel; ['home','games','anime','fan','scores','settings'].forEach(p=>document.getElementById(p).classList.remove('panel-active')); document.getElementById(target).classList.add('panel-active'); if(target==='scores') showHighScores(); if(target==='anime') renderAnimeLounge(); if(target==='fan') renderFanProfile(); }); });
+    document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const target=btn.dataset.panel; ['home','games','anime','fan','shop','scores','settings'].forEach(p=>document.getElementById(p).classList.remove('panel-active')); document.getElementById(target).classList.add('panel-active'); if(target==='scores') showHighScores(); if(target==='anime') renderAnimeLounge(); if(target==='fan') renderFanProfile(); if(target==='shop'){ renderShop(); renderSeasonalShop(); } }); });
     document.getElementById('randomGameBtn').addEventListener('click', playRandomGame);
     document.getElementById('dailyChallengeBtn').addEventListener('click', playDailyChallenge);
+    document.getElementById('continueLastGameBtn').addEventListener('click', playContinueLastGame);
     document.getElementById('practiceModeBtn').addEventListener('click', ()=>{ practiceMode = !practiceMode; Components.Header.renderHeroButtons(); showMessage(practiceMode ? 'Practice mode enabled: reduced XP, no coins.' : 'Normal mode enabled.'); });
     document.getElementById('bossModeBtn').addEventListener('click', startBossMode);
     const spinBtn = document.getElementById('dailySpinBtn');
@@ -3618,6 +3780,7 @@
       renderFanProfile();
       renderFeatured();
       renderContinuePlaying();
+      renderHomeDashboard();
       renderTrending();
       renderQuestBoard();
       renderActivityFeed();
