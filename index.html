@@ -430,6 +430,11 @@
           <input id="newAccountName" type="text" placeholder="New account name">
           <button id="createAccountBtn">Create Account</button>
         </div>
+        <div class="redeem-row" style="margin-top:8px;">
+          <button id="exportAccountBtn">Export Current Account</button>
+          <button id="importAccountBtn">Import Account</button>
+          <input id="importAccountFile" type="file" accept="application/json" style="display:none;">
+        </div>
         <div id="accountMessage" style="margin-top:8px;color:#cfe1ff;font-size:0.86rem;"></div>
       </div>
       <label style="display:block; margin-bottom:12px;">Player name:
@@ -1039,6 +1044,9 @@
     let bossModeScore = 0;
     let timerInterval = null;
     let musicNode = null;
+    let musicTimers = [];
+    let musicLiveNodes = [];
+    let lofiNoiseBuffer = null;
     let currentRun = { gameId: '', bestScore: -1, counted: false };
     const bossRules = [
       {mult:1.2, minScore:40, speedNote:'Fast Spawn'},
@@ -1305,6 +1313,113 @@
       showAccountMessage('Created and switched to account: ' + clean, true);
     }
 
+    function getAccountExportData(accountId){
+      const account = accountList.find(acc=>acc.id===accountId);
+      return {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        account: {
+          id: accountId,
+          name: account?.name || 'Player'
+        },
+        data: {
+          profile: readJson(profileKey + '_' + accountId, {}),
+          highScores: readJson(localKey + '_' + accountId, {}),
+          achievements: readJson(achievementsKey + '_' + accountId, {}),
+          dailyScores: readJson(dailyKey + '_' + accountId, {}),
+          theme: localStorage.getItem(themeKey + '_' + accountId) || 'neon'
+        }
+      };
+    }
+
+    function exportCurrentAccount(){
+      if(!activeAccountId){ showAccountMessage('No active account selected.'); return; }
+      const data = getAccountExportData(activeAccountId);
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a');
+      const safeName = (data.account.name || 'account').replace(/[^a-z0-9-_]/gi, '_');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'arcade-account-' + safeName + '.json';
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(()=>{ URL.revokeObjectURL(link.href); link.remove(); }, 100);
+      showAccountMessage('Exported account: ' + data.account.name, true);
+    }
+
+    function getUniqueAccountName(base){
+      const root = String(base || 'Imported Player').trim() || 'Imported Player';
+      const existing = new Set(accountList.map(acc=>acc.name.toLowerCase()));
+      if(!existing.has(root.toLowerCase())) return root;
+      let i = 2;
+      while(existing.has((root + ' ' + i).toLowerCase())) i++;
+      return root + ' ' + i;
+    }
+
+    function importAccountPayload(payload){
+      if(!payload || typeof payload !== 'object' || !payload.data){
+        throw new Error('Invalid account file format.');
+      }
+      const id = 'acct-' + Date.now().toString(36) + Math.floor(Math.random()*9999).toString(36);
+      const name = getUniqueAccountName(payload.account?.name || payload.data?.profile?.name || 'Imported Player');
+      accountList.push({ id, name });
+      saveAccountDirectory();
+      localStorage.setItem(profileKey + '_' + id, JSON.stringify(payload.data.profile || { name }));
+      localStorage.setItem(localKey + '_' + id, JSON.stringify(payload.data.highScores || {}));
+      localStorage.setItem(achievementsKey + '_' + id, JSON.stringify(payload.data.achievements || {}));
+      localStorage.setItem(dailyKey + '_' + id, JSON.stringify(payload.data.dailyScores || {}));
+      localStorage.setItem(themeKey + '_' + id, payload.data.theme || 'neon');
+      switchAccount(id);
+      showAccountMessage('Imported and switched to account: ' + name, true);
+    }
+
+    function makeNoiseBuffer(){
+      const length = Math.max(1, Math.floor(audioCtx.sampleRate * 0.2));
+      const buffer = audioCtx.createBuffer(1, length, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for(let i=0;i<length;i++) data[i] = Math.random() * 2 - 1;
+      return buffer;
+    }
+
+    function rememberMusicNode(node){
+      musicLiveNodes.push(node);
+      return node;
+    }
+
+    function playLofiTone(freq, duration, type, volume, when){
+      const osc = rememberMusicNode(audioCtx.createOscillator());
+      const gain = rememberMusicNode(audioCtx.createGain());
+      const filter = rememberMusicNode(audioCtx.createBiquadFilter());
+      filter.type = 'lowpass';
+      filter.frequency.value = 1800;
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, when);
+      gain.gain.setValueAtTime(0.0001, when);
+      gain.gain.exponentialRampToValueAtTime(volume, when + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(when);
+      osc.stop(when + duration + 0.05);
+    }
+
+    function playLofiNoise(duration, volume, highpassFreq, when){
+      if(!lofiNoiseBuffer) lofiNoiseBuffer = makeNoiseBuffer();
+      const src = rememberMusicNode(audioCtx.createBufferSource());
+      src.buffer = lofiNoiseBuffer;
+      const hp = rememberMusicNode(audioCtx.createBiquadFilter());
+      hp.type = 'highpass';
+      hp.frequency.value = highpassFreq;
+      const gain = rememberMusicNode(audioCtx.createGain());
+      gain.gain.setValueAtTime(volume, when);
+      gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+      src.connect(hp);
+      hp.connect(gain);
+      gain.connect(audioCtx.destination);
+      src.start(when);
+      src.stop(when + duration + 0.03);
+    }
+
     initializeAccounts();
 
     function hydrateProfile() {
@@ -1475,16 +1590,50 @@
     function startMusic() {
       if(!musicOn) return;
       stopMusic();
-      musicNode = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      musicNode.type = 'triangle'; musicNode.frequency.value = 120;
-      gain.gain.value = 0.02;
-      musicNode.connect(gain); gain.connect(audioCtx.destination);
-      musicNode.start();
-      const step = ()=>{ if(!musicNode) return; musicNode.frequency.value = 100 + Math.sin(Date.now()/700)*40; requestAnimationFrame(step); };
-      step();
+      if(audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
+      musicNode = { active:true };
+      const bpm = 74;
+      const beatMs = (60 / bpm) * 1000;
+      const chordProgression = [
+        [220.00, 261.63, 329.63],
+        [196.00, 246.94, 293.66],
+        [174.61, 220.00, 261.63],
+        [196.00, 233.08, 293.66]
+      ];
+      let step = 0;
+      const loop = ()=>{
+        if(!musicOn || !musicNode) return;
+        const now = audioCtx.currentTime;
+        const beat = step % 4;
+        const chord = chordProgression[Math.floor(step / 4) % chordProgression.length];
+        if(beat === 0){
+          chord.forEach((freq, idx)=>playLofiTone(freq * (idx===0 ? 0.5 : 1), 0.68, 'triangle', idx===0 ? 0.03 : 0.018, now));
+          playLofiTone(82.41, 0.11, 'sine', 0.09, now);
+        }
+        if(beat === 2){
+          playLofiTone(92.50, 0.09, 'sine', 0.08, now);
+        }
+        if(beat === 1 || beat === 3){
+          playLofiNoise(0.18, 0.05, 900, now);
+        }
+        playLofiNoise(0.04, 0.012, 6000, now);
+        if(beat === 3){
+          const melody = [329.63, 293.66, 261.63, 246.94][Math.floor(Math.random()*4)];
+          playLofiTone(melody, 0.18, 'sawtooth', 0.015, now + 0.02);
+        }
+        step++;
+      };
+      loop();
+      musicTimers.push(setInterval(loop, beatMs));
     }
-    function stopMusic() { if(musicNode){ musicNode.stop(); musicNode.disconnect(); musicNode=null; }}
+
+    function stopMusic() {
+      musicTimers.forEach(id=>clearInterval(id));
+      musicTimers = [];
+      musicLiveNodes.forEach(node=>{ try { node.stop?.(); } catch {} try { node.disconnect?.(); } catch {} });
+      musicLiveNodes = [];
+      musicNode = null;
+    }
 
     function stopAnimeAmbient(){
       animeAmbientNodes.forEach(node=>{ try { node.stop?.(); node.disconnect?.(); } catch {} });
@@ -3246,7 +3395,15 @@
     document.getElementById('closeBtn').addEventListener('click', ()=>closeGamePage(true));
     document.getElementById('restartBtn').addEventListener('click',()=>{ if(currentGame){ openGamePage(currentGame, false); } });
     document.getElementById('soundToggle').addEventListener('click',e=>{ soundOn=!soundOn; e.target.classList.toggle('active', soundOn); e.target.textContent = soundOn ? 'Sound On':'Sound Off'; });
-    document.getElementById('musicToggle').addEventListener('click',e=>{ musicOn=!musicOn; e.target.classList.toggle('active', musicOn); e.target.textContent = musicOn ? 'Music On':'Music Off'; if(musicOn) startMusic(); else stopMusic(); });
+    document.getElementById('musicToggle').addEventListener('click',async e=>{
+      if(audioCtx.state === 'suspended'){
+        try { await audioCtx.resume(); } catch {}
+      }
+      musicOn=!musicOn;
+      e.target.classList.toggle('active', musicOn);
+      e.target.textContent = musicOn ? 'Music On':'Music Off';
+      if(musicOn) startMusic(); else stopMusic();
+    });
     document.getElementById('themeSelect').addEventListener('change',(e)=>{
       const theme=e.target.value;
       if(!isThemeOwned(theme)){
@@ -3291,6 +3448,9 @@
     const switchAccountBtn = document.getElementById('switchAccountBtn');
     const newAccountNameInput = document.getElementById('newAccountName');
     const createAccountBtn = document.getElementById('createAccountBtn');
+    const exportAccountBtn = document.getElementById('exportAccountBtn');
+    const importAccountBtn = document.getElementById('importAccountBtn');
+    const importAccountFile = document.getElementById('importAccountFile');
     if(switchAccountBtn && accountSelect){
       switchAccountBtn.addEventListener('click', ()=>switchAccount(accountSelect.value));
       accountSelect.addEventListener('change', ()=>showAccountMessage('Selected account ready. Click Switch Account to load it.'));
@@ -3301,6 +3461,25 @@
         newAccountNameInput.value = '';
       });
       newAccountNameInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ createAccountBtn.click(); } });
+    }
+    if(exportAccountBtn){
+      exportAccountBtn.addEventListener('click', exportCurrentAccount);
+    }
+    if(importAccountBtn && importAccountFile){
+      importAccountBtn.addEventListener('click', ()=>importAccountFile.click());
+      importAccountFile.addEventListener('change', async ()=>{
+        const file = importAccountFile.files?.[0];
+        if(!file) return;
+        try {
+          const text = await file.text();
+          const payload = JSON.parse(text);
+          importAccountPayload(payload);
+        } catch (err) {
+          showAccountMessage('Import failed: ' + (err?.message || 'invalid file'));
+        } finally {
+          importAccountFile.value = '';
+        }
+      });
     }
 
     const savedTheme = localStorage.getItem(accountScopedKey(themeKey)) || 'neon';
